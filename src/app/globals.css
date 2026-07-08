@@ -19,6 +19,7 @@
 :root {
   --bg-void: #05050e;
   --bg-nebula: #0d0a1f;
+  --bg-glass: rgba(255, 255, 255, 0.03);
   --accent-primary: #7c5cff;
   --accent-secondary: #22d3ee;
   --accent-gold: #f5c451;
@@ -44,6 +45,11 @@ body {
   line-height: 1.6;
 }
 
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Utility class for headings */
 .font-heading {
   font-family: var(--font-heading);
@@ -53,9 +59,9 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Scrollbar styling */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -64,7 +70,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -77,6 +83,35 @@ body {
   color: white;
 }
 
+/* Glass morphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glow effect utility */
+.glow {
+  box-shadow: 0 0 20px rgba(124, 92, 255, 0.3);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+/* Constellation section backgrounds */
+.constellation-bg {
+  position: relative;
+}
+
+.constellation-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(124, 92, 255, 0.05) 0%, transparent 70%);
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -84,6 +119,25 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Anime.js related utilities */
+.anime-invisible {
+  opacity: 0;
+}
+
+.anime-visible {
+  opacity: 1;
+}
+
+/* Loader animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.loader-star {
+  animation: twinkle 2s ease-in-out infinite;
 }
 
 @layer utilities {
