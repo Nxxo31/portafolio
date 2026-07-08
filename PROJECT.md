@@ -1,7 +1,18 @@
 # Constellation Portfolio — Plataforma de Desarrollo
 
-> **Estado:** Diseño arquitectónico completado. Plan de implementación generado.
-> **Última actualización:** 2025-08-26
+> **Estado:** MVP Implementado. Servidor dev corriendo en `localhost:3000`.
+> **Última actualización:** 2026-07-07
+
+## Progreso por Phase
+
+| Phase | Estado | Detalle |
+|-------|--------|---------|
+| Phase 0: Foundation | ✅ Completo | Next.js 16, Tailwind v4, layout con metadata |
+| Phase 1: Static Structure | ✅ Completo | Todas las secciones implementadas |
+| Phase 2: Data | ✅ Completo | `content/data.ts` centralizado |
+| Phase 3: Animations | ✅ Completo | Starfield 3D (Three.js), Framer Motion, typewriter |
+| Phase 4: Backend | ✅ Completo | API `/api/contact` con validación |
+| Phase 5: SEO & Performance | 🔄 Pendiente | Sitemap, Lighthouse, Deploy Vercel |
 
 ## 1. Visión General
 
