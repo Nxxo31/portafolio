@@ -21,7 +21,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sebastian Velasco | Full-Stack Developer & AI Architect",
+  metadataBase: new URL("https://sebastianvelasco.dev"),
+  title: {
+    default: "Sebastian Velasco | Full-Stack Developer & AI Architect",
+    template: "%s | Sebastian Velasco",
+  },
   description: "Portafolio profesional de Sebastian Velasco - Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
   keywords: [
     "Sebastian Velasco",
@@ -81,9 +85,57 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Sebastián Velasco Ocampo",
+    givenName: "Sebastián",
+    familyName: "Velasco Ocampo",
+    jobTitle: "Ingeniero de Software & Arquitecto de Agentes IA",
+    description:
+      "Desarrollador Full-Stack especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
+    url: "https://sebastianvelasco.dev",
+    sameAs: [
+      "https://github.com/nxxo31",
+      "https://www.linkedin.com/in/sebastianvelasco",
+    ],
+    knowsAbout: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "Artificial Intelligence",
+      "Machine Learning",
+      "DevOps",
+      "Docker",
+    ],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Sebastián Velasco | Full-Stack Developer & AI Architect",
+    url: "https://sebastianvelasco.dev",
+    description:
+      "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
+    author: {
+      "@type": "Person",
+      name: "Sebastián Velasco Ocampo",
+    },
+  };
+
   return (
     <html lang="es" className="dark">
       <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         {children}
       </body>
     </html>
