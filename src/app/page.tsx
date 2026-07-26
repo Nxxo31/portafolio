@@ -7,6 +7,8 @@ import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Projects from "@/sections/Projects";
 import Skills from "@/sections/Skills";
+import Services from "@/sections/Services";
+import Experience from "@/sections/Experience";
 import Contact from "@/sections/Contact";
 import Footer from "@/sections/Footer";
 import anime from "animejs";
@@ -121,6 +123,8 @@ export default function Home() {
         <About />
         <Projects />
         <Skills />
+        <Services />
+        <Experience />
         <Contact />
         <Footer />
       </main>
