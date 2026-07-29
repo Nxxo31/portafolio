@@ -1,50 +1,54 @@
 import type { MetadataRoute } from "next";
 import { contentData } from "@/content/data";
 
-const BASE_URL = "https://sebastianvelasco.dev";
+// URL base configurable por entorno. En Vercel se inyecta NEXT_PUBLIC_SITE_URL.
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sebastianvelasco.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
   // Secciones principales del portafolio (SPA con anchors)
   const sections: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 1.0,
     },
     {
       url: `${BASE_URL}/#about`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/#projects`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${BASE_URL}/#skills`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${BASE_URL}/#contact`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },
   ];
 
-  // Páginas individuales de proyectos
+  // Páginas individuales de proyectos (rutas dinámicas pre-renderizadas)
   const projectPages: MetadataRoute.Sitemap = contentData.projects.map(
     (project) => ({
       url: `${BASE_URL}/projects/${project.slug}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.6,
+      priority: project.featured ? 0.8 : 0.6,
     }),
   );
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface Skill {
   name: string;
@@ -33,13 +33,14 @@ const SKILLS: Skill[] = [
 const CATEGORIES = ["Frontend", "Backend", "AI", "DevOps"];
 
 export default function SkillsSection() {
+  const shouldReduceMotion = useReducedMotion();
   return (
-    <section id="skills" className="relative py-28 px-6 z-10">
+    <section id="skills" className="relative py-28 px-6 z-10" aria-label="Habilidades">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
@@ -64,10 +65,10 @@ export default function SkillsSection() {
                   {categorySkills.map((skill, index) => (
                     <motion.div
                       key={skill.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
+                      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                      transition={{ delay: shouldReduceMotion ? 0 : index * 0.1, duration: 0.5 }}
                       className="group relative p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
                     >
                       <div className="flex items-center justify-between mb-2">
@@ -79,14 +80,21 @@ export default function SkillsSection() {
                         </span>
                       </div>
                       {/* Progress Bar */}
-                      <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div
+                        className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden"
+                        role="progressbar"
+                        aria-valuenow={skill.level}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`${skill.name}: nivel ${skill.level}%`}
+                      >
                         <motion.div
-                          initial={{ width: 0 }}
+                          initial={shouldReduceMotion ? { width: `${skill.level}%` } : { width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
                           viewport={{ once: true }}
                           transition={{
                             duration: 1,
-                            delay: index * 0.1,
+                            delay: shouldReduceMotion ? 0 : index * 0.1,
                             ease: "easeOut",
                           }}
                           className="h-full rounded-full bg-gradient-to-r from-[#7c5cff] to-[#22d3ee]"

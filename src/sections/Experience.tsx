@@ -1,20 +1,21 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { contentData } from "@/content/data";
 
 export default function ExperienceSection() {
   const experience = contentData.experience;
+  const shouldReduceMotion = useReducedMotion();
 
   if (!experience || experience.length === 0) return null;
 
   return (
-    <section id="experience" className="relative py-28 px-6 z-10">
+    <section id="experience" className="relative py-28 px-6 z-10" aria-label="Experiencia profesional">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
@@ -35,14 +36,14 @@ export default function ExperienceSection() {
             {experience.map((entry, index) => (
               <motion.div
                 key={entry.id}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
+                whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
+                transition={{ delay: shouldReduceMotion ? 0 : index * 0.15, duration: 0.6 }}
                 className="relative pl-12 md:pl-20"
               >
                 {/* Timeline dot */}
-                <div className="absolute left-2 md:left-6 top-1 w-5 h-5 rounded-full bg-[#05050e] border-2 border-[#22d3ee] shadow-[0_0_12px_rgba(34,211,238,0.3)]" />
+                <div className="absolute left-2 md:left-6 top-1 w-5 h-5 rounded-full bg-[#05050e] border-2 border-[#22d3ee] shadow-[0_0_12px_rgba(34,211,238,0.3)]" aria-hidden="true" />
 
                 {/* Period badge */}
                 <span className="inline-block px-3 py-1 text-xs font-mono rounded-full bg-[#7c5cff]/20 text-[#7c5cff] border border-[#7c5cff]/20 mb-3">

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import anime from "animejs";
 
 interface Star {
   x: number;
@@ -34,20 +33,33 @@ export default function ConstellationBackground({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Respetar prefers-reduced-motion: si el usuario lo prefiere, no animar
+    const prefersReducedMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     let width: number;
     let height: number;
 
     const resize = () => {
+      // Usar devicePixelRatio para nitidez en pantallas retina, pero cap a 2 para perf
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.scale(dpr, dpr);
     };
 
     resize();
     window.addEventListener("resize", resize);
 
-    // Star counts per variant
+    // Star counts per variant (reducidos en reduced-motion y mobile)
+    const isMobile = window.innerWidth < 768;
+    const motionMultiplier = prefersReducedMotion ? 0.4 : isMobile ? 0.6 : 1;
+
     const starCounts: Record<string, number> = {
       hero: 200,
       about: 150,
@@ -56,7 +68,7 @@ export default function ConstellationBackground({
       contact: 100,
     };
 
-    const starCount = starCounts[variant] || 150;
+    const starCount = Math.round((starCounts[variant] || 150) * motionMultiplier);
 
     // Initialize stars with depth (z-axis simulation)
     const initStars = () => {

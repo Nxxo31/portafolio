@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -6,29 +6,47 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-heading",
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   weight: ["400", "500", "600"],
+  display: "swap",
 });
 
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sebastianvelasco.dev";
+
+// Viewport separado de Metadata en Next.js 14+ (mobile-friendly)
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#05050e" },
+  ],
+  colorScheme: "dark",
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sebastianvelasco.dev"),
+  metadataBase: new URL(BASE_URL),
   title: {
-    default: "Sebastian Velasco | Full-Stack Developer & AI Architect",
-    template: "%s | Sebastian Velasco",
+    default: "Sebastián Velasco | Full-Stack Developer & AI Architect",
+    template: "%s | Sebastián Velasco",
   },
-  description: "Portafolio profesional de Sebastian Velasco - Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
+  description:
+    "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
   keywords: [
-    "Sebastian Velasco",
+    "Sebastián Velasco",
     "Full-Stack Developer",
     "AI Architect",
     "Next.js",
@@ -37,19 +55,32 @@ export const metadata: Metadata = {
     "Node.js",
     "Portafolio",
     "Colombia",
+    "Multi-agente",
+    "LangChain",
+    "Docker",
   ],
-  authors: [{ name: "Sebastian Velasco", url: "https://github.com/nxxo31" }],
+  authors: [{ name: "Sebastián Velasco", url: "https://github.com/nxxo31" }],
+  creator: "Sebastián Velasco Ocampo",
+  publisher: "Sebastián Velasco Ocampo",
+  alternates: {
+    canonical: BASE_URL,
+    languages: {
+      "es-CO": BASE_URL,
+      en: `${BASE_URL}/en`,
+    },
+  },
   openGraph: {
-    title: "Sebastian Velasco | Full-Stack Developer & AI Architect",
-    description: "Portafolio profesional de Sebastian Velasco",
-    url: "https://sebastianvelasco.dev",
-    siteName: "Sebastian Velasco Portfolio",
+    title: "Sebastián Velasco | Full-Stack Developer & AI Architect",
+    description:
+      "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
+    url: BASE_URL,
+    siteName: "Sebastián Velasco Portfolio",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Sebastian Velasco Portfolio",
+        alt: "Sebastián Velasco — Portafolio de Full-Stack Developer & AI Architect",
       },
     ],
     locale: "es_CO",
@@ -57,9 +88,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sebastian Velasco | Full-Stack Developer",
-    description: "Portafolio profesional de Sebastian Velasco",
-    images: ["/og-image.jpg"],
+    title: "Sebastián Velasco | Full-Stack Developer & AI Architect",
+    description:
+      "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
+    images: ["/og-image.png"],
+    creator: "@nxxo31",
   },
   robots: {
     index: true,
@@ -73,11 +106,20 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
     shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
   },
-  manifest: "/site.webmanifest",
+  manifest: "/manifest.webmanifest",
+  category: "portfolio",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
 };
 
 export default function RootLayout({
@@ -94,7 +136,7 @@ export default function RootLayout({
     jobTitle: "Ingeniero de Software & Arquitecto de Agentes IA",
     description:
       "Desarrollador Full-Stack especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
-    url: "https://sebastianvelasco.dev",
+    url: BASE_URL,
     sameAs: [
       "https://github.com/nxxo31",
       "https://www.linkedin.com/in/sebastianvelasco",
@@ -109,6 +151,7 @@ export default function RootLayout({
       "Machine Learning",
       "DevOps",
       "Docker",
+      "LangChain",
     ],
   };
 
@@ -116,7 +159,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Sebastián Velasco | Full-Stack Developer & AI Architect",
-    url: "https://sebastianvelasco.dev",
+    url: BASE_URL,
     description:
       "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
     author: {
@@ -127,7 +170,9 @@ export default function RootLayout({
 
   return (
     <html lang="es" className="dark">
-      <body className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} antialiased`}
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

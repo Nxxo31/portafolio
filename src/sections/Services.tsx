@@ -1,20 +1,21 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { contentData } from "@/content/data";
 
 export default function ServicesSection() {
   const services = contentData.services;
+  const shouldReduceMotion = useReducedMotion();
 
   if (!services || services.length === 0) return null;
 
   return (
-    <section id="services" className="relative py-28 px-6 z-10">
+    <section id="services" className="relative py-28 px-6 z-10" aria-label="Servicios">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
@@ -32,16 +33,17 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+              whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
+              transition={{ delay: shouldReduceMotion ? 0 : index * 0.1, duration: 0.5 }}
+              className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 motion-safe:hover:-translate-y-1"
             >
               {/* Icon */}
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
                 style={{ backgroundColor: `${service.color}20` }}
+                aria-hidden="true"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: service.color }}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

@@ -1,4 +1,4 @@
-import { ContentData, Skill } from "@/types/content";
+import { ContentData } from "@/types/content";
 
 export const contentData: ContentData = {
   profile: {

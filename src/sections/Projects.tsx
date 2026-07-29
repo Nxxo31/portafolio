@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface Project {
   id: number;
@@ -74,6 +74,7 @@ const CATEGORIES = ["Todos", "Web", "AI", "DevOps", "Web3"];
 
 export default function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState("Todos");
+  const shouldReduceMotion = useReducedMotion();
 
   const filtered =
     activeFilter === "Todos"
@@ -81,12 +82,12 @@ export default function ProjectsSection() {
       : PROJECTS.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="relative py-28 px-6 z-10">
+    <section id="projects" className="relative py-28 px-6 z-10" aria-label="Proyectos">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
@@ -99,12 +100,13 @@ export default function ProjectsSection() {
         </motion.div>
 
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-12" role="group" aria-label="Filtrar proyectos por categoría">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              aria-pressed={activeFilter === cat}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e] ${
                 activeFilter === cat
                   ? "bg-[#7c5cff] text-white shadow-[0_0_20px_rgba(124,92,255,0.4)]"
                   : "bg-white/5 text-[#a3a3b8] hover:bg-white/10 hover:text-white border border-white/10"
@@ -122,16 +124,17 @@ export default function ProjectsSection() {
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9 }}
+                animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
               >
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block h-full"
+                  aria-label={`Ver proyecto ${project.title} en GitHub (abre en nueva pestaña)`}
+                  className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-4 focus-visible:ring-offset-[#05050e] rounded-2xl"
                 >
                   <div className="relative h-full p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,92,255,0.15)] hover:-translate-y-1">
                     {/* Category Badge */}
