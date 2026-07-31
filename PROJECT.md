@@ -220,17 +220,97 @@ mucho más ligero que WebGL Three.js para full-page background |
 | Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; Pendiente deploy Vercel (requiere auth interactiva) |
 | Templates | GitHub issue/PR templates + CI 3-layer gates | 2c7f78a | Workflow files committed |
 
-### Próximos Pasos (Backlog)
+### Próximos Pasos (Backlog de Sprints)
 
-| ID | Descripción | Prioridad | Issue |
-|----|-------------|-----------|-------|
-| B-1 | Dark mode toggle (alternar tema oscuro/claro) | Alta | #1 |
-| B-2 | Deploy a Vercel (requiere autenticación interactiva del usuario) | Alta | #2 |
-| B-3 | Lighthouse score verification final (>= 95 all 4 categories) | Alta | #2 |
-| B-4 | Testimonios opcional con carrusel | Media | #3 |
-| B-5 | Comandos resume download multi-formato (PDF, MD) | Media | #4 |
-| B-6 | i18n multi-idioma (en/es) con hrefLangSegún contenidos en `data.ts` | Baja | #5 |
-| B-7 | Blog section (MDX posts tecnicos) | Baja | #6 |
+> Los items del backlog ahora se planifican como Sprints activos con SPEC + PLAN + TASKS.
+
+| Sprint | Objetivo | Issue | Prioridad |
+|--------|----------|-------|-----------|
+| S-01 | Deploy a Vercel + Lighthouse >= 95 | #2 | Alta |
+| S-02 | Dark mode toggle (alternar tema oscuro/claro) | #1 | Alta |
+| S-03 | Testimonios opcional con carrusel | #3 | Media |
+| S-04 | Resume download multi-formato (PDF, MD) | #4 | Media |
+| S-05 | i18n multi-idioma (en/es) con hrefLang | #5 | Baja |
+| S-06 | Blog section (MDX posts técnicos) | #6 | Baja |
+
+---
+
+## 🏃 Sprint Activo: S-02 — Dark Mode Toggle
+
+> **Sprint:** S-02 | **Iniciado:** pendiente | **Objetivo:** Implementar toggle de tema oscuro/claro
+> **Issue:** #1 | **Perfil asignado:** dev | **Blocker:** Depende de S-01 (deploy) para verificar en prod
+
+### Especificación (SPEC)
+
+**User Story:**
+Como visitante del portafolio, quiero alternar entre tema oscuro (galáctico) y tema claro para preferir mi modo de visualización.
+
+**Acceptance Criteria:**
+- [ ] AC-1: Botón toggle visible en Navbar, muestra sol/luna según estado
+- [ ] AC-2: Toggle persiste en localStorage entre sesiones
+- [ ] AC-3: Respeta `prefers-color-scheme` del sistema en primera visita
+- [ ] AC-4: Todas las secciones (Hero, About, Projects, Skills, Contact) se ven correctas en ambos temas
+- [ ] AC-5: Starfield se atenúa (no se oculta) en tema claro
+- [ ] AC-6: `npm run build` pasa sin errores
+
+**Constraints:**
+- Stack: Next.js 16, Tailwind v4 (dark: variant), CSS variables existentes
+- No romper: animaciones GSAP, Framer Motion, accesibilidad
+- Performance: sin flash de tema incorrecto (FOUC) en carga inicial
+
+### Plan Técnico (PLAN)
+
+**Archivos afectados:**
+| Archivo | Cambio | Tipo |
+|---------|--------|------|
+| `app/globals.css` | Añadir variables CSS para tema claro | modify |
+| `app/layout.tsx` | Script inline para detectar tema antes de hidratación (anti-FOUC) | modify |
+| `components/Navbar.tsx` | Añadir botón toggle con sol/luna | modify |
+| `components/Starfield.tsx` | Atenuar opacidad/colores en tema claro | modify |
+| `src/content/data.ts` | (sin cambios) | — |
+| `tailwind.config.ts` | darkMode: 'class' si no está configurado | modify |
+
+**Decisiones técnicas:**
+- Tailwind v4 `dark:` variant con `class` strategy: permite toggle vía JS sin media query
+- Script inline en `<head>` para anti-FOUC: ejecuta antes de React hydration
+- CSS variables duplicadas: `--text-primary` (dark) + `--text-primary-light` (light)
+
+**Dependencias (repo map):**
+- Este feature toca: `globals.css` → `layout.tsx` → `Navbar.tsx` → `Starfield.tsx`
+- No tocar: `Projects.tsx`, `Skills.tsx`, `Contact.tsx` (heredan variables CSS automáticamente)
+
+**Verificación:**
+- Comando: `npm run lint && npm run build`
+- Visual: browser_navigate + browser_vision para verificar ambos temas
+- Adversarial: comprobar localStorage vacío, prefers-color-scheme, toggle rápido
+
+### Tasks del Sprint (TASKS)
+
+| ID | Task | Estado | Perfil | Depende de |
+|----|------|--------|--------|------------|
+| S2-T1 | Añadir variables CSS tema claro en `globals.css` | ⏳ pending | dev | — |
+| S2-T2 | Script anti-FOUC + `darkMode: 'class'` en `tailwind.config.ts` | ⏳ pending | dev | S2-T1 |
+| S2-T3 | Botón toggle en `Navbar.tsx` con localStorage + `prefers-color-scheme` | ⏳ pending | dev | S2-T2 |
+| S2-T4 | Atenuar `Starfield.tsx` en tema claro | ⏳ pending | dev | S2-T1 |
+| S2-T5 | Code review: diff vs SPEC acceptance criteria | ⏳ pending | orchestrator | S2-T3, S2-T4 |
+| S2-T6 | Verificación: build + browser visual check ambos temas | ⏳ pending | dev | S2-T5 |
+
+### Estado del Sprint
+
+```
+Sprint S-02: Dark Mode Toggle
+├── S2-T1: ⏳ pending → asignar a dev
+├── S2-T2: ⏳ pending (blocked by S2-T1)
+├── S2-T3: ⏳ pending (blocked by S2-T2)
+├── S2-T4: ⏳ pending (blocked by S2-T1) [paralelo con S2-T3]
+├── S2-T5: ⏳ pending (blocked by S2-T3, S2-T4) [orchestrator review]
+└── S2-T6: ⏳ pending (blocked by S2-T5)
+
+Progreso: 0/6 tasks completadas
+```
+
+> **Flujo del orchestrator:** Lee este PROJECT.md → crea cards en kanban con `parents=[...]`
+> según la columna "Depende de" → workers ejecutan → al completar, actualizan estado aquí.
 
 ---
 
