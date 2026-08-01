@@ -3,7 +3,6 @@
 > **Estado:** Activo | **Versión:** MVP (Phase 5 completada) | **Última actualización:** 2026-07-31
 
 ---
-
 ## 🎯 Objetivo Principal
 
 Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espacial galáctica — un SPA que demuestra habilidades técnicas (curriculum, proyectos, habilidades, contacto) mientras proporciona una experiencia inmersiva accesible y SEO-optimizada.
@@ -19,13 +18,12 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 7. Build y typecheck sin errores para deployment a Vercel
 
 ---
-
 ## 📐 Arquitectura
 
 ### Stack Tecnológico
 
 | Capa | Tecnología | Versión | Propósito |
-|------|-----------|---------|-----------|
+|------|------------|---------|-----------|
 | Framework | Next.js | 16 (App Router) | SSR/SSG, file routing, metadata API |
 | UI Library | React | 19.2.4 | Render performance, hooks最新 |
 | Lenguaje | TypeScript | latest | Tipado estático estricto |
@@ -43,7 +41,7 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │                CAPA CLIENTE (SPA Next.js)                      │
-│                                                               │
+│                                                              │
 │  app/page.tsx (root layout)                                   │
 │   ├─ <Starfield>          (Canvas 2D fondo interactivo)        │
 │   ├─ <Navbar>             (fixed, smooth scroll, scrolltrigger) │
@@ -53,7 +51,7 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 │   ├─ <Skills>             (grouped tags, bar chart)           │
 │   ├─ <Contact>            (form + info + copy email + socials) │
 │   └─ <Footer>             (copyright + quick links)           │
-│                                                               │
+│                                                              │
 │  src/content/data.ts    ← source-of-truth de todos los datos   │
 ├──────────────────────────────────────────────────────────────┤
 │                CAPA SEO (Next.js Metadata API)                 │
@@ -99,7 +97,6 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 ```
 
 ---
-
 ## 📊 Matriz de Trazabilidad
 
 | Req ID | Descripción | Componente | Estado | Verificación |
@@ -123,7 +120,7 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 | R-17 | Tiempo carga inicial < 1.5s | — | ✅ | Lighthouse >= 90 objetivo |
 | R-18 | Animaciones 60fps sin jank | — | ✅ | Test perf monitor |
 | R-19 | Fallback Canvas 2D si WebGL no soportado | `Starfield.tsx` | ✅ | Canvas 2D nativo — funciona sin WebGL |
-| R-20 | Lazy loading imágenes fuera viewport | `<Image loading="lazy">` | ✅ | Imágenes con `loading="lazy"` |
+| R-20 | Lazy loading imágenes fuera viewport | `<Image loading=\"lazy\">` | ✅ | Imágenes con `loading=\"lazy\"` |
 | R-21 | Meta-tags, Open Graph, JSON-LD | `app/layout.tsx` | ✅ | OG + Schema.org Person |
 | R-22 | Sitemap.xml + robots.txt | `app/sitemap.ts`, `app/robots.ts` | ✅ | Generación dinámica |
 | R-23 | Canonical + hrefLang | `layout.tsx` | ✅ | Evita contenido duplicado |
@@ -143,7 +140,6 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 | R-37 | Deploy a Vercel (requiere auth interactiva) | — | ⏳ | Pendiente deploy |
 
 ---
-
 ## 🏗️ Marcos Conceptuales
 
 ### Progressive Enhancement para Animaciones
@@ -151,7 +147,7 @@ Portafolio profesional de Sebastian Velasco Ocampo (Nxxo31) con estética espaci
 - **Layer 2 (Framer Motion)**: declaración mediante `<motion.div>` para transitions y mount/unmount
 - **Layer 3 (GSAP ScrollTrigger)**: animaciones avanzadas scroll-triggered (fade-in + Y translate)
 
-Prioriza CSS nativo y lógica simple cuando sea posible. GSAP/Framer como capa de progresive enhancement.
+Prioriza CSS nativo y lógica simple cuando sea posible. GSAP/Framer como capa de progressive enhancement.
 
 ### Source of Truth: `src/content/data.ts`
 Centraliza TODOS los datos del portfolio:
@@ -183,7 +179,6 @@ Añadir nuevo proyecto = añadir entry a `projects[]` en `data.ts` — no tocar 
 - Static + server components composable por sección
 
 ---
-
 ## ✅ Justificación de Decisiones Técnicas
 
 | Decisión | Opción elegida | Alternativas evaluadas | Razón |
@@ -191,57 +186,47 @@ Añadir nuevo proyecto = añadir entry a `projects[]` en `data.ts` — no tocar 
 | Framework | Next.js 16 App Router | Create React App, Gatsby, Vite SPA | SSR/SSG + Metadata API + SEO + Edge network Vercel nativo |
 | React version | 19.2.4 | React 18 (constraint compatible) | Hooks最新 + Suspense + performance improvements (Next.js 16 req) |
 | Styling | Tailwind CSS v4 | styled-components, SGSS modules, Emotion | Zero-runtime + utility-first + tema galáctica via CSS variables |
-| Fondo estelar | Canvas 2D API | Three.js WebGL, CSS animations, video | Performante (~50 stars @ 60fps) + sin WebGL requirement + control total partículas +
-mucho más ligero que WebGL Three.js para full-page background |
-| Animaciones | GSAP + Framer Motion + CSS keyframes | anime.js, Lottie | GSAP scroll-trigger battle-tested, Framer React-first, CSS simple para micro-animations
- |
+| Fondo estelar | Canvas 2D API | Three.js WebGL, CSS animations, video | Performante (~50 stars @ 60fps) + sin WebGL requirement + control total partículas + mucho más ligero que WebGL Three.js para full-page background |
+| Animaciones | GSAP + Framer Motion + CSS keyframes | anime.js, Lottie | GSAP scroll-trigger battle-tested, Framer React-first, CSS simple para micro-animations |
 | Email service | Resend | Nodemailer SMTP, SendGrid, Postmark | API simple, free tier generoso, designed for developers |
-| Form validation | Zod-side + React state | Formik, react-hook-form (overkill) | Valida input via Zod en API route, tanto client cuánto server |
+| Form validation | Zod-side + React state | Formik, react-hook-form (overkill) | Valida input via Zod en API route, tanto client cuanto server |
 | Hosting | Vercel | Netlify, Railway, AWS Amplify | Next.js nativo, Edge network global, Image optimization native, free tier completo |
 | Data layer | `src/content/data.ts` (TS module) | MDX, Contentlayer, DB | Simple, typed, sin build steps extra — suficiente para portfolio uniproject |
-| Stars render | Canvas API + requestAnimationFrame | SVG dots, DOM elements | DOM элементов 100s perjudica perf — Canvas performance Mayor 10-100x
- |
+| Stars render | Canvas API + requestAnimationFrame | SVG dots, DOM elements | DOM elementos 100s perjudica perf — Canvas performance Mayor 10-100x |
 | State management | React useState local components | Zustand, Redux (overkill) | App sin estado global complejo — cada sección tiene su propio state |
 | Anim strategy | Progressive enhancement (CSS→FM→GSAP) | All GSAP, all Framer | Simple where needed, sophisticated para scrolltriggered only |
 
 ---
-
 ## 📦 Estado de Implementación
 
 ### Fases Completadas
-
 | Fase | Descripción | Commit | Verificación |
 |------|-------------|--------|--------------|
 | Phase 0 | Foundation: Next.js 16, Tailwind v4, layout con metadata | [init] | Estructura base con metadata defined |
-| Phase 1 | Static Structure: Navbar, Hero, About, Projects, Skills, Contact, Footer | [init] | Todas las secciones implementadas |
-| Phase 2 | Data layer centralizado | [init] | `src/content/data.ts` fuente única |
-| Phase 3 | Animations: Starfield 3D (Three.js → refactorizado Canvas 2D), Framer Motion, typewriter | [init] | Starfield 60fps, Typewriter roles |
+| Phase 1 | Estructura estática: Navbar, Hero, About, Projects, Skills, Contact, Footer | [init] | Todas las secciones implementadas |
+| Phase 2 | Capa de datos centralizada | [init] | `src/content/data.ts` fuente única |
+| Phase 3 | Animaciones: Starfield 3D (Three.js → refactorizado Canvas 2D), Framer Motion, typewriter | [init] | Starfield 60fps, Typewriter roles |
 | Phase 4 | Backend: API `/api/contact` con Zod + Resend + honeypot | [init] | Form funcional |
 | Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; Pendiente deploy Vercel (requiere auth interactiva) |
-| Templates | GitHub issue/PR templates + CI 3-layer gates | 2c7f78a | Workflow files committed |
+| Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | En planificación | — |
 
-### Próximos Pasos (Backlog de Sprints)
-
+### Próximos Pasos (Backlog de Sprints) – Fase 6
 > Los items del backlog ahora se planifican como Sprints activos con SPEC + PLAN + TASKS.
 
 | Sprint | Objetivo | Issue | Prioridad |
 |--------|----------|-------|-----------|
-| S-01 | Deploy a Vercel + Lighthouse >= 95 | #2 | Alta |
+| S-01 | Deploy a Vercel + Lighthouse ≥ 95 | #2 | Alta |
 | S-02 | Dark mode toggle (alternar tema oscuro/claro) | #1 | Alta |
 | S-03 | Testimonios opcional con carrusel | #3 | Media |
 | S-04 | Resume download multi-formato (PDF, MD) | #4 | Media |
-| S-05 | i18n multi-idioma (en/es) con hrefLang | #5 | Baja |
+| S-05 | i18n multi-idioma (en/es) con hreflang | #5 | Baja |
 | S-06 | Blog section (MDX posts técnicos) | #6 | Baja |
 
----
-
-## 🏃 Sprint Activo: S-02 — Dark Mode Toggle
-
+### Estado del Sprint Activo: S-02 — Dark Mode Toggle
 > **Sprint:** S-02 | **Iniciado:** pendiente | **Objetivo:** Implementar toggle de tema oscuro/claro
 > **Issue:** #1 | **Perfil asignado:** dev | **Blocker:** Depende de S-01 (deploy) para verificar en prod
 
-### Especificación (SPEC)
-
+#### Especificación (SPEC)
 **User Story:**
 Como visitante del portafolio, quiero alternar entre tema oscuro (galáctico) y tema claro para preferir mi modo de visualización.
 
@@ -253,13 +238,7 @@ Como visitante del portafolio, quiero alternar entre tema oscuro (galáctico) y 
 - [ ] AC-5: Starfield se atenúa (no se oculta) en tema claro
 - [ ] AC-6: `npm run build` pasa sin errores
 
-**Constraints:**
-- Stack: Next.js 16, Tailwind v4 (dark: variant), CSS variables existentes
-- No romper: animaciones GSAP, Framer Motion, accesibilidad
-- Performance: sin flash de tema incorrecto (FOUC) en carga inicial
-
-### Plan Técnico (PLAN)
-
+#### Plan Técnico (PLAN)
 **Archivos afectados:**
 | Archivo | Cambio | Tipo |
 |---------|--------|------|
@@ -284,8 +263,7 @@ Como visitante del portafolio, quiero alternar entre tema oscuro (galáctico) y 
 - Visual: browser_navigate + browser_vision para verificar ambos temas
 - Adversarial: comprobar localStorage vacío, prefers-color-scheme, toggle rápido
 
-### Tasks del Sprint (TASKS)
-
+#### Tasks del Sprint (TASKS)
 | ID | Task | Estado | Perfil | Depende de |
 |----|------|--------|--------|------------|
 | S2-T1 | Añadir variables CSS tema claro en `globals.css` | ⏳ pending | dev | — |
@@ -296,7 +274,6 @@ Como visitante del portafolio, quiero alternar entre tema oscuro (galáctico) y 
 | S2-T6 | Verificación: build + browser visual check ambos temas | ⏳ pending | dev | S2-T5 |
 
 ### Estado del Sprint
-
 ```
 Sprint S-02: Dark Mode Toggle
 ├── S2-T1: ⏳ pending → asignar a dev
@@ -309,24 +286,21 @@ Sprint S-02: Dark Mode Toggle
 Progreso: 0/6 tasks completadas
 ```
 
-> **Flujo del orchestrator:** Lee este PROJECT.md → crea cards en kanban con `parents=[...]`
-> según la columna "Depende de" → workers ejecutan → al completar, actualizan estado aquí.
+> **Flujo del orchestrator:** Lee este PROJECT.md → crea cards en kanban con `parents=[...]` según la columna "Depende de" → workers ejecutan → al completar, actualizan estado aquí.
 
 ---
-
 ## ⚠️ Limitaciones Conocidas
 
 1. **Sin deploy en Vercel aún**: Phase 5 completa excepto el deploy que requiere auth interactiva del usuario
 2. **Lighthouse score no medido post-deploy**: target >= 95 pero sin medida en prod todavía
-3. **Sin backend testing**: API `/api/contact` funciona en dev pero sin E2E/test suite automatico
+3. **Sin backend testing**: API `/api/contact` funciona en dev pero sin E2E/test suite automático
 4. **Starfield Canvas 2D**: suficientes partículas, pero sin el realismo del WebGL shader simular nebulosas
-5. **No mobile-specific 3D effects**: animaciones respeten prefers-reduced-motion pero no están optimizadas para batería mobile
+5. **No mobile-specific 3D effects**: animaciones respetan prefers-reduced-motion pero no están optimizadas para batería mobile
 6. **Sin dark/light toggle**: actualmente solo tema dark galáctico — toggle es backlog #1
 7. **Team empleo manual para content upda tes**: cada proyecto/skill requiere editar `data.ts` directamente
 8. **API rate-limit incomplete**: honeypot presente pero falta un rate-limiting service (Redis/Vercel KV)
 
 ---
-
 ## 🔐 Seguridad
 
 - **Honeypot en contact form**: campo oculto vacío, si rellenado → bot detectado → 400
@@ -337,7 +311,6 @@ Progreso: 0/6 tasks completadas
 - **100% client-side rendering safe**: SSR + metadata no disclosure user info
 
 ---
-
 ## 📚 Referencias
 
 - Next.js 16 App Router docs: https://nextjs.org/docs/app
@@ -352,5 +325,4 @@ Progreso: 0/6 tasks completadas
 - Repo: https://github.com/Nxxo31/portafolio
 
 ---
-
 *Generado por SophIA — Sebastian Velasco's autonomous operating system*
