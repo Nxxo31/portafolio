@@ -9,21 +9,33 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#05050e] text-white flex items-center justify-center px-6">
+    <main
+      className="min-h-screen flex items-center justify-center px-6"
+      style={{ backgroundColor: "var(--paper)", color: "var(--ink)" }}
+    >
       <div className="text-center max-w-md">
-        <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] bg-clip-text text-transparent">
+        <h1
+          className="font-heading text-8xl md:text-9xl font-bold mb-6 leading-none"
+          style={{ color: "var(--ink)" }}
+        >
           404
         </h1>
-        <p className="text-[#a3a3b8] text-lg mb-8">
-          La página que buscas se perdió en el espacio profundo. Quizás fue
-          absorbida por un agujero negro, o nunca existió en esta constelación.
+        <p className="font-mono text-base mb-8 leading-relaxed">
+          La página que buscas no existe. Quizás el enlace está roto, o nunca
+          existió en este directorio.
         </p>
         <Link
           href="/"
-          className="inline-block px-8 py-4 bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] rounded-full font-semibold text-white transition-all duration-300 hover:shadow-[0_0_40px_rgba(124,92,255,0.4)] motion-safe:hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-4 focus-visible:ring-offset-[#05050e]"
+          className="inline-block font-heading font-bold text-base px-7 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+          style={{
+            backgroundColor: "var(--accent-1)",
+            color: "var(--ink)",
+            borderColor: "var(--ink)",
+            boxShadow: "5px 5px 0 var(--ink)",
+          }}
           aria-label="Volver al inicio del portafolio"
         >
-          Volver al inicio
+          ← VOLVER AL INICIO
         </Link>
       </div>
     </main>

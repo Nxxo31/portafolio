@@ -32,7 +32,7 @@ export async function generateMetadata(
   const description = project.shortDescription;
 
   return {
-    title, // el layout.js template añade "| Sebastián Velasco"
+    title,
     description,
     openGraph: {
       title: `${project.title} | Sebastián Velasco`,
@@ -66,7 +66,6 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  // JSON-LD para cada proyecto (Schema.org CreativeWork)
   const projectJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -81,92 +80,158 @@ export default async function ProjectDetailPage({
     about: project.role,
   };
 
+  const ACCENTS = ["#FF6B35", "#00A6FB", "#FFD23F", "#06D6A0", "#EF476F"];
+
   return (
-    <main className="min-h-screen bg-[#05050e] text-white pt-24 px-6">
+    <main
+      className="min-h-screen pt-24 px-6"
+      style={{ backgroundColor: "var(--paper)", color: "var(--ink)" }}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
       />
-      <article className="max-w-4xl mx-auto py-16">
+      <article className="max-w-4xl mx-auto py-12">
         {/* Back button */}
         <Link
           href="/#projects"
-          className="inline-flex items-center gap-2 text-[#a3a3b8] hover:text-[#22d3ee] transition-colors mb-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e] rounded"
+          prefetch={false}
+          className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+          style={{
+            backgroundColor: "var(--surface)",
+            color: "var(--ink)",
+            borderColor: "var(--ink)",
+            boxShadow: "3px 3px 0 var(--ink)",
+          }}
           aria-label="Volver a proyectos"
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-          Volver a proyectos
+          ← PROYECTOS
         </Link>
 
         {/* Project header */}
-        <header className="mb-12">
-          <time className="text-[#a3a3b8] text-sm font-mono mb-4 block">
-            Proyecto
-          </time>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] bg-clip-text text-transparent">
+        <header className="mt-8 mb-10">
+          <p
+            className="font-mono text-xs uppercase tracking-[0.3em] mb-3"
+            style={{ color: "var(--accent-1)" }}
+          >
+            // PROYECTO
+          </p>
+          <h1
+            className="font-heading text-4xl md:text-6xl font-bold mb-4 leading-tight"
+            style={{ color: "var(--ink)" }}
+          >
             {project.title}
           </h1>
-          <p className="text-[#a3a3b8] text-lg mb-4">{project.fullDescription}</p>
+          <p
+            className="font-mono text-base leading-relaxed mb-6 max-w-3xl"
+            style={{ color: "var(--ink)" }}
+          >
+            {project.fullDescription}
+          </p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.stack.map((tech) => (
-              <span
+          {/* Stack tags */}
+          <ul className="flex flex-wrap gap-2 mb-6" role="list">
+            {project.stack.map((tech, i) => (
+              <li
                 key={tech}
-                className="px-3 py-1 text-sm rounded-full bg-white/5 text-[#22d3ee] border border-white/10"
+                className="font-mono text-xs uppercase tracking-wide font-bold px-3 py-1.5 border-2"
+                style={{
+                  backgroundColor: ACCENTS[i % ACCENTS.length],
+                  color: "var(--ink)",
+                  borderColor: "var(--ink)",
+                }}
               >
                 {tech}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          <div className="flex flex-wrap gap-4 items-center">
-            <span className="text-sm text-[#a3a3b8]">
-              <span className="text-[#7c5cff]">Rol:</span> {project.role}
-            </span>
+          {/* Meta info */}
+          <div
+            className="flex flex-wrap gap-6 items-center p-4 border-2"
+            style={{
+              backgroundColor: "var(--surface)",
+              borderColor: "var(--ink)",
+            }}
+          >
+            <div>
+              <p
+                className="font-mono text-[10px] uppercase tracking-wide font-bold mb-1"
+                style={{ color: "var(--ink)", opacity: 0.7 }}
+              >
+                Rol
+              </p>
+              <p
+                className="font-mono text-sm font-bold"
+                style={{ color: "var(--ink)" }}
+              >
+                {project.role}
+              </p>
+            </div>
             {project.impact && (
-              <span className="text-sm text-[#a3a3b8]">
-                <span className="text-[#f5c451]">Impacto:</span>{" "}
-                {project.impact}
-              </span>
+              <div>
+                <p
+                  className="font-mono text-[10px] uppercase tracking-wide font-bold mb-1"
+                  style={{ color: "var(--ink)", opacity: 0.7 }}
+                >
+                  Impacto
+                </p>
+                <p
+                  className="font-mono text-sm font-bold"
+                  style={{ color: "var(--accent-1)" }}
+                >
+                  {project.impact}
+                </p>
+              </div>
+            )}
+            {project.featured && (
+              <div>
+                <span
+                  className="font-mono text-[10px] uppercase tracking-wide font-bold px-2 py-1 border-2"
+                  style={{
+                    backgroundColor: "var(--accent-3)",
+                    color: "var(--ink)",
+                    borderColor: "var(--ink)",
+                  }}
+                >
+                  FEATURED
+                </span>
+              </div>
             )}
           </div>
         </header>
 
         {/* Links */}
-        <nav className="flex gap-4 mb-16" aria-label="Enlaces del proyecto">
+        <nav className="flex flex-wrap gap-3" aria-label="Enlaces del proyecto">
           {project.repoUrl && (
             <a
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] text-white font-medium hover:shadow-[0_0_30px_rgba(124,92,255,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e]"
+              className="font-heading font-bold text-base px-6 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+              style={{
+                backgroundColor: "var(--accent-1)",
+                color: "var(--ink)",
+                borderColor: "var(--ink)",
+                boxShadow: "5px 5px 0 var(--ink)",
+              }}
             >
-              Ver Repositorio
+              CÓDIGO ↗
             </a>
           )}
-          {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl border border-white/10 text-[#a3a3b8] hover:text-white hover:border-[#22d3ee] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e]"
-            >
-              Demo en Vivo
-            </a>
-          )}
+          <Link
+            href="/#contact"
+            prefetch={false}
+            className="font-heading font-bold text-base px-6 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            style={{
+              backgroundColor: "var(--surface)",
+              color: "var(--ink)",
+              borderColor: "var(--ink)",
+              boxShadow: "5px 5px 0 var(--ink)",
+            }}
+          >
+            PREGUNTAR →
+          </Link>
         </nav>
       </article>
     </main>

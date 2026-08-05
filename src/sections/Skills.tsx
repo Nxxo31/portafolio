@@ -1,103 +1,151 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { contentData } from "@/content/data";
+import type { SkillCategory } from "@/types/content";
 
-interface Skill {
-  name: string;
-  level: number;
-  category: string;
-}
+const CATEGORY_LABEL: Record<SkillCategory, string> = {
+  frontend: "FRONTEND",
+  backend: "BACKEND",
+  "ai-agents": "IA / AGENTES",
+  devops: "DEVOPS",
+  data: "DATA",
+};
 
-const SKILLS: Skill[] = [
-  // Frontend
-  { name: "React / Next.js", level: 95, category: "Frontend" },
-  { name: "TypeScript", level: 92, category: "Frontend" },
-  { name: "Tailwind CSS", level: 90, category: "Frontend" },
-  { name: "Three.js / WebGL", level: 75, category: "Frontend" },
-  { name: "Framer Motion", level: 85, category: "Frontend" },
-  // Backend
-  { name: "Node.js", level: 90, category: "Backend" },
-  { name: "Python", level: 88, category: "Backend" },
-  { name: "Go", level: 70, category: "Backend" },
-  { name: "PostgreSQL", level: 85, category: "Backend" },
-  // AI / Data
-  { name: "LangChain", level: 80, category: "AI" },
-  { name: "TensorFlow", level: 72, category: "AI" },
-  { name: "OpenAI API", level: 88, category: "AI" },
-  // DevOps
-  { name: "Docker", level: 85, category: "DevOps" },
-  { name: "GitHub Actions", level: 80, category: "DevOps" },
-  { name: "AWS / Vercel", level: 82, category: "DevOps" },
+const CATEGORY_COLOR: Record<SkillCategory, string> = {
+  frontend: "var(--accent-1)",
+  backend: "var(--accent-2)",
+  "ai-agents": "var(--accent-3)",
+  devops: "var(--accent-4)",
+  data: "var(--accent-5)",
+};
+
+const CATEGORY_ORDER: SkillCategory[] = [
+  "frontend",
+  "backend",
+  "ai-agents",
+  "devops",
+  "data",
 ];
-
-const CATEGORIES = ["Frontend", "Backend", "AI", "DevOps"];
 
 export default function SkillsSection() {
   const shouldReduceMotion = useReducedMotion();
+  const skills = contentData.skills;
+
+  const categories = CATEGORY_ORDER.filter((cat) =>
+    skills.some((s) => s.category === cat),
+  );
+
   return (
-    <section id="skills" className="relative py-28 px-6 z-10" aria-label="Habilidades">
+    <section
+      id="skills"
+      className="relative py-24 px-6"
+      aria-label="Habilidades"
+      style={{ backgroundColor: "var(--surface-dark)" }}
+    >
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-[#a3a3b8] bg-clip-text text-transparent">
-            Habilidades
-          </h2>
-          <p className="text-[#a3a3b8] max-w-2xl mx-auto">
-            Mi arsenal tecnológico. Herramientas que uso para dar vida a ideas y construir constelaciones digitales.
+          <p
+            className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
+            style={{ color: "var(--accent-3)" }}
+          >
+            // STACK
           </p>
+          <h2
+            className="font-heading text-5xl md:text-6xl font-bold"
+            style={{ color: "var(--paper)" }}
+          >
+            HABILIDADES
+          </h2>
         </motion.div>
 
-        {/* Skills Grid by Category */}
-        <div className="space-y-12">
-          {CATEGORIES.map((category) => {
-            const categorySkills = SKILLS.filter((s) => s.category === category);
+        {/* Grid por categoría */}
+        <div className="space-y-10">
+          {categories.map((category) => {
+            const categorySkills = skills.filter((s) => s.category === category);
+            const accent = CATEGORY_COLOR[category];
+
             return (
               <div key={category}>
-                <h3 className="text-lg font-semibold text-[#22d3ee] mb-6 tracking-wider uppercase">
-                  {category}
+                <h3
+                  className="font-mono text-base font-bold mb-4 uppercase tracking-wide"
+                  style={{ color: accent }}
+                >
+                  ▶ {CATEGORY_LABEL[category]}
                 </h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {categorySkills.map((skill, index) => (
                     <motion.div
                       key={skill.name}
-                      initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
-                      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+                      initial={
+                        shouldReduceMotion ? false : { opacity: 0, x: -20 }
+                      }
+                      whileInView={
+                        shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
+                      }
                       viewport={{ once: true }}
-                      transition={{ delay: shouldReduceMotion ? 0 : index * 0.1, duration: 0.5 }}
-                      className="group relative p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                      transition={{
+                        duration: 0.35,
+                        delay: shouldReduceMotion ? 0 : Math.min(index * 0.06, 0.3),
+                      }}
+                      className="p-4 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5"
+                      style={{
+                        backgroundColor: "var(--surface)",
+                        border: "2px solid var(--ink)",
+                        boxShadow: "4px 4px 0 var(--ink)",
+                      }}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-white font-medium text-sm">
+                        <span
+                          className="font-heading font-bold text-sm"
+                          style={{ color: "var(--ink)" }}
+                        >
                           {skill.name}
                         </span>
-                        <span className="text-[#22d3ee] text-xs font-mono">
-                          {skill.level}%
+                        <span
+                          className="font-mono text-xs font-bold"
+                          style={{ color: "var(--ink)" }}
+                        >
+                          {skill.yearsExperience}y
                         </span>
                       </div>
-                      {/* Progress Bar */}
+
+                      {/* Proficiency bar hard */}
                       <div
-                        className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden"
+                        className="w-full h-3 border-2"
+                        style={{
+                          backgroundColor: "var(--paper)",
+                          borderColor: "var(--ink)",
+                        }}
                         role="progressbar"
-                        aria-valuenow={skill.level}
+                        aria-valuenow={skill.proficiency}
                         aria-valuemin={0}
-                        aria-valuemax={100}
-                        aria-label={`${skill.name}: nivel ${skill.level}%`}
+                        aria-valuemax={5}
+                        aria-label={`${skill.name}: nivel ${skill.proficiency} de 5`}
                       >
                         <motion.div
-                          initial={shouldReduceMotion ? { width: `${skill.level}%` } : { width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
+                          initial={
+                            shouldReduceMotion
+                              ? { width: `${(skill.proficiency / 5) * 100}%` }
+                              : { width: 0 }
+                          }
+                          whileInView={{
+                            width: `${(skill.proficiency / 5) * 100}%`,
+                          }}
                           viewport={{ once: true }}
                           transition={{
-                            duration: 1,
-                            delay: shouldReduceMotion ? 0 : index * 0.1,
-                            ease: "easeOut",
+                            duration: 0.6,
+                            delay: shouldReduceMotion ? 0 : index * 0.06,
                           }}
-                          className="h-full rounded-full bg-gradient-to-r from-[#7c5cff] to-[#22d3ee]"
+                          className="h-full"
+                          style={{ backgroundColor: accent }}
                         />
                       </div>
                     </motion.div>
@@ -106,17 +154,6 @@ export default function SkillsSection() {
               </div>
             );
           })}
-        </div>
-
-        {/* Orbit decoration */}
-        <div className="mt-20 relative h-64 flex items-center justify-center">
-          <div className="absolute w-32 h-32 rounded-full bg-gradient-to-br from-[#7c5cff]/20 to-[#22d3ee]/20 animate-pulse" />
-          <div className="absolute w-48 h-48 rounded-full border border-[#7c5cff]/10 animate-[spin_10s_linear_infinite]" />
-          <div className="absolute w-64 h-64 rounded-full border border-[#22d3ee]/10 animate-[spin_15s_linear_infinite_reverse]" />
-          <div className="z-10 text-center">
-            <span className="text-[#a3a3b8] text-sm">Siempre aprendiendo</span>
-            <p className="text-white font-medium mt-1">Nuevas constelaciones por explorar</p>
-          </div>
         </div>
       </div>
     </section>

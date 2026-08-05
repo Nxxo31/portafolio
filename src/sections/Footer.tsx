@@ -1,78 +1,83 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-
-const SOCIAL_LINKS = [
-  {
-    name: "GitHub",
-    url: "https://github.com/nxxo31",
-    ariaLabel: "Ver perfil de GitHub (abre en nueva pestaña)",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/sebastianvelasco",
-    ariaLabel: "Ver perfil de LinkedIn (abre en nueva pestaña)",
-  },
-  {
-    name: "Twitter",
-    url: "https://twitter.com/nxxo31",
-    ariaLabel: "Ver perfil de Twitter (abre en nueva pestaña)",
-  },
-];
+import { contentData } from "@/content/data";
 
 export default function Footer() {
   const shouldReduceMotion = useReducedMotion();
+  const { githubUrl, email, name } = contentData.profile;
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative py-12 px-6 z-10 border-t border-white/5" aria-label="Pie de página">
+    <footer
+      className="relative py-10 px-6 border-t-2"
+      aria-label="Pie de página"
+      style={{
+        backgroundColor: "var(--surface-dark)",
+        color: "var(--paper)",
+        borderColor: "var(--ink)",
+      }}
+    >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <motion.div
+        <motion.p
           initial={shouldReduceMotion ? false : { opacity: 0 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
           viewport={{ once: true }}
+          className="font-mono text-sm uppercase tracking-wide"
         >
-          <p className="text-[#a3a3b8] text-sm">
-            © {new Date().getFullYear()} Sebastian Velasco. Construido con Next.js, React & Three.js.
-          </p>
-        </motion.div>
+          © {year} {name.toUpperCase()}
+        </motion.p>
 
         <motion.nav
           initial={shouldReduceMotion ? false : { opacity: 0 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
           viewport={{ once: true }}
-          className="flex gap-6"
+          className="flex gap-4"
           aria-label="Redes sociales"
         >
-          {SOCIAL_LINKS.map((social) => (
-            <a
-              key={social.name}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.ariaLabel}
-              className="text-[#a3a3b8] hover:text-[#22d3ee] transition-colors duration-300 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e] rounded"
-            >
-              {social.name}
-            </a>
-          ))}
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{
+              backgroundColor: "var(--paper)",
+              color: "var(--ink)",
+              borderColor: "var(--paper)",
+            }}
+            aria-label="Ver GitHub (abre en nueva pestaña)"
+          >
+            GITHUB ↗
+          </a>
+          <a
+            href={`mailto:${email}`}
+            className="font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{
+              backgroundColor: "transparent",
+              color: "var(--paper)",
+              borderColor: "var(--paper)",
+            }}
+            aria-label="Enviar email a Sebastián Velasco"
+          >
+            EMAIL
+          </a>
         </motion.nav>
 
-        <motion.div
+        <motion.button
           initial={shouldReduceMotion ? false : { opacity: 0 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
           viewport={{ once: true }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          style={{
+            backgroundColor: "var(--accent-1)",
+            color: "var(--ink)",
+            borderColor: "var(--ink)",
+          }}
+          aria-label="Volver al inicio de la página"
         >
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-[#a3a3b8] hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e] rounded"
-            aria-label="Volver al inicio de la página"
-          >
-            Volver arriba
-            <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </button>
-        </motion.div>
+          ↑ ARRIBA
+        </motion.button>
       </div>
     </footer>
   );

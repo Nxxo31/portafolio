@@ -10,57 +10,76 @@ export default function ServicesSection() {
   if (!services || services.length === 0) return null;
 
   return (
-    <section id="services" className="relative py-28 px-6 z-10" aria-label="Servicios">
+    <section
+      id="services"
+      className="relative py-24 px-6"
+      aria-label="Servicios"
+      style={{ backgroundColor: "var(--paper)" }}
+    >
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-[#a3a3b8] bg-clip-text text-transparent">
-            Servicios
-          </h2>
-          <p className="text-[#a3a3b8] max-w-2xl mx-auto">
-            Lo que puedo hacer por ti. Cada servicio es una constelación de habilidades
-            trabajando en armonía.
+          <p
+            className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
+            style={{ color: "var(--accent-1)" }}
+          >
+            // SERVICIOS
           </p>
+          <h2
+            className="font-heading text-5xl md:text-6xl font-bold"
+            style={{ color: "var(--ink)" }}
+          >
+            EN QUÉ PUEDO AYUDARTE
+          </h2>
         </motion.div>
 
-        {/* Services Grid */}
+        {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <motion.div
+            <motion.article
               key={service.id}
               initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
               whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: shouldReduceMotion ? 0 : index * 0.1, duration: 0.5 }}
-              className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 motion-safe:hover:-translate-y-1"
+              transition={{
+                duration: 0.35,
+                delay: shouldReduceMotion ? 0 : Math.min(index * 0.08, 0.4),
+              }}
+              className="group p-5 flex flex-col transition-all duration-150 hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0"
+              style={{
+                backgroundColor: service.color,
+                border: "2px solid var(--ink)",
+                boxShadow: "6px 6px 0 var(--ink)",
+              }}
             >
-              {/* Icon */}
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${service.color}20` }}
+              <span
+                className="font-mono text-3xl font-bold mb-3"
+                style={{ color: "var(--ink)" }}
                 aria-hidden="true"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: service.color }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
+                0{index + 1}
+              </span>
 
-              <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
-              <p className="text-[#a3a3b8] text-sm leading-relaxed">
+              <h3
+                className="font-heading text-lg font-bold leading-tight mb-2"
+                style={{ color: "var(--ink)" }}
+              >
+                {service.title}
+              </h3>
+
+              <p
+                className="font-mono text-xs leading-relaxed"
+                style={{ color: "var(--ink)" }}
+              >
                 {service.fullDescription}
               </p>
-
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"
-                style={{ background: `radial-gradient(circle at 50% 0%, ${service.color}, transparent 70%)` }}
-              />
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

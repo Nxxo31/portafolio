@@ -10,58 +10,113 @@ export default function ExperienceSection() {
   if (!experience || experience.length === 0) return null;
 
   return (
-    <section id="experience" className="relative py-28 px-6 z-10" aria-label="Experiencia profesional">
+    <section
+      id="experience"
+      className="relative py-24 px-6"
+      aria-label="Experiencia profesional"
+      style={{ backgroundColor: "var(--paper)" }}
+    >
       <div className="max-w-4xl mx-auto">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-[#a3a3b8] bg-clip-text text-transparent">
-            Experiencia
-          </h2>
-          <p className="text-[#a3a3b8] max-w-2xl mx-auto">
-            Mi trayectoria profesional. Cada rol es una estrella en la constelación de mi carrera.
+          <p
+            className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
+            style={{ color: "var(--accent-1)" }}
+          >
+            // TRAYECTORIA
           </p>
+          <h2
+            className="font-heading text-5xl md:text-6xl font-bold"
+            style={{ color: "var(--ink)" }}
+          >
+            EXPERIENCIA
+          </h2>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#7c5cff] via-[#22d3ee] to-transparent" />
+          {/* Línea sólida 2px */}
+          <div
+            className="absolute left-3 md:left-4 top-0 bottom-0"
+            style={{
+              width: "2px",
+              backgroundColor: "var(--ink)",
+            }}
+            aria-hidden="true"
+          />
 
-          <div className="space-y-12">
+          <div className="space-y-10">
             {experience.map((entry, index) => (
               <motion.div
                 key={entry.id}
                 initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
                 whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: shouldReduceMotion ? 0 : index * 0.15, duration: 0.6 }}
-                className="relative pl-12 md:pl-20"
+                transition={{
+                  duration: 0.4,
+                  delay: shouldReduceMotion ? 0 : index * 0.15,
+                }}
+                className="relative pl-12 md:pl-16"
               >
-                {/* Timeline dot */}
-                <div className="absolute left-2 md:left-6 top-1 w-5 h-5 rounded-full bg-[#05050e] border-2 border-[#22d3ee] shadow-[0_0_12px_rgba(34,211,238,0.3)]" aria-hidden="true" />
+                {/* Punto cuadrado */}
+                <div
+                  className="absolute left-0 top-1 w-6 h-6 border-2"
+                  style={{
+                    backgroundColor: "var(--accent-1)",
+                    borderColor: "var(--ink)",
+                    boxShadow: "3px 3px 0 var(--ink)",
+                  }}
+                  aria-hidden="true"
+                />
 
                 {/* Period badge */}
-                <span className="inline-block px-3 py-1 text-xs font-mono rounded-full bg-[#7c5cff]/20 text-[#7c5cff] border border-[#7c5cff]/20 mb-3">
+                <span
+                  className="inline-block px-3 py-1 font-mono text-xs uppercase tracking-wide font-bold border-2 mb-3"
+                  style={{
+                    backgroundColor: "var(--surface)",
+                    color: "var(--ink)",
+                    borderColor: "var(--ink)",
+                  }}
+                >
                   {entry.period}
                 </span>
 
-                <h3 className="text-xl font-bold text-white mb-1">{entry.role}</h3>
-                <p className="text-[#22d3ee] text-sm mb-3">{entry.company}</p>
-                <p className="text-[#a3a3b8] text-sm leading-relaxed mb-4">
+                <h3
+                  className="font-heading text-xl font-bold mb-1"
+                  style={{ color: "var(--ink)" }}
+                >
+                  {entry.role}
+                </h3>
+                <p
+                  className="font-mono text-sm font-bold mb-3"
+                  style={{ color: "var(--accent-2)" }}
+                >
+                  {entry.company}
+                </p>
+                <p
+                  className="font-mono text-sm leading-relaxed mb-4"
+                  style={{ color: "var(--ink)" }}
+                >
                   {entry.description}
                 </p>
 
-                {/* Technologies */}
+                {/* Tecnologías */}
                 <div className="flex flex-wrap gap-2">
                   {entry.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 text-xs rounded-md bg-white/5 text-[#a3a3b8] border border-white/10"
+                      className="px-2 py-1 font-mono text-[10px] uppercase tracking-wide border-2"
+                      style={{
+                        backgroundColor: "var(--accent-4)",
+                        color: "var(--ink)",
+                        borderColor: "var(--ink)",
+                      }}
                     >
                       {tech}
                     </span>

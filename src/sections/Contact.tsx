@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { contentData } from "@/content/data";
 
 interface FormData {
   name: string;
@@ -15,25 +16,20 @@ interface FormStatus {
   message: string;
 }
 
-const SOCIAL_LINKS = [
-  {
-    name: "GitHub",
-    url: "https://github.com/nxxo31",
-    ariaLabel: "Ver perfil de GitHub (abre en nueva pestaña)",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/sebastianvelasco",
-    ariaLabel: "Ver perfil de LinkedIn (abre en nueva pestaña)",
-  },
-  {
-    name: "Twitter",
-    url: "https://twitter.com/nxxo31",
-    ariaLabel: "Ver perfil de Twitter (abre en nueva pestaña)",
-  },
-];
+const INPUT_BASE_STYLE: React.CSSProperties = {
+  backgroundColor: "var(--surface)",
+  border: "2px solid var(--ink)",
+  color: "var(--ink)",
+  boxShadow: "4px 4px 0 var(--ink)",
+};
+
+const INPUT_FOCUS_STYLE: React.CSSProperties = {
+  boxShadow: "2px 2px 0 var(--ink)",
+  transform: "translate(2px, 2px)",
+};
 
 export default function ContactSection() {
+  const { email, githubUrl, name } = contentData.profile;
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -68,20 +64,20 @@ export default function ContactSection() {
 
       setStatus({
         type: "success",
-        message: "¡Mensaje enviado correctamente! Te responderé pronto.",
+        message: "¡Mensaje enviado! Te responderé pronto.",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {
       setStatus({
         type: "error",
-        message: "Hubo un error al enviar. Intenta de nuevo.",
+        message: "Error al enviar. Intenta de nuevo o escríbeme directo.",
       });
     }
   };
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText("sebastian.velasco@example.com");
+      await navigator.clipboard.writeText(email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -90,107 +86,144 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-28 px-6 z-10" aria-label="Contacto">
-      <div className="max-w-4xl mx-auto">
-        {/* Section Header */}
+    <section
+      id="contact"
+      className="relative py-24 px-6"
+      aria-label="Contacto"
+      style={{ backgroundColor: "var(--paper)" }}
+    >
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-[#a3a3b8] bg-clip-text text-transparent">
-            Contacto
-          </h2>
-          <p className="text-[#a3a3b8] max-w-2xl mx-auto">
-            ¿Quieres colaborar en un proyecto o simplemente charlar sobre tecnología?
-            Estoy a un mensaje de distancia.
+          <p
+            className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
+            style={{ color: "var(--accent-1)" }}
+          >
+            // CONTACTO
           </p>
+          <h2
+            className="font-heading text-5xl md:text-6xl font-bold"
+            style={{ color: "var(--ink)" }}
+          >
+            HABLEMOS
+          </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Info */}
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
             whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            transition={{ duration: 0.4 }}
+            className="space-y-6"
           >
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Información</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#7c5cff]/20 flex items-center justify-center" aria-hidden="true">
-                    <svg className="w-5 h-5 text-[#22d3ee]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-[#a3a3b8] text-sm">Email</p>
-                    <button
-                      onClick={copyEmail}
-                      className="text-white hover:text-[#22d3ee] transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e] rounded"
-                      aria-label="Copiar email al portapapeles"
-                      aria-live="polite"
-                    >
-                      sebastian.velasco@example.com
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                      </svg>
-                      {copied && (
-                        <span className="text-xs text-green-400 ml-1" role="status">
-                          ¡Copiado!
-                        </span>
-                      )}
-                    </button>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#7c5cff]/20 flex items-center justify-center" aria-hidden="true">
-                    <svg className="w-5 h-5 text-[#22d3ee]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-[#a3a3b8] text-sm">Ubicación</p>
-                    <p className="text-white">Colombia</p>
-                  </div>
-                </div>
-              </div>
+            <div
+              className="p-6"
+              style={{
+                backgroundColor: "var(--surface)",
+                border: "2px solid var(--ink)",
+                boxShadow: "6px 6px 0 var(--ink)",
+              }}
+            >
+              <p
+                className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
+                style={{ color: "var(--ink)" }}
+              >
+                EMAIL
+              </p>
+              <button
+                onClick={copyEmail}
+                className="font-mono text-sm font-bold break-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                style={{ color: "var(--accent-1)" }}
+                aria-label="Copiar email al portapapeles"
+                aria-live="polite"
+              >
+                {email}
+                {copied && (
+                  <span
+                    className="ml-2 font-mono text-xs"
+                    style={{ color: "var(--accent-4)" }}
+                    role="status"
+                  >
+                    [COPIADO]
+                  </span>
+                )}
+              </button>
             </div>
 
-            {/* Social Links */}
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-4">Redes</h3>
-              <div className="flex gap-3">
-                {SOCIAL_LINKS.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.ariaLabel}
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#a3a3b8] hover:text-white hover:border-[#22d3ee] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e]"
-                  >
-                    <span className="text-xs">{social.name[0]}</span>
-                  </a>
-                ))}
-              </div>
+            <div
+              className="p-6"
+              style={{
+                backgroundColor: "var(--accent-2)",
+                border: "2px solid var(--ink)",
+                boxShadow: "6px 6px 0 var(--ink)",
+              }}
+            >
+              <p
+                className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
+                style={{ color: "var(--ink)" }}
+              >
+                GITHUB
+              </p>
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-base font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                style={{ color: "var(--ink)" }}
+                aria-label={`Ver GitHub de ${name}`}
+              >
+                @Nxxo31 ↗
+              </a>
+            </div>
+
+            <div
+              className="p-6"
+              style={{
+                backgroundColor: "var(--accent-3)",
+                border: "2px solid var(--ink)",
+                boxShadow: "6px 6px 0 var(--ink)",
+              }}
+            >
+              <p
+                className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
+                style={{ color: "var(--ink)" }}
+              >
+                UBICACIÓN
+              </p>
+              <p
+                className="font-mono text-base font-bold"
+                style={{ color: "var(--ink)" }}
+              >
+                Colombia 🇨🇴
+              </p>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Form */}
           <motion.form
             initial={shouldReduceMotion ? false : { opacity: 0, x: 30 }}
             whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
             onSubmit={handleSubmit}
-            className="space-y-6"
+            className="space-y-5"
             aria-label="Formulario de contacto"
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-sm text-[#a3a3b8] mb-2">
+                <label
+                  htmlFor="name"
+                  className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                  style={{ color: "var(--ink)" }}
+                >
                   Nombre
                 </label>
                 <input
@@ -201,12 +234,19 @@ export default function ContactSection() {
                   onChange={handleChange}
                   required
                   autoComplete="name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-[#4a4a6a] focus:outline-none focus:border-[#22d3ee] focus:shadow-[0_0_20px_rgba(34,211,238,0.15)] focus-visible:ring-2 focus-visible:ring-[#22d3ee]/40 transition-all duration-300"
+                  style={INPUT_BASE_STYLE}
+                  onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
+                  onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
+                  className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
                   placeholder="Tu nombre"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm text-[#a3a3b8] mb-2">
+                <label
+                  htmlFor="email"
+                  className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                  style={{ color: "var(--ink)" }}
+                >
                   Email
                 </label>
                 <input
@@ -217,14 +257,21 @@ export default function ContactSection() {
                   onChange={handleChange}
                   required
                   autoComplete="email"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-[#4a4a6a] focus:outline-none focus:border-[#22d3ee] focus:shadow-[0_0_20px_rgba(34,211,238,0.15)] focus-visible:ring-2 focus-visible:ring-[#22d3ee]/40 transition-all duration-300"
+                  style={INPUT_BASE_STYLE}
+                  onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
+                  onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
+                  className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
                   placeholder="tu@email.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-sm text-[#a3a3b8] mb-2">
+              <label
+                htmlFor="subject"
+                className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                style={{ color: "var(--ink)" }}
+              >
                 Asunto
               </label>
               <input
@@ -234,13 +281,20 @@ export default function ContactSection() {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-[#4a4a6a] focus:outline-none focus:border-[#22d3ee] focus:shadow-[0_0_20px_rgba(34,211,238,0.15)] focus-visible:ring-2 focus-visible:ring-[#22d3ee]/40 transition-all duration-300"
+                style={INPUT_BASE_STYLE}
+                onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
+                onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
+                className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
                 placeholder="¿De qué se trata?"
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm text-[#a3a3b8] mb-2">
+              <label
+                htmlFor="message"
+                className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                style={{ color: "var(--ink)" }}
+              >
                 Mensaje
               </label>
               <textarea
@@ -250,29 +304,43 @@ export default function ContactSection() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-[#4a4a6a] focus:outline-none focus:border-[#22d3ee] focus:shadow-[0_0_20px_rgba(34,211,238,0.15)] focus-visible:ring-2 focus-visible:ring-[#22d3ee]/40 transition-all duration-300 resize-none"
+                style={INPUT_BASE_STYLE}
+                onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
+                onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
+                className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none resize-none placeholder:opacity-60"
                 placeholder="Cuéntame sobre tu proyecto..."
               />
             </div>
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={status.type === "submitting"}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] text-white font-semibold transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,92,255,0.4)] motion-safe:hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e]"
+              className="w-full py-4 font-heading font-bold text-lg uppercase tracking-wide border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                backgroundColor: "var(--accent-1)",
+                color: "var(--ink)",
+                borderColor: "var(--ink)",
+                boxShadow: "6px 6px 0 var(--ink)",
+              }}
             >
-              {status.type === "submitting" ? "Enviando..." : "Enviar Mensaje"}
+              {status.type === "submitting" ? "ENVIANDO..." : "ENVIAR MENSAJE →"}
             </button>
 
-            {/* Status Message */}
             {status.type !== "idle" && status.type !== "submitting" && (
               <motion.p
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                 role="status"
-                className={`text-sm text-center ${
-                  status.type === "success" ? "text-green-400" : "text-red-400"
-                }`}
+                className="font-mono text-sm text-center font-bold p-3 border-2"
+                style={{
+                  backgroundColor:
+                    status.type === "success"
+                      ? "var(--accent-4)"
+                      : "var(--accent-5)",
+                  color: "var(--ink)",
+                  borderColor: "var(--ink)",
+                }}
               >
                 {status.message}
               </motion.p>

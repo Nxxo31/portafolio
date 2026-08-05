@@ -1,106 +1,126 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-
-const SOCIAL_LINKS = [
-  {
-    name: "GitHub",
-    url: "https://github.com/nxxo31",
-    ariaLabel: "Ver perfil de GitHub de Sebastián Velasco",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/sebastianvelasco",
-    ariaLabel: "Ver perfil de LinkedIn de Sebastián Velasco",
-  },
-  {
-    name: "Twitter",
-    url: "https://twitter.com/nxxo31",
-    ariaLabel: "Ver perfil de Twitter de Sebastián Velasco",
-  },
-];
+import { contentData } from "@/content/data";
 
 export default function AboutSection() {
   const shouldReduceMotion = useReducedMotion();
+  const { githubUrl, email, name } = contentData.profile;
 
   return (
     <section
       id="about"
-      className="relative py-32 px-6 z-10"
+      className="relative py-24 px-6"
       aria-label="Sobre mí"
+      style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Profile Image */}
+        <div className="grid md:grid-cols-12 gap-8 items-center">
+          {/* Avatar / Bloque visual */}
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, x: -50 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, x: -40 }}
             whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative group"
+            transition={{ duration: 0.4 }}
+            className="md:col-span-5"
           >
-            <div className="relative w-full aspect-square max-w-md mx-auto rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#7c5cff]/20 to-[#22d3ee]/20 backdrop-blur-sm">
-              {/* Placeholder for profile image */}
-              <div
-                className="absolute inset-0 flex items-center justify-center text-[#a3a3b8]"
-                aria-hidden="true"
+            <div
+              className="aspect-square w-full max-w-sm mx-auto flex items-center justify-center"
+              style={{
+                backgroundColor: "var(--accent-2)",
+                border: "3px solid var(--ink)",
+                boxShadow: "8px 8px 0 var(--ink)",
+              }}
+              aria-hidden="true"
+            >
+              <span
+                className="font-heading font-bold text-7xl"
+                style={{ color: "var(--ink)" }}
               >
-                <svg className="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
-              </div>
-              {/* Decorative elements */}
-              <div
-                className="absolute -inset-1 bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] rounded-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-xl"
-                aria-hidden="true"
-              />
+                SV
+              </span>
             </div>
           </motion.div>
 
-          {/* Bio Text */}
+          {/* Bio */}
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, x: 50 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, x: 40 }}
             whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="md:col-span-7"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-[#a3a3b8] bg-clip-text text-transparent">
-              Sobre Mí
+            <h2
+              className="font-heading text-4xl md:text-5xl font-bold mb-6"
+              style={{ color: "var(--ink)" }}
+            >
+              SOBRE MÍ
             </h2>
 
-            <div className="space-y-4 text-[#a3a3b8] leading-relaxed">
+            <div
+              className="space-y-4 leading-relaxed"
+              style={{ color: "var(--ink)" }}
+            >
               <p>
-                Soy un <span className="text-[#22d3ee]">Ingeniero de Software</span> apasionado por crear
-                experiencias digitales que trasciendan lo ordinario. Mi trabajo se centra en el desarrollo
-                de aplicaciones web robustas, arquitecturas escalables y soluciones impulsadas por IA.
+                Soy <strong>{name}</strong>, ingeniero de software centrado en
+                construir sistemas robustos: desde apps de escritorio con
+                encriptación AES-256-GCM hasta bots de trading algorítmico y
+                herramientas de supply chain security en Go.
               </p>
               <p>
-                Con experiencia en el ecosistema <span className="text-[#7c5cff]">Next.js</span>,
-                <span className="text-[#7c5cff]"> React</span>, y <span className="text-[#7c5cff]">Node.js</span>,
-                disfruto transformando ideas complejas en código elegante y funcional.
-                Cada proyecto es una nueva constelación por explorar.
+                Trabajo principalmente con TypeScript (Next.js / Electron),
+                Python (FastAPI) y Go. Me interesa la arquitectura hexagonal,
+                el domain-driven design y la automatización con agentes de IA.
               </p>
               <p>
-                Actualmente construyendo el futuro del software desde
-                <span className="text-[#f5c451]"> Colombia</span> para el mundo.
+                Opero desde Colombia para el mundo. Cada proyecto es un problema
+                de ingeniería real, no un ejercicio de portafolio.
               </p>
             </div>
 
-            {/* Social Links */}
-            <nav className="flex gap-4 mt-8" aria-label="Redes sociales de Sebastián Velasco">
-              {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.ariaLabel}
-                  className="px-4 py-2 rounded-full border border-white/10 text-[#a3a3b8] hover:text-white hover:border-[#22d3ee] hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] transition-all duration-300 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e]"
-                >
-                  {social.name}
-                </a>
-              ))}
-            </nav>
+            {/* Datos duros */}
+            <div
+              className="mt-8 p-4 border-2"
+              style={{
+                borderColor: "var(--ink)",
+                backgroundColor: "var(--surface)",
+              }}
+            >
+              <div className="grid grid-cols-2 gap-4 font-mono text-sm">
+                <div>
+                  <p
+                    className="uppercase tracking-wide text-xs font-bold mb-1"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    GitHub
+                  </p>
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    style={{ color: "var(--accent-1)" }}
+                  >
+                    @Nxxo31 ↗
+                  </a>
+                </div>
+                <div>
+                  <p
+                    className="uppercase tracking-wide text-xs font-bold mb-1"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    Email
+                  </p>
+                  <a
+                    href={`mailto:${email}`}
+                    className="underline font-bold break-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    style={{ color: "var(--accent-1)" }}
+                  >
+                    {email}
+                  </a>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -1,25 +1,18 @@
 import { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-heading",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -32,9 +25,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#05050e" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f1e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1a2e" },
   ],
-  colorScheme: "dark",
+  colorScheme: "light dark",
 };
 
 export const metadata: Metadata = {
@@ -59,7 +53,7 @@ export const metadata: Metadata = {
     "LangChain",
     "Docker",
   ],
-  authors: [{ name: "Sebastián Velasco", url: "https://github.com/nxxo31" }],
+  authors: [{ name: "Sebastián Velasco", url: "https://github.com/Nxxo31" }],
   creator: "Sebastián Velasco Ocampo",
   publisher: "Sebastián Velasco Ocampo",
   alternates: {
@@ -138,8 +132,7 @@ export default function RootLayout({
       "Desarrollador Full-Stack especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
     url: BASE_URL,
     sameAs: [
-      "https://github.com/nxxo31",
-      "https://www.linkedin.com/in/sebastianvelasco",
+      "https://github.com/Nxxo31",
     ],
     knowsAbout: [
       "Next.js",
@@ -169,9 +162,9 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="es" className="dark">
+    <html lang="es">
       <body
-        className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <script
           type="application/ld+json"

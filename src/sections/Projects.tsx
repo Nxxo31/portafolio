@@ -1,178 +1,210 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { contentData } from "@/content/data";
+import type { Project } from "@/types/content";
 
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  tech: string[];
-  category: string;
-  link: string;
-  gradient: string;
+const CATEGORIES = ["Todos", "Destacados", "Frontend", "Backend", "Data/IA"] as const;
+type Category = (typeof CATEGORIES)[number];
+
+// Map project slug → categoría principal para el filtro
+const PROJECT_CATEGORY: Record<string, Category> = {
+  nam: "Frontend",
+  "synthetic-trader": "Backend",
+  "e14-fraud-detector": "Data/IA",
+  "contract-guard": "Backend",
+  "supply-radar": "Backend",
+  "grani-usco": "Frontend",
+  "flag-edge": "Backend",
+};
+
+function matchesFilter(project: Project, filter: Category): boolean {
+  if (filter === "Todos") return true;
+  if (filter === "Destacados") return project.featured;
+  return PROJECT_CATEGORY[project.slug] === filter;
 }
 
-const PROJECTS: Project[] = [
-  {
-    id: 1,
-    title: "NexoAccManager",
-    description: "Plataforma de gestión de cuentas open-source con arquitectura robusta y enfoque en escalabilidad.",
-    tech: ["Next.js", "Node.js", "PostgreSQL", "Prisma"],
-    category: "Web",
-    link: "https://github.com/nxxo31/nexaccmanager",
-    gradient: "from-[#7c5cff] to-[#22d3ee]",
-  },
-  {
-    id: 2,
-    title: "E14 Audit Platform",
-    description: "Sistema de auditoría ciudadana electoral con procesamiento de datos y visualización forense.",
-    tech: ["React", "Python", "FastAPI", "Supabase"],
-    category: "AI",
-    link: "https://github.com/nxxo31/e14-audit-platform",
-    gradient: "from-[#f5c451] to-[#7c5cff]",
-  },
-  {
-    id: 3,
-    title: "Flag Edge",
-    description: "Feature flag management system para despliegue seguro y controlado de funcionalidades.",
-    tech: ["Go", "Gin", "Redis", "Docker"],
-    category: "DevOps",
-    link: "https://github.com/nxxo31/flag-edge",
-    gradient: "from-[#22d3ee] to-[#f5c451]",
-  },
-  {
-    id: 4,
-    title: "Supply Radar",
-    description: "Dashboard de inteligencia de mercados con modelos predictivos y análisis en tiempo real.",
-    tech: ["Next.js", "TensorFlow", "D3.js", "Python"],
-    category: "AI",
-    link: "https://github.com/nxxo31/supply-radar",
-    gradient: "from-[#7c5cff] to-[#f5c451]",
-  },
-  {
-    id: 5,
-    title: "Grani USCO",
-    description: "Plataforma académica para la gestión de proyectos agrícolas con visualización de datos.",
-    tech: ["React", "Express", "MongoDB", "Chart.js"],
-    category: "Web",
-    link: "https://github.com/nxxo31/grani-usco",
-    gradient: "from-[#f5c451] to-[#22d3ee]",
-  },
-  {
-    id: 6,
-    title: "Contract Guard",
-    description: "Herramienta de verificación de contratos inteligentes con análisis de vulnerabilidades.",
-    tech: ["Solidity", "Hardhat", "React", "Ethers.js"],
-    category: "Web3",
-    link: "https://github.com/nxxo31/contract-guard",
-    gradient: "from-[#22d3ee] to-[#7c5cff]",
-  },
-];
-
-const CATEGORIES = ["Todos", "Web", "AI", "DevOps", "Web3"];
-
 export default function ProjectsSection() {
-  const [activeFilter, setActiveFilter] = useState("Todos");
   const shouldReduceMotion = useReducedMotion();
-
-  const filtered =
-    activeFilter === "Todos"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === activeFilter);
+  const projects = contentData.projects;
+  const [activeFilter, setActiveFilter] = useState<Category>("Todos");
+  const filtered = projects.filter((p) => matchesFilter(p, activeFilter));
 
   return (
-    <section id="projects" className="relative py-28 px-6 z-10" aria-label="Proyectos">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+    <section
+      id="projects"
+      className="relative py-24 px-6"
+      aria-label="Proyectos"
+      style={{ backgroundColor: "var(--paper)" }}
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.4 }}
+          className="mb-10"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-[#a3a3b8] bg-clip-text text-transparent">
-            Proyectos
-          </h2>
-          <p className="text-[#a3a3b8] max-w-2xl mx-auto">
-            Explora las constelaciones que he construido. Cada proyecto es un sistema con su propia historia y tecnología.
+          <p
+            className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
+            style={{ color: "var(--accent-1)" }}
+          >
+            // PROYECTOS
           </p>
+          <h2
+            className="font-heading text-5xl md:text-6xl font-bold"
+            style={{ color: "var(--ink)" }}
+          >
+            COSAS QUE HE CONSTRUIDO
+          </h2>
         </motion.div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12" role="group" aria-label="Filtrar proyectos por categoría">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              aria-pressed={activeFilter === cat}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05050e] ${
-                activeFilter === cat
-                  ? "bg-[#7c5cff] text-white shadow-[0_0_20px_rgba(124,92,255,0.4)]"
-                  : "bg-white/5 text-[#a3a3b8] hover:bg-white/10 hover:text-white border border-white/10"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Filtros */}
+        <div className="flex flex-wrap gap-2 mb-12">
+          {CATEGORIES.map((cat) => {
+            const isActive = activeFilter === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className="font-mono text-xs uppercase tracking-wide px-4 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                style={{
+                  backgroundColor: isActive ? "var(--ink)" : "var(--surface)",
+                  color: isActive ? "var(--paper)" : "var(--ink)",
+                  borderColor: "var(--ink)",
+                  boxShadow: isActive ? "none" : "3px 3px 0 var(--ink)",
+                }}
+                aria-pressed={isActive}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Project Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9 }}
-                animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
-                exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-              >
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Ver proyecto ${project.title} en GitHub (abre en nueva pestaña)`}
-                  className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-4 focus-visible:ring-offset-[#05050e] rounded-2xl"
+        {/* Grid de proyectos */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((project, index) => (
+            <motion.article
+              key={project.slug}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+              whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.35,
+                delay: shouldReduceMotion ? 0 : Math.min(index * 0.08, 0.4),
+              }}
+              className="group relative flex flex-col p-5 transition-all duration-150 hover:-translate-x-1 hover:-translate-y-1 active:translate-x-0 active:translate-y-0"
+              style={{
+                backgroundColor: "var(--surface)",
+                border: "2px solid var(--ink)",
+                boxShadow: "6px 6px 0 var(--ink)",
+              }}
+            >
+              {/* Featured badge */}
+              {project.featured && (
+                <span
+                  className="absolute -top-3 -right-3 font-mono text-[10px] font-bold uppercase tracking-wide px-2 py-1 border-2"
+                  style={{
+                    backgroundColor: "var(--accent-3)",
+                    color: "var(--ink)",
+                    borderColor: "var(--ink)",
+                  }}
+                  aria-label="Proyecto destacado"
                 >
-                  <div className="relative h-full p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,92,255,0.15)] hover:-translate-y-1">
-                    {/* Category Badge */}
-                    <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-white/5 text-[#a3a3b8] mb-4">
-                      {project.category}
-                    </span>
+                  FEATURED
+                </span>
+              )}
 
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#22d3ee] transition-colors">
-                      {project.title}
-                    </h3>
+              {/* Título + role */}
+              <header className="mb-3">
+                <h3
+                  className="font-heading text-xl font-bold leading-tight mb-1"
+                  style={{ color: "var(--ink)" }}
+                >
+                  {project.title}
+                </h3>
+                <p
+                  className="font-mono text-[11px] uppercase tracking-wide"
+                  style={{ color: "var(--accent-1)" }}
+                >
+                  {project.role}
+                </p>
+              </header>
 
-                    {/* Description */}
-                    <p className="text-[#a3a3b8] text-sm mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
+              {/* Descripción */}
+              <p
+                className="font-mono text-sm leading-relaxed mb-4 flex-grow"
+                style={{ color: "var(--ink)" }}
+              >
+                {project.shortDescription}
+              </p>
 
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="px-2 py-1 text-xs rounded-md bg-white/5 text-[#22d3ee] border border-white/5"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+              {/* Stack tags */}
+              <ul className="flex flex-wrap gap-1.5 mb-4" role="list">
+                {project.stack.map((tech) => (
+                  <li
+                    key={tech}
+                    className="font-mono text-[10px] uppercase tracking-wide px-2 py-1 border-2"
+                    style={{
+                      backgroundColor: "var(--accent-2)",
+                      color: "var(--ink)",
+                      borderColor: "var(--ink)",
+                    }}
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
 
-                    {/* Hover Gradient */}
-                    <div
-                      className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
-                    />
-                  </div>
+              {/* Impact line */}
+              {project.impact && (
+                <p
+                  className="font-mono text-xs mb-4 pt-3 border-t-2"
+                  style={{
+                    color: "var(--ink)",
+                    borderColor: "var(--ink)",
+                  }}
+                >
+                  <span className="font-bold">▶ Impacto:</span> {project.impact}
+                </p>
+              )}
+
+              {/* Links */}
+              <footer className="flex flex-wrap gap-2 mt-auto">
+                {project.repoUrl && (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    style={{
+                      backgroundColor: "var(--ink)",
+                      color: "var(--paper)",
+                      borderColor: "var(--ink)",
+                    }}
+                    aria-label={`Ver repositorio de ${project.title} en GitHub`}
+                  >
+                    CÓDIGO ↗
+                  </a>
+                )}
+                <a
+                  href={`/projects/${project.slug}`}
+                  className="font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                  style={{
+                    backgroundColor: "var(--surface)",
+                    color: "var(--ink)",
+                    borderColor: "var(--ink)",
+                  }}
+                  aria-label={`Ver detalles de ${project.title}`}
+                >
+                  DETALLE →
                 </a>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+              </footer>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

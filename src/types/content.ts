@@ -5,7 +5,7 @@ export interface Profile {
   name: string;
   tagline: string;
   email: string;
-  linkedinUrl: string;
+  linkedinUrl?: string;
   githubUrl: string;
   cvPdfPath: string;
 }

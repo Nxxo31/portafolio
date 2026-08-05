@@ -1,46 +1,43 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-heading: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Fira Code", "Courier New", monospace;
+  --font-sans: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
-  --color-bg-void: #05050e;
-  --color-bg-nebula: #0d0a1f;
-  --color-accent-primary: #7c5cff;
-  --color-accent-secondary: #22d3ee;
-  --color-accent-gold: #f5c451;
-  --color-text-primary: #f4f4f8;
-  --color-text-muted: #a3a3b8;
-  --color-star-dim: #4a4a6a;
-  --color-border: #2a2a35;
+  --color-ink: #1a1a2e;
+  --color-paper: #f4f1e8;
+  --color-accent-1: #ff6b35;
+  --color-accent-2: #00a6fb;
+  --color-accent-3: #ffd23f;
+  --color-accent-4: #06d6a0;
+  --color-accent-5: #ef476f;
+  --color-surface: #ffffff;
+  --color-surface-dark: #1a1a2e;
 }
 
 :root {
-  --bg-void: #05050e;
-  --bg-nebula: #0d0a1f;
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --accent-primary: #7c5cff;
-  --accent-secondary: #22d3ee;
-  --accent-gold: #f5c451;
-  --text-primary: #f4f4f8;
-  --text-muted: #a3a3b8;
-  --star-dim: #4a4a6a;
-  --border-color: #2a2a35;
+  --ink: #1a1a2e;
+  --paper: #f4f1e8;
+  --accent-1: #ff6b35;
+  --accent-2: #00a6fb;
+  --accent-3: #ffd23f;
+  --accent-4: #06d6a0;
+  --accent-5: #ef476f;
+  --surface: #ffffff;
+  --surface-dark: #1a1a2e;
+
   --container-max: 1200px;
   --section-padding: 6rem;
-  --transition-fast: 0.2s ease;
-  --transition-medium: 0.3s ease;
-  --transition-slow: 0.5s ease;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.25s ease;
+  --ring: 2px solid var(--ink);
 }
 
 body {
-  background-color: var(--bg-void);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
   overflow-x: hidden;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -48,12 +45,10 @@ body {
   text-rendering: optimizeSpeed;
 }
 
-/* Smooth scroll behavior (respeta prefers-reduced-motion abajo) */
 html {
   scroll-behavior: smooth;
 }
 
-/* Skip link — solo visible al recibir foco con teclado */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -66,7 +61,6 @@ html {
   border: 0;
 }
 
-/* Utility class for headings */
 .font-heading {
   font-family: var(--font-heading);
 }
@@ -75,68 +69,59 @@ html {
   font-family: var(--font-mono);
 }
 
-/* Custom scrollbar */
+/* Neobrutalist scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-void);
+  background: var(--paper);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 3px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
-}
-
-/* Scrollbar para Firefox */
-@supports (scrollbar-width: thin) {
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) var(--bg-void);
-  }
-}
-
-/* Selection */
 ::selection {
-  background: var(--accent-primary);
-  color: white;
+  background: var(--accent-1);
+  color: var(--ink);
 }
 
-/* Glass morphism utility */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Neobrutalist shadow utilities */
+.nb-shadow {
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
-/* Glow effect utility */
-.glow {
-  box-shadow: 0 0 20px rgba(124, 92, 255, 0.3);
+.nb-shadow-sm {
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
-.glow-cyan {
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+.nb-shadow-lg {
+  box-shadow: 10px 10px 0 var(--ink);
 }
 
-/* Constellation section backgrounds */
-.constellation-bg {
-  position: relative;
+.nb-card {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
-.constellation-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, rgba(124, 92, 255, 0.05) 0%, transparent 70%);
+.nb-card-hover {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-/* Reduced motion — respetar preferencia del usuario */
+.nb-card-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.nb-card-hover:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -152,41 +137,14 @@ html {
   }
 }
 
-/* Anime.js related utilities */
-.anime-invisible {
-  opacity: 0;
-}
-
-.anime-visible {
-  opacity: 1;
-}
-
-/* Loader animations */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
-.loader-star {
-  animation: twinkle 2s ease-in-out infinite;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Mejorar renderizado de texto en mobile */
 @media (max-width: 768px) {
   body {
     -webkit-text-size-adjust: 100%;
-  }
-}
-
-/* Focus visible estandarizado para navegación por teclado */
-@media (prefers-reduced-motion: reduce) {
-  .loader-star {
-    animation: none;
   }
 }

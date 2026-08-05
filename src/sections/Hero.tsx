@@ -1,145 +1,120 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-
-const ROLES = [
-  "Full-Stack Developer",
-  "AI Architect",
-  "DevOps Engineer",
-  "Open Source Contributor",
-  "Constellation Builder",
-];
+import { contentData } from "@/content/data";
 
 export default function HeroSection() {
-  const [currentRole, setCurrentRole] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    const role = ROLES[currentRole];
-    const speed = isDeleting ? 50 : 100;
-
-    const timer = setTimeout(() => {
-      if (!isDeleting) {
-        // Typing
-        if (displayText.length < role.length) {
-          setDisplayText(role.slice(0, displayText.length + 1));
-        } else {
-          // Pause then delete
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        // Deleting
-        if (displayText.length > 0) {
-          setDisplayText(displayText.slice(0, -1));
-        } else {
-          setIsDeleting(false);
-          setCurrentRole((prev) => (prev + 1) % ROLES.length);
-        }
-      }
-    }, speed);
-
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, currentRole]);
+  const { name, tagline, githubUrl } = contentData.profile;
+  const firstName = name.split(" ")[0];
+  const lastName = name.split(" ").slice(1).join(" ");
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-6"
+      className="relative min-h-screen flex items-center justify-center px-6 pt-20"
       aria-label="Sección de inicio"
     >
-      <div className="text-center max-w-4xl">
-        {/* Greeting */}
+      <div className="text-center max-w-5xl">
         <motion.p
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-[#22d3ee] text-lg md:text-xl mb-4 tracking-widest uppercase"
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="font-mono text-sm md:text-base mb-6 tracking-[0.3em] uppercase font-medium"
+          style={{ color: "var(--accent-1)" }}
         >
-          Hola, soy
+          {">_ Hola, soy"}
         </motion.p>
 
-        {/* Name */}
         <motion.h1
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="font-heading font-bold leading-[0.95] tracking-tight mb-3"
+          style={{ color: "var(--ink)" }}
         >
-          <span className="bg-gradient-to-r from-white via-[#f4f4f8] to-[#a3a3b8] bg-clip-text text-transparent">
-            Sebastian
+          <span className="block text-6xl md:text-8xl lg:text-9xl">
+            {firstName}
           </span>
-          <br />
-          <span className="bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] bg-clip-text text-transparent">
-            Velasco
+          <span className="block text-6xl md:text-8xl lg:text-9xl">
+            {lastName}
           </span>
         </motion.h1>
 
-        {/* Typewriter Role */}
-        <motion.div
+        <motion.p
           initial={shouldReduceMotion ? false : { opacity: 0 }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="h-12 md:h-16 flex items-center justify-center mb-8"
-          aria-live="polite"
+          transition={{ duration: 0.4, delay: 0.35 }}
+          className="font-mono text-lg md:text-xl mb-10 max-w-2xl mx-auto"
+          style={{ color: "var(--ink)" }}
         >
-          <span className="text-xl md:text-2xl lg:text-3xl text-[#a3a3b8] font-light">
-            {displayText}
-            <span className="animate-pulse text-[#22d3ee] aria-hidden">|</span>
-          </span>
-        </motion.div>
+          {tagline}
+        </motion.p>
 
-        {/* CTA Button */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="flex flex-wrap items-center justify-center gap-4"
         >
           <button
             onClick={() => {
               document
-                .getElementById("contact")
+                .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group relative px-8 py-4 bg-gradient-to-r from-[#7c5cff] to-[#22d3ee] rounded-full font-semibold text-white text-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(124,92,255,0.4)] motion-safe:hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22d3ee] focus-visible:ring-offset-4 focus-visible:ring-offset-[#05050e]"
-            aria-label="Ir a la sección de contacto"
+            className="font-heading font-bold text-base px-7 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            style={{
+              backgroundColor: "var(--accent-1)",
+              color: "var(--ink)",
+              borderColor: "var(--ink)",
+              boxShadow: "5px 5px 0 var(--ink)",
+            }}
+            aria-label="Ver proyectos"
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.boxShadow = "8px 8px 0 var(--ink)")
+            }
+            onMouseDown={(e) =>
+              (e.currentTarget.style.boxShadow = "2px 2px 0 var(--ink)")
+            }
+            onMouseUp={(e) =>
+              (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
+            }
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)";
+              e.currentTarget.style.transform = "";
+            }}
           >
-            <span className="relative z-10">Explorar Constelación</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#22d3ee] to-[#7c5cff] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            VER PROYECTOS
           </button>
-        </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0 }}
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          aria-hidden="true"
-        >
-          <div className="flex flex-col items-center gap-2 text-[#a3a3b8]">
-            <span className="text-sm tracking-wider">Scroll para explorar</span>
-            <motion.div
-              animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: shouldReduceMotion ? 0 : Infinity, ease: "easeInOut" }}
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </motion.div>
-          </div>
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-heading font-bold text-base px-7 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            style={{
+              backgroundColor: "var(--paper)",
+              color: "var(--ink)",
+              borderColor: "var(--ink)",
+              boxShadow: "5px 5px 0 var(--ink)",
+            }}
+            aria-label="Ver GitHub de Sebastián Velasco"
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.boxShadow = "8px 8px 0 var(--ink)")
+            }
+            onMouseDown={(e) =>
+              (e.currentTarget.style.boxShadow = "2px 2px 0 var(--ink)")
+            }
+            onMouseUp={(e) =>
+              (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
+            }
+          >
+            GITHUB ↗
+          </a>
         </motion.div>
       </div>
     </section>
