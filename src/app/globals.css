@@ -34,6 +34,27 @@
   --ring: 2px solid var(--ink);
 }
 
+/* Tema oscuro neobrutalist: invierte ink/paper y superficies */
+/* Se activa con la clase .dark en <html> */
+:root.dark {
+  --ink: #f4f1e8;
+  --paper: #1a1a2e;
+  --accent-1: #ff8c42;
+  --accent-2: #4dc4ff;
+  --accent-3: #ffe066;
+  --accent-4: #2ee59d;
+  --accent-5: #ff6b9d;
+  --surface: #232342;
+  --surface-dark: #0d0d18;
+  --ring: 2px solid var(--ink);
+}
+
+/* Transición suave entre temas (respeta prefers-reduced-motion) */
+:root:not(.dark) body,
+:root.dark body {
+  transition: background-color var(--transition-medium), color var(--transition-medium);
+}
+
 body {
   background-color: var(--paper);
   color: var(--ink);

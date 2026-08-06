@@ -161,8 +161,26 @@ export default function RootLayout({
     },
   };
 
+  // Script anti-FOUC: aplica el tema antes de la hidratación de React
+  // para evitar flash de tema incorrecto. Lee de localStorage o prefers-color-scheme.
+  const themeScript = `
+    (function() {
+      try {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var isDark = stored ? stored === 'dark' : prefersDark;
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  `;
+
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavbarProps {
   onNavigate: (section: string) => void;
@@ -38,50 +39,54 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
           S_VELASCO
         </button>
 
-        <ul className="hidden md:flex items-center gap-1" role="list">
-          {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.id;
-            return (
-              <li key={link.id}>
-                <button
-                  onClick={() => onNavigate(link.id)}
-                  className="px-3 py-1.5 text-xs font-mono uppercase tracking-wide border-2 transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
-                  style={{
-                    color: isActive ? "var(--paper)" : "var(--ink)",
-                    backgroundColor: isActive ? "var(--ink)" : "transparent",
-                    borderColor: "var(--ink)",
-                  }}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="flex items-center gap-3">
+          <ul className="hidden md:flex items-center gap-1" role="list">
+            {NAV_LINKS.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <li key={link.id}>
+                  <button
+                    onClick={() => onNavigate(link.id)}
+                    className="px-3 py-1.5 text-xs font-mono uppercase tracking-wide border-2 transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    style={{
+                      color: isActive ? "var(--paper)" : "var(--ink)",
+                      backgroundColor: isActive ? "var(--ink)" : "transparent",
+                      borderColor: "var(--ink)",
+                    }}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
 
-        {/* Mobile: condensed nav */}
-        <ul className="flex md:hidden items-center gap-1" role="list">
-          {NAV_LINKS.slice(0, 4).map((link) => {
-            const isActive = activeSection === link.id;
-            return (
-              <li key={link.id}>
-                <button
-                  onClick={() => onNavigate(link.id)}
-                  className="px-2 py-1 text-[10px] font-mono uppercase border-2"
-                  style={{
-                    color: isActive ? "var(--paper)" : "var(--ink)",
-                    backgroundColor: isActive ? "var(--ink)" : "transparent",
-                    borderColor: "var(--ink)",
-                  }}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+          {/* Mobile: condensed nav */}
+          <ul className="flex md:hidden items-center gap-1" role="list">
+            {NAV_LINKS.slice(0, 4).map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <li key={link.id}>
+                  <button
+                    onClick={() => onNavigate(link.id)}
+                    className="px-2 py-1 text-[10px] font-mono uppercase border-2"
+                    style={{
+                      color: isActive ? "var(--paper)" : "var(--ink)",
+                      backgroundColor: isActive ? "var(--ink)" : "transparent",
+                      borderColor: "var(--ink)",
+                    }}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
+          <ThemeToggle />
+        </div>
       </div>
     </motion.nav>
   );
