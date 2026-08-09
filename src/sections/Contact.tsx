@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 interface FormData {
@@ -29,6 +30,7 @@ const INPUT_FOCUS_STYLE: React.CSSProperties = {
 };
 
 export default function ContactSection() {
+  const t = useTranslations("Contact");
   const { email, githubUrl, name } = contentData.profile;
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -51,7 +53,7 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus({ type: "submitting", message: "Enviando..." });
+    setStatus({ type: "submitting", message: t("submittingStatus") });
 
     try {
       const res = await fetch("/api/contact", {
@@ -60,17 +62,17 @@ export default function ContactSection() {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error("Error al enviar");
+      if (!res.ok) throw new Error(t("errorStatus"));
 
       setStatus({
         type: "success",
-        message: "¡Mensaje enviado! Te responderé pronto.",
+        message: t("success"),
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {
       setStatus({
         type: "error",
-        message: "Error al enviar. Intenta de nuevo o escríbeme directo.",
+        message: t("error"),
       });
     }
   };
@@ -89,7 +91,7 @@ export default function ContactSection() {
     <section
       id="contact"
       className="relative py-24 px-6"
-      aria-label="Contacto"
+      aria-label={t("sectionLabel")}
       style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-5xl mx-auto">
@@ -105,13 +107,13 @@ export default function ContactSection() {
             className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
             style={{ color: "var(--accent-1)" }}
           >
-            // CONTACTO
+            {t("eyebrow")}
           </p>
           <h2
             className="font-heading text-5xl md:text-6xl font-bold"
             style={{ color: "var(--ink)" }}
           >
-            HABLEMOS
+            {t("title")}
           </h2>
         </motion.div>
 
@@ -136,13 +138,13 @@ export default function ContactSection() {
                 className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
                 style={{ color: "var(--ink)" }}
               >
-                EMAIL
+                {t("emailLabel")}
               </p>
               <button
                 onClick={copyEmail}
                 className="font-mono text-sm font-bold break-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
                 style={{ color: "var(--accent-1)" }}
-                aria-label="Copiar email al portapapeles"
+                aria-label={t("copyEmailAria")}
                 aria-live="polite"
               >
                 {email}
@@ -152,7 +154,7 @@ export default function ContactSection() {
                     style={{ color: "var(--accent-4)" }}
                     role="status"
                   >
-                    [COPIADO]
+                    {t("copied")}
                   </span>
                 )}
               </button>
@@ -170,7 +172,7 @@ export default function ContactSection() {
                 className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
                 style={{ color: "var(--ink)" }}
               >
-                GITHUB
+                {t("githubLabel")}
               </p>
               <a
                 href={githubUrl}
@@ -178,7 +180,7 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 className="font-mono text-base font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
                 style={{ color: "var(--ink)" }}
-                aria-label={`Ver GitHub de ${name}`}
+                aria-label={t("githubAria", { name })}
               >
                 @Nxxo31 ↗
               </a>
@@ -196,7 +198,7 @@ export default function ContactSection() {
                 className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
                 style={{ color: "var(--ink)" }}
               >
-                UBICACIÓN
+                {t("locationLabel")}
               </p>
               <p
                 className="font-mono text-base font-bold"
@@ -215,7 +217,7 @@ export default function ContactSection() {
             transition={{ duration: 0.4 }}
             onSubmit={handleSubmit}
             className="space-y-5"
-            aria-label="Formulario de contacto"
+            aria-label={t("formLabel")}
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
@@ -224,7 +226,7 @@ export default function ContactSection() {
                   className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
                   style={{ color: "var(--ink)" }}
                 >
-                  Nombre
+                  {t("nameLabel")}
                 </label>
                 <input
                   type="text"
@@ -238,7 +240,7 @@ export default function ContactSection() {
                   onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
                   onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
                   className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
-                  placeholder="Tu nombre"
+                  placeholder={t("namePlaceholder")}
                 />
               </div>
               <div>
@@ -247,7 +249,7 @@ export default function ContactSection() {
                   className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
                   style={{ color: "var(--ink)" }}
                 >
-                  Email
+                  {t("emailFieldLabel")}
                 </label>
                 <input
                   type="email"
@@ -261,7 +263,7 @@ export default function ContactSection() {
                   onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
                   onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
                   className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
-                  placeholder="tu@email.com"
+                  placeholder={t("emailPlaceholder")}
                 />
               </div>
             </div>
@@ -285,7 +287,7 @@ export default function ContactSection() {
                 onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
                 onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
                 className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
-                placeholder="¿De qué se trata?"
+                placeholder={t("subjectPlaceholder")}
               />
             </div>
 
@@ -308,7 +310,7 @@ export default function ContactSection() {
                 onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
                 onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
                 className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none resize-none placeholder:opacity-60"
-                placeholder="Cuéntame sobre tu proyecto..."
+                placeholder={t("messagePlaceholder")}
               />
             </div>
 
@@ -324,7 +326,7 @@ export default function ContactSection() {
                 boxShadow: "6px 6px 0 var(--ink)",
               }}
             >
-              {status.type === "submitting" ? "ENVIANDO..." : "ENVIAR MENSAJE →"}
+              {status.type === "submitting" ? t("submitting") : t("submit")}
             </button>
 
             {status.type !== "idle" && status.type !== "submitting" && (

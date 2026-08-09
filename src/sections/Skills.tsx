@@ -1,16 +1,11 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 import type { SkillCategory } from "@/types/content";
 
-const CATEGORY_LABEL: Record<SkillCategory, string> = {
-  frontend: "FRONTEND",
-  backend: "BACKEND",
-  "ai-agents": "IA / AGENTES",
-  devops: "DEVOPS",
-  data: "DATA",
-};
+// Labels ahora provienen de translations (Skills namespace).
 
 const CATEGORY_COLOR: Record<SkillCategory, string> = {
   frontend: "var(--accent-1)",
@@ -30,17 +25,26 @@ const CATEGORY_ORDER: SkillCategory[] = [
 
 export default function SkillsSection() {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("Skills");
   const skills = contentData.skills;
 
   const categories = CATEGORY_ORDER.filter((cat) =>
     skills.some((s) => s.category === cat),
   );
 
+  const CATEGORY_LABEL_KEY: Record<SkillCategory, string> = {
+    frontend: "catFrontend",
+    backend: "catBackend",
+    "ai-agents": "catAIAgents",
+    devops: "catDevops",
+    data: "catData",
+  };
+
   return (
     <section
       id="skills"
       className="relative py-24 px-6"
-      aria-label="Habilidades"
+      aria-label={t("sectionLabel")}
       style={{ backgroundColor: "var(--surface-dark)" }}
     >
       <div className="max-w-6xl mx-auto">
@@ -56,13 +60,13 @@ export default function SkillsSection() {
             className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
             style={{ color: "var(--accent-3)" }}
           >
-            // STACK
+            {t("eyebrow")}
           </p>
           <h2
             className="font-heading text-5xl md:text-6xl font-bold"
             style={{ color: "var(--paper)" }}
           >
-            HABILIDADES
+            {t("title")}
           </h2>
         </motion.div>
 
@@ -78,7 +82,7 @@ export default function SkillsSection() {
                   className="font-mono text-base font-bold mb-4 uppercase tracking-wide"
                   style={{ color: accent }}
                 >
-                  ▶ {CATEGORY_LABEL[category]}
+                  ▶ {t(CATEGORY_LABEL_KEY[category])}
                 </h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {categorySkills.map((skill, index) => (
@@ -113,7 +117,7 @@ export default function SkillsSection() {
                           className="font-mono text-xs font-bold"
                           style={{ color: "var(--ink)" }}
                         >
-                          {skill.yearsExperience}y
+                          {skill.yearsExperience}{t("yearsSuffix")}
                         </span>
                       </div>
 
@@ -128,7 +132,7 @@ export default function SkillsSection() {
                         aria-valuenow={skill.proficiency}
                         aria-valuemin={0}
                         aria-valuemax={5}
-                        aria-label={`${skill.name}: nivel ${skill.proficiency} de 5`}
+                        aria-label={t("proficiencyAria", { name: skill.name, level: skill.proficiency })}
                       >
                         <motion.div
                           initial={

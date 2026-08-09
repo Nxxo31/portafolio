@@ -1,11 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function ExperienceSection() {
   const experience = contentData.experience;
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("Experience");
 
   if (!experience || experience.length === 0) return null;
 
@@ -13,7 +15,7 @@ export default function ExperienceSection() {
     <section
       id="experience"
       className="relative py-24 px-6"
-      aria-label="Experiencia profesional"
+      aria-label={t("sectionLabel")}
       style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-4xl mx-auto">
@@ -29,13 +31,13 @@ export default function ExperienceSection() {
             className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
             style={{ color: "var(--accent-1)" }}
           >
-            // TRAYECTORIA
+            {t("eyebrow")}
           </p>
           <h2
             className="font-heading text-5xl md:text-6xl font-bold"
             style={{ color: "var(--ink)" }}
           >
-            EXPERIENCIA
+            {t("title")}
           </h2>
         </motion.div>
 

@@ -1,11 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function ServicesSection() {
   const services = contentData.services;
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("Services");
 
   if (!services || services.length === 0) return null;
 
@@ -13,7 +15,7 @@ export default function ServicesSection() {
     <section
       id="services"
       className="relative py-24 px-6"
-      aria-label="Servicios"
+      aria-label={t("sectionLabel")}
       style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-6xl mx-auto">
@@ -29,13 +31,13 @@ export default function ServicesSection() {
             className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
             style={{ color: "var(--accent-1)" }}
           >
-            // SERVICIOS
+            {t("eyebrow")}
           </p>
           <h2
             className="font-heading text-5xl md:text-6xl font-bold"
             style={{ color: "var(--ink)" }}
           >
-            EN QUÉ PUEDO AYUDARTE
+            {t("title")}
           </h2>
         </motion.div>
 
@@ -70,14 +72,14 @@ export default function ServicesSection() {
                 className="font-heading text-lg font-bold leading-tight mb-2"
                 style={{ color: "var(--ink)" }}
               >
-                {service.title}
+                {t(`${service.id}.title`)}
               </h3>
 
               <p
                 className="font-mono text-xs leading-relaxed"
                 style={{ color: "var(--ink)" }}
               >
-                {service.fullDescription}
+                {t(`${service.id}.description`)}
               </p>
             </motion.article>
           ))}

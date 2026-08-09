@@ -1,11 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
-  const { name, tagline, githubUrl } = contentData.profile;
+  const t = useTranslations("Hero");
+  const { name, githubUrl } = contentData.profile;
   const firstName = name.split(" ")[0];
   const lastName = name.split(" ").slice(1).join(" ");
 
@@ -13,7 +15,7 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center px-6 pt-20"
-      aria-label="Sección de inicio"
+      aria-label={t("sectionLabel")}
     >
       <div className="text-center max-w-5xl">
         <motion.p
@@ -23,7 +25,7 @@ export default function HeroSection() {
           className="font-mono text-sm md:text-base mb-6 tracking-[0.3em] uppercase font-medium"
           style={{ color: "var(--accent-1)" }}
         >
-          {">_ Hola, soy"}
+          {t("greeting")}
         </motion.p>
 
         <motion.h1
@@ -48,7 +50,7 @@ export default function HeroSection() {
           className="font-mono text-lg md:text-xl mb-10 max-w-2xl mx-auto"
           style={{ color: "var(--ink)" }}
         >
-          {tagline}
+          {t("tagline")}
         </motion.p>
 
         <motion.div
@@ -70,7 +72,7 @@ export default function HeroSection() {
               borderColor: "var(--ink)",
               boxShadow: "5px 5px 0 var(--ink)",
             }}
-            aria-label="Ver proyectos"
+            aria-label={t("viewProjectsAria")}
             onMouseEnter={(e) =>
               (e.currentTarget.style.boxShadow = "8px 8px 0 var(--ink)")
             }
@@ -85,7 +87,7 @@ export default function HeroSection() {
               e.currentTarget.style.transform = "";
             }}
           >
-            VER PROYECTOS
+            {t("viewProjects")}
           </button>
 
           <a
@@ -99,7 +101,7 @@ export default function HeroSection() {
               borderColor: "var(--ink)",
               boxShadow: "5px 5px 0 var(--ink)",
             }}
-            aria-label="Ver GitHub de Sebastián Velasco"
+            aria-label={t("githubAria")}
             onMouseEnter={(e) =>
               (e.currentTarget.style.boxShadow = "8px 8px 0 var(--ink)")
             }
@@ -113,7 +115,7 @@ export default function HeroSection() {
               (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
             }
           >
-            GITHUB ↗
+            {t("github")}
           </a>
         </motion.div>
       </div>

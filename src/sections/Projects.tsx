@@ -2,40 +2,50 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 import type { Project } from "@/types/content";
 
-const CATEGORIES = ["Todos", "Destacados", "Frontend", "Backend", "Data/IA"] as const;
-type Category = (typeof CATEGORIES)[number];
-
-// Map project slug → categoría principal para el filtro
-const PROJECT_CATEGORY: Record<string, Category> = {
-  nam: "Frontend",
-  "synthetic-trader": "Backend",
-  "e14-fraud-detector": "Data/IA",
-  "contract-guard": "Backend",
-  "supply-radar": "Backend",
-  "grani-usco": "Frontend",
-  "flag-edge": "Backend",
+// Filtros identificados por clave de traducción (no por string de display)
+const FILTER_KEYS = ["all", "featured", "frontend", "backend", "data-ai"] as const;
+type FilterKey = (typeof FILTER_KEYS)[number];
+const FILTER_LABEL_KEY: Record<FilterKey, string> = {
+  "all": "filterAll",
+  "featured": "filterFeatured",
+  "frontend": "filterFrontend",
+  "backend": "filterBackend",
+  "data-ai": "filterDataAI",
 };
 
-function matchesFilter(project: Project, filter: Category): boolean {
-  if (filter === "Todos") return true;
-  if (filter === "Destacados") return project.featured;
+// Map project slug → filter key
+const PROJECT_CATEGORY: Record<string, FilterKey> = {
+  nam: "frontend",
+  "synthetic-trader": "backend",
+  "e14-fraud-detector": "data-ai",
+  "contract-guard": "backend",
+  "supply-radar": "backend",
+  "grani-usco": "frontend",
+  "flag-edge": "backend",
+};
+
+function matchesFilter(project: Project, filter: FilterKey): boolean {
+  if (filter === "all") return true;
+  if (filter === "featured") return project.featured;
   return PROJECT_CATEGORY[project.slug] === filter;
 }
 
 export default function ProjectsSection() {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("Projects");
   const projects = contentData.projects;
-  const [activeFilter, setActiveFilter] = useState<Category>("Todos");
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
   const filtered = projects.filter((p) => matchesFilter(p, activeFilter));
 
   return (
     <section
       id="projects"
       className="relative py-24 px-6"
-      aria-label="Proyectos"
+      aria-label={t("sectionLabel")}
       style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-6xl mx-auto">
@@ -51,24 +61,24 @@ export default function ProjectsSection() {
             className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
             style={{ color: "var(--accent-1)" }}
           >
-            // PROYECTOS
+            {t("eyebrow")}
           </p>
           <h2
             className="font-heading text-5xl md:text-6xl font-bold"
             style={{ color: "var(--ink)" }}
           >
-            COSAS QUE HE CONSTRUIDO
+            {t("title")}
           </h2>
         </motion.div>
 
         {/* Filtros */}
         <div className="flex flex-wrap gap-2 mb-12">
-          {CATEGORIES.map((cat) => {
-            const isActive = activeFilter === cat;
+          {FILTER_KEYS.map((fk) => {
+            const isActive = activeFilter === fk;
             return (
               <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
+                key={fk}
+                onClick={() => setActiveFilter(fk)}
                 className="font-mono text-xs uppercase tracking-wide px-4 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
                 style={{
                   backgroundColor: isActive ? "var(--ink)" : "var(--surface)",
@@ -78,7 +88,7 @@ export default function ProjectsSection() {
                 }}
                 aria-pressed={isActive}
               >
-                {cat}
+                {t(FILTER_LABEL_KEY[fk])}
               </button>
             );
           })}
@@ -112,9 +122,9 @@ export default function ProjectsSection() {
                     color: "var(--ink)",
                     borderColor: "var(--ink)",
                   }}
-                  aria-label="Proyecto destacado"
+                  aria-label={t("featuredAria")}
                 >
-                  FEATURED
+                  {t("featuredBadge")}
                 </span>
               )}
 
@@ -168,7 +178,7 @@ export default function ProjectsSection() {
                     borderColor: "var(--ink)",
                   }}
                 >
-                  <span className="font-bold">▶ Impacto:</span> {project.impact}
+                  <span className="font-bold">{t("impactLabel")}</span> {project.impact}
                 </p>
               )}
 
@@ -185,9 +195,9 @@ export default function ProjectsSection() {
                       color: "var(--paper)",
                       borderColor: "var(--ink)",
                     }}
-                    aria-label={`Ver repositorio de ${project.title} en GitHub`}
+                    aria-label={t("codeLinkAria", { title: project.title })}
                   >
-                    CÓDIGO ↗
+                    {t("codeLink")}
                   </a>
                 )}
                 <a
@@ -198,9 +208,9 @@ export default function ProjectsSection() {
                     color: "var(--ink)",
                     borderColor: "var(--ink)",
                   }}
-                  aria-label={`Ver detalles de ${project.title}`}
+                  aria-label={t("detailLinkAria", { title: project.title })}
                 >
-                  DETALLE →
+                  {t("detailLink")}
                 </a>
               </footer>
             </motion.article>

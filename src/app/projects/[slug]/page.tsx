@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ResolvingMetadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { contentData } from "@/content/data";
 
 const BASE_URL =
@@ -20,11 +21,12 @@ export async function generateMetadata(
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { slug } = await params;
+  const t = await getTranslations("ProjectDetail");
   const project = contentData.projects.find((p) => p.slug === slug);
 
   if (!project) {
     return {
-      title: "Proyecto no encontrado",
+      title: t("notFoundTitle"),
     };
   }
 
@@ -40,7 +42,7 @@ export async function generateMetadata(
       url: `${BASE_URL}/projects/${project.slug}`,
       type: "article",
       siteName: "Sebastián Velasco Portfolio",
-      locale: "es_CO",
+      locale: slug ? "es_CO" : "en_US",
     },
     twitter: {
       card: "summary_large_image",
@@ -60,6 +62,7 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const t = await getTranslations("ProjectDetail");
   const project = contentData.projects.find((p) => p.slug === slug);
 
   if (!project) {
@@ -103,9 +106,9 @@ export default async function ProjectDetailPage({
             borderColor: "var(--ink)",
             boxShadow: "3px 3px 0 var(--ink)",
           }}
-          aria-label="Volver a proyectos"
+          aria-label={t("backAria")}
         >
-          ← PROYECTOS
+          {t("back")}
         </Link>
 
         {/* Project header */}
@@ -114,7 +117,7 @@ export default async function ProjectDetailPage({
             className="font-mono text-xs uppercase tracking-[0.3em] mb-3"
             style={{ color: "var(--accent-1)" }}
           >
-            // PROYECTO
+            {t("eyebrow")}
           </p>
           <h1
             className="font-heading text-4xl md:text-6xl font-bold mb-4 leading-tight"
@@ -159,7 +162,7 @@ export default async function ProjectDetailPage({
                 className="font-mono text-[10px] uppercase tracking-wide font-bold mb-1"
                 style={{ color: "var(--ink)", opacity: 0.7 }}
               >
-                Rol
+                {t("roleLabel")}
               </p>
               <p
                 className="font-mono text-sm font-bold"
@@ -194,7 +197,7 @@ export default async function ProjectDetailPage({
                     borderColor: "var(--ink)",
                   }}
                 >
-                  FEATURED
+                  {t("featuredBadge")}
                 </span>
               </div>
             )}
@@ -202,7 +205,7 @@ export default async function ProjectDetailPage({
         </header>
 
         {/* Links */}
-        <nav className="flex flex-wrap gap-3" aria-label="Enlaces del proyecto">
+        <nav className="flex flex-wrap gap-3" aria-label={t("linksAria")}>
           {project.repoUrl && (
             <a
               href={project.repoUrl}
@@ -230,7 +233,7 @@ export default async function ProjectDetailPage({
               boxShadow: "5px 5px 0 var(--ink)",
             }}
           >
-            PREGUNTAR →
+            {t("askLink")}
           </Link>
         </nav>
       </article>

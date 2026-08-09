@@ -1,17 +1,19 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function AboutSection() {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("About");
   const { githubUrl, email, name } = contentData.profile;
 
   return (
     <section
       id="about"
       className="relative py-24 px-6"
-      aria-label="Sobre mí"
+      aria-label={t("sectionLabel")}
       style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-6xl mx-auto">
@@ -54,7 +56,7 @@ export default function AboutSection() {
               className="font-heading text-4xl md:text-5xl font-bold mb-6"
               style={{ color: "var(--ink)" }}
             >
-              SOBRE MÍ
+              {t("title")}
             </h2>
 
             <div
@@ -62,20 +64,13 @@ export default function AboutSection() {
               style={{ color: "var(--ink)" }}
             >
               <p>
-                Soy <strong>{name}</strong>, ingeniero de software centrado en
-                construir sistemas robustos: desde apps de escritorio con
-                encriptación AES-256-GCM hasta bots de trading algorítmico y
-                herramientas de supply chain security en Go.
+                {t.rich("bio1", {
+                  name,
+                  strong: (chunks) => <strong>{chunks}</strong>,
+                })}
               </p>
-              <p>
-                Trabajo principalmente con TypeScript (Next.js / Electron),
-                Python (FastAPI) y Go. Me interesa la arquitectura hexagonal,
-                el domain-driven design y la automatización con agentes de IA.
-              </p>
-              <p>
-                Opero desde Colombia para el mundo. Cada proyecto es un problema
-                de ingeniería real, no un ejercicio de portafolio.
-              </p>
+              <p>{t("bio2")}</p>
+              <p>{t("bio3")}</p>
             </div>
 
             {/* Datos duros */}
@@ -92,7 +87,7 @@ export default function AboutSection() {
                     className="uppercase tracking-wide text-xs font-bold mb-1"
                     style={{ color: "var(--ink)" }}
                   >
-                    GitHub
+                    {t("githubLabel")}
                   </p>
                   <a
                     href={githubUrl}
@@ -109,7 +104,7 @@ export default function AboutSection() {
                     className="uppercase tracking-wide text-xs font-bold mb-1"
                     style={{ color: "var(--ink)" }}
                   >
-                    Email
+                    {t("emailLabel")}
                   </p>
                   <a
                     href={`mailto:${email}`}

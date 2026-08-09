@@ -1,8 +1,7 @@
-import { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
-import "./globals.css";
+import { routing } from "./i18n/routing";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -21,6 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://sebastianvelasco.dev";
 
+// Viewport sigue separado (mobile-friendly); es estático.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -32,88 +32,55 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("Metadata");
-  const locale = await getLocale();
-  
-  return {
-    metadataBase: new URL(BASE_URL),
-    title: {
-      default: t("title"),
-      template: t("titleTemplate"),
-    },
-    description: t("description"),
-    keywords: t("keywords"),
-    authors: [{ name: "Sebastián Velasco", url: "https://github.com/Nxxo31" }],
-    creator: "Sebastián Velasco Ocampo",
-    publisher: "Sebastián Velasco Ocampo",
-    alternates: {
-      canonical: BASE_URL,
-      languages: {
-        "es-CO": BASE_URL,
-        en: `${BASE_URL}/en`,
-      },
-    },
-    openGraph: {
-      title: t("title"),
-      description: t("ogDescription"),
-      url: BASE_URL,
-      siteName: "Sebastián Velasco Portfolio",
-      locale: locale === "en" ? "en_US" : "es_CO",
-      images: [
-        {
-          url: "/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: t("ogAlt"),
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: t("title"),
-      description: t("ogDescription"),
-      images: ["/og-image.png"],
-      creator: "@nxxo31",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-    icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/icon.svg", type: "image/svg+xml" },
-      ],
-      shortcut: "/favicon.ico",
-      apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
-    },
-    manifest: "/manifest.webmanifest",
-    category: "portfolio",
-    formatDetection: {
-      email: false,
-      address: false,
-      telephone: false,
-    },
-  };
-}
-
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const locale = await getLocale();
-  const messages = await getMessages();
-  
+  // --- Locale detection from cookie or Accept-Language ---
+  const hdrs = await headers();
+  const cookie = hdrs.get("cookie") ?? "";
+  const COOKIE_NAME = "NEXT_LOCALE";
+  const match = cookie.match(new RegExp(`${COOKIE_NAME}=([^;\\s]+)`));
+  const cookieLocale = match ? match[1] : null;
+  const acceptLang = hdrs.get("accept-language");
+
+  function negotiateLocale(
+    cookieValue: string | null,
+    acceptLanguage: string | null,
+  ): string {
+    // 1. Cookie explícita (preferencia del usuario via toggle)
+    if (cookieValue && hasLocale(routing.locales, cookieValue as never)) {
+      return cookieValue;
+    }
+    // 2. Accept-Language header (negociación simple por prefijo)
+    if (acceptLanguage) {
+      const langs = acceptLanguage
+        .split(",")
+        .map((l) => l.split(";")[0].trim().toLowerCase());
+      for (const lang of langs) {
+        if (lang.startsWith("en")) return "en";
+        if (lang.startsWith("es")) return "es";
+      }
+    }
+    // 3. Default
+    return routing.defaultLocale;
+  }
+
+  const locale = negotiateLocale(cookieLocale, acceptLang);
+
+  // --- Load messages for the detected locale ---
+  let messages;
+  try {
+    messages = (await import(`../../messages/${locale}.json`)).default;
+  } catch (e) {
+    console.warn(
+      `Failed to load messages for locale ${locale}, falling back to ${routing.defaultLocale}`
+    );
+    messages = (await import(`../../messages/${routing.defaultLocale}.json`)).default;
+  }
+
+  // --- JSON-LD data ---
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -139,6 +106,7 @@ export default async function RootLayout({
     },
   };
 
+  // --- Script anti-FOUC: aplica el tema antes de la hidratación de React ---
   const themeScript = `
     (function() {
       try {
@@ -174,4 +142,12 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+// Helper function to check if a locale is supported (copy from next-intl)
+function hasLocale(
+  locales: string[],
+  locale: string,
+): locale is string {
+  return locales.includes(locale);
 }

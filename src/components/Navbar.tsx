@@ -1,7 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
 
 interface NavbarProps {
   onNavigate: (section: string) => void;
@@ -9,17 +11,18 @@ interface NavbarProps {
 }
 
 const NAV_LINKS = [
-  { id: "hero", label: "INICIO" },
-  { id: "about", label: "SOBRE MÍ" },
-  { id: "projects", label: "PROYECTOS" },
-  { id: "services", label: "SERVICIOS" },
-  { id: "experience", label: "EXPERIENCIA" },
-  { id: "skills", label: "SKILLS" },
-  { id: "contact", label: "CONTACTO" },
-];
+  { id: "hero", key: "home" },
+  { id: "about", key: "about" },
+  { id: "projects", key: "projects" },
+  { id: "services", key: "services" },
+  { id: "experience", key: "experience" },
+  { id: "skills", key: "skills" },
+  { id: "contact", key: "contact" },
+] as const;
 
 export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("Navbar");
 
   return (
     <motion.nav
@@ -27,16 +30,16 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       className="fixed top-0 left-0 right-0 z-50 bg-[var(--paper)] border-b-2 border-[var(--ink)]"
-      aria-label="Navegación principal"
+      aria-label={t("navLabel")}
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         <button
           onClick={() => onNavigate("hero")}
           className="font-heading text-xl font-bold tracking-tight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
           style={{ color: "var(--ink)" }}
-          aria-label="Ir al inicio"
+          aria-label={t("goHome")}
         >
-          S_VELASCO
+          {t("logo")}
         </button>
 
         <div className="flex items-center gap-3">
@@ -55,7 +58,7 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
                     }}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {link.label}
+                    {t(link.key)}
                   </button>
                 </li>
               );
@@ -78,13 +81,14 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
                     }}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {link.label}
+                    {t(link.key)}
                   </button>
                 </li>
               );
             })}
           </ul>
 
+          <LanguageToggle />
           <ThemeToggle />
         </div>
       </div>

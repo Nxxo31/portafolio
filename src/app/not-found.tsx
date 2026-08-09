@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Página no encontrada",
-  description: "La página que buscas no existe o fue movida.",
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("NotFound");
+  return {
+    title: t("title"),
+    description: t("description"),
+    robots: { index: false, follow: true },
+  };
+}
 
-export default function NotFound() {
+export default async function NotFound() {
+  const t = await getTranslations("NotFound");
+
   return (
     <main
       className="min-h-screen flex items-center justify-center px-6"
@@ -21,8 +27,7 @@ export default function NotFound() {
           404
         </h1>
         <p className="font-mono text-base mb-8 leading-relaxed">
-          La página que buscas no existe. Quizás el enlace está roto, o nunca
-          existió en este directorio.
+          {t("body")}
         </p>
         <Link
           href="/"
@@ -33,9 +38,9 @@ export default function NotFound() {
             borderColor: "var(--ink)",
             boxShadow: "5px 5px 0 var(--ink)",
           }}
-          aria-label="Volver al inicio del portafolio"
+          aria-label={t("backAria")}
         >
-          ← VOLVER AL INICIO
+          {t("back")}
         </Link>
       </div>
     </main>

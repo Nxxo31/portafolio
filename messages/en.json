@@ -1,0 +1,270 @@
+{
+  "About": {
+    "title": "ABOUT ME",
+    "sectionLabel": "About me",
+    "bio1": "I'm <strong>{name}</strong>, a software engineer focused on building robust systems: from desktop apps with AES-256-GCM encryption to algorithmic trading bots and supply chain security tools in Go.",
+    "bio2": "I work primarily with TypeScript (Next.js / Electron), Python (FastAPI) and Go. I'm interested in hexagonal architecture, domain-driven design, and automation with AI agents.",
+    "bio3": "I operate from Colombia for the world. Every project is a real engineering problem, not a portfolio exercise.",
+    "githubLabel": "GitHub",
+    "emailLabel": "Email"
+  },
+  "Navbar": {
+    "navLabel": "Main navigation",
+    "logo": "S_VELASCO",
+    "goHome": "Go to home",
+    "home": "HOME",
+    "about": "ABOUT",
+    "projects": "PROJECTS",
+    "services": "SERVICES",
+    "experience": "EXPERIENCE",
+    "skills": "SKILLS",
+    "contact": "CONTACT"
+  },
+  "Hero": {
+    "sectionLabel": "Hero section",
+    "greeting": ">_ Hi, I'm",
+    "tagline": "Full-Stack Developer & AI Agent Architect",
+    "viewProjects": "VIEW PROJECTS",
+    "viewProjectsAria": "View projects",
+    "github": "GITHUB ↗",
+    "githubAria": "View Sebastián Velasco's GitHub"
+  },
+  "Projects": {
+    "sectionLabel": "Projects",
+    "eyebrow": "// PROJECTS",
+    "title": "THINGS I'VE BUILT",
+    "filterAll": "All",
+    "filterFeatured": "Featured",
+    "filterFrontend": "Frontend",
+    "filterBackend": "Backend",
+    "filterDataAI": "Data/AI",
+    "featuredBadge": "FEATURED",
+    "featuredAria": "Featured project",
+    "impactLabel": "▶ Impact:",
+    "codeLink": "CODE ↗",
+    "codeLinkAria": "View {title} repository on GitHub",
+    "detailLink": "DETAIL →",
+    "detailLinkAria": "View {title} details",
+    "nam": {
+      "title": "Nameless Framework",
+      "shortDescription": "Framework for building enterprise applications with hexagonal architecture.",
+      "role": "Solutions Architect",
+      "impact": "40% reduction in core module development time."
+    },
+    "synthetic-trader": {
+      "title": "Synthetic Trader",
+      "shortDescription": "Algorithmic trading bot based on reinforcement learning.",
+      "role": "Lead Developer",
+      "impact": "22% annualized return in simulated market conditions."
+    },
+    "e14-fraud-detector": {
+      "title": "E14 Fraud Detector",
+      "shortDescription": "Real-time fraud detection system using knowledge graphs.",
+      "role": "Lead Engineer",
+      "impact": "95% fraud detection precision with <100ms latency."
+    },
+    "contract-guard": {
+      "title": "Contract Guard",
+      "shortDescription": "Intelligent contract analysis platform for legal documents.",
+      "role": "Full-Stack Developer",
+      "impact": "70% reduction in contract review time."
+    },
+    "supply-radar": {
+      "title": "Supply Radar",
+      "shortDescription": "Supply chain risk monitor using AI and geospatial data.",
+      "role": "Systems Architect",
+      "impact": "Proactive risk identification with 30-day lead time."
+    },
+    "grani-usco": {
+      "title": "GraníUSCO",
+      "shortDescription": "B2B marketplace for construction materials with escrow payments.",
+      "role": "CTO & Co-founder",
+      "impact": "Facilitated over $2M in transactions in the first year."
+    },
+    "flag-edge": {
+      "title": "Flag Edge",
+      "shortDescription": "Regulatory compliance monitoring platform for financial institutions.",
+      "role": "Solutions Architect",
+      "impact": "60% reduction in false positives via explainable ML."
+    }
+  },
+  "Skills": {
+    "sectionLabel": "Skills",
+    "eyebrow": "// STACK",
+    "title": "SKILLS",
+    "catFrontend": "FRONTEND",
+    "catBackend": "BACKEND",
+    "catAIAgents": "AI / AGENTS",
+    "catDevops": "DEVOPS",
+    "catData": "DATA",
+    "yearsSuffix": "y",
+    "proficiencyAria": "{name}: level {level} of 5"
+  },
+  "Services": {
+    "sectionLabel": "Services",
+    "eyebrow": "// SERVICES",
+    "title": "HOW I CAN HELP",
+    "desarrollo-fullstack": {
+      "title": "Full-Stack Development",
+      "description": "I build scalable web applications from scratch: architecture, frontend development, backend API, database, and deployment. Specialized in Next.js 14+ with App Router.",
+      "shortDescription": "Modern web applications with Next.js, React, and Node.js"
+    },
+    "automatizacion-ia": {
+      "title": "AI Automation",
+      "description": "I design and implement systems that use language models and AI agents to automate repetitive processes, generate content, and analyze data.",
+      "shortDescription": "Automation of workflows with intelligent agents"
+    },
+    "sistemas-multi-agente": {
+      "title": "Multi-Agent Systems",
+      "description": "I build infrastructures where multiple AI agents collaborate to solve complex problems, using orchestrators, task queues, and workflows.",
+      "shortDescription": "Complex AI agent coordination architectures"
+    },
+    "consultoria-devops": {
+      "title": "DevOps Consulting",
+      "description": "Application containerization, CI/CD pipelines, VPS deployment with Dokploy, and production environment configuration.",
+      "shortDescription": "Infrastructure, CI/CD, and automated deployment"
+    }
+  },
+  "Experience": {
+    "sectionLabel": "Professional experience",
+    "eyebrow": "// TRAJECTORY",
+    "title": "EXPERIENCE",
+    "exp-1": {
+      "period": "2023 - Present",
+      "role": "Full-Stack Developer & AI Agent Architect",
+      "company": "Freelance / Personal Projects",
+      "description": "Development of personal projects focused on AI workflow automation, algorithmic trading, multi-agent systems, and supply chain security."
+    }
+  },
+  "Contact": {
+    "sectionLabel": "Contact",
+    "eyebrow": "// CONTACT",
+    "title": "LET'S TALK",
+    "emailLabel": "EMAIL",
+    "copyEmailAria": "Copy email to clipboard",
+    "copied": "[COPIED]",
+    "githubLabel": "GITHUB",
+    "githubAria": "View {name}'s GitHub",
+    "locationLabel": "LOCATION",
+    "locationValue": "Colombia 🇨🇴",
+    "formLabel": "Contact form",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailFieldLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "What's it about?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me about your project...",
+    "submit": "SEND MESSAGE →",
+    "submitting": "SENDING...",
+    "submittingStatus": "Sending...",
+    "errorStatus": "Send error",
+    "success": "Message sent! I'll get back to you soon.",
+    "error": "Error sending. Try again or email me directly."
+  },
+  "Footer": {
+    "sectionLabel": "Footer",
+    "socialsLabel": "Social media",
+    "github": "GITHUB ↗",
+    "githubAria": "View GitHub (opens in new tab)",
+    "email": "EMAIL",
+    "emailAria": "Email Sebastián Velasco",
+    "backToTop": "↑ TOP",
+    "backToTopAria": "Back to top of page"
+  },
+  "Testimonials": {
+    "sectionLabel": "Testimonials",
+    "title": "Testimonials",
+    "indicatorsLabel": "Testimonial selector",
+    "items": [
+      {
+        "author": "Professional reference",
+        "role": "Tech Lead",
+        "company": "Available on request",
+        "quote": "Sebastián doesn't just deliver code, he delivers architectures that scale. His ability to design complex systems and ship them is exceptional."
+      },
+      {
+        "author": "Professional reference",
+        "role": "Product Manager",
+        "company": "Available on request",
+        "quote": "Working with Sebastián means having a senior engineer who thinks about trade-offs, data validity and security. Every decision is documented with rationale."
+      },
+      {
+        "author": "Professional reference",
+        "role": "Senior Engineer",
+        "company": "Available on request",
+        "quote": "Sebastián's level of technical rigor is uncommon. He masters everything from distributed systems to UI/UX, and always seeks the simplest solution that works."
+      }
+    ]
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "body": "The page you're looking for doesn't exist. Maybe the link is broken, or it never existed in this directory.",
+    "back": "← BACK HOME",
+    "backAria": "Back to portfolio home"
+  },
+  "Loader": {
+    "ariaLabel": "Loading portfolio",
+    "brand": "S VELASCO",
+    "loading": "Loading..."
+  },
+  "SkipLink": {
+    "text": "Skip to main content"
+  },
+  "LanguageToggle": {
+    "switchToEn": "Switch to English",
+    "switchToEs": "Cambiar a español"
+  },
+  "Metadata": {
+    "title": "Sebastián Velasco | Full-Stack Developer & AI Architect",
+    "titleTemplate": "%s | Sebastián Velasco",
+    "description": "Sebastián Velasco's professional portfolio — Software Engineer specialized in Next.js, React, TypeScript, scalable architectures, and multi-agent AI systems.",
+    "ogDescription": "Sebastián Velasco's professional portfolio — Software Engineer specialized in Next.js, React, TypeScript, and scalable architectures.",
+    "keywords": [
+      "Sebastián Velasco",
+      "Full-Stack Developer",
+      "AI Architect",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Portfolio",
+      "Colombia",
+      "Multi-agent",
+      "LangChain",
+      "Docker"
+    ],
+    "ogAlt": "Sebastián Velasco — Portfolio of Full-Stack Developer & AI Architect"
+  },
+  "ProjectDetail": {
+    "back": "← PROJECTS",
+    "backAria": "Back to projects",
+    "eyebrow": "// PROJECT",
+    "roleLabel": "Role",
+    "impactLabel": "Impact",
+    "featuredBadge": "FEATURED",
+    "codeLink": "CODE ↗",
+    "askLink": "ASK →",
+    "linksAria": "Project links",
+    "notFoundTitle": "Project not found"
+  },
+  "JsonLd": {
+    "jobTitle": "Software Engineer & AI Agent Architect",
+    "description": "Full-Stack Developer specialized in Next.js, React, TypeScript, scalable architectures, and multi-agent AI systems.",
+    "websiteDescription": "Sebastián Velasco's professional portfolio — Software Engineer specialized in Next.js, React, TypeScript, and scalable architectures.",
+    "knowsAbout": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "Artificial Intelligence",
+      "Machine Learning",
+      "DevOps",
+      "Docker",
+      "LangChain"
+    ]
+  }
+}

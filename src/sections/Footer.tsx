@@ -1,17 +1,19 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function Footer() {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("Footer");
   const { githubUrl, email, name } = contentData.profile;
   const year = new Date().getFullYear();
 
   return (
     <footer
       className="relative py-10 px-6 border-t-2"
-      aria-label="Pie de página"
+      aria-label={t("sectionLabel")}
       style={{
         backgroundColor: "var(--surface-dark)",
         color: "var(--paper)",
@@ -33,7 +35,7 @@ export default function Footer() {
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
           viewport={{ once: true }}
           className="flex gap-4"
-          aria-label="Redes sociales"
+          aria-label={t("socialsLabel")}
         >
           <a
             href={githubUrl}
@@ -45,9 +47,9 @@ export default function Footer() {
               color: "var(--ink)",
               borderColor: "var(--paper)",
             }}
-            aria-label="Ver GitHub (abre en nueva pestaña)"
+            aria-label={t("githubAria")}
           >
-            GITHUB ↗
+            {t("github")}
           </a>
           <a
             href={`mailto:${email}`}
@@ -57,9 +59,9 @@ export default function Footer() {
               color: "var(--paper)",
               borderColor: "var(--paper)",
             }}
-            aria-label="Enviar email a Sebastián Velasco"
+            aria-label={t("emailAria")}
           >
-            EMAIL
+            {t("email")}
           </a>
         </motion.nav>
 
@@ -74,9 +76,9 @@ export default function Footer() {
             color: "var(--ink)",
             borderColor: "var(--ink)",
           }}
-          aria-label="Volver al inicio de la página"
+          aria-label={t("backToTopAria")}
         >
-          ↑ ARRIBA
+          {t("backToTop")}
         </motion.button>
       </div>
     </footer>
