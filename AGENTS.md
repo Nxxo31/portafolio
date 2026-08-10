@@ -45,7 +45,37 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Usar CSS nativo (`scroll-timeline`, View Transitions API) cuando el navegador lo soporte
 - Fallback a GSAP ScrollTrigger para navegadores sin soporte
 - Micro-interacciones con Framer Motion
-- Parpadeo de estrellas sutil (opacity pulse), NUNCA distraer del contenido## Development loop for this project
+- Parpadeo de estrellas sutil (opacity pulse), NUNCA distraer del contenido
+## MCP Tools — MANDATORY for this project
+
+| Task | Tool | NEVER use |
+|------|------|-----------|
+| Understand component structure | `mcp__lsp_intelligence__document_symbols` | grep |
+| Verify type safety | `mcp__lsp_intelligence__live_diagnostics` | tsc --noEmit |
+| Edit TSX/TS files | `mcp__zenith__edit_file or write_file` | sed |
+| Search across codebase | `mcp__zenith__search_files` | grep, rg |
+| Commit to GitHub | `mcp__github__push_files` | git commit + git push |
+| Code review | `mcp__mcp_code_review_pro__review_diff` | manual inspection only |
+| Visual QA | `mcp__playwright__browser_take_screenshot + browser_snapshot` | guessing UI |
+| Visual parity | `mcp__visual_parity__compare_pages` | manual screenshot diff |
+
+## Test Strategy
+- Playwright: visual QA (all pages, responsive, i18n ES/EN switching, Three.js scene)
+- LSP live_diagnostics: 0 type errors
+- next-intl key parity: ES = EN
+- npm run build: 15+ pages exit 0
+
+## Development loop (MCP-first)
+1. Read PROJECT.md FIRST
+2. `mcp__lsp_intelligence__document_symbols` on files to modify — understand structure before editing
+3. Edit via `mcp__zenith__edit_file` or `write_file` — NEVER sed for code
+4. `mcp__lsp_intelligence__live_diagnostics` after edit — 0 errors
+5. Code review via `mcp__mcp_code_review_pro__review_diff` or `delegate_task`
+6. gitleaks on staged diff
+7. Update PROJECT.md before commit
+8. Commit via `mcp__github__push_files` — atomic conventional commit
+
+## Development loop for this project
 
 1. Read PROJECT.md → check active phase and known limitations
 2. `git status` → ver estado del repo
