@@ -1,58 +1,70 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useSyncExternalStore, useCallback } from "react";
 
 type Theme = "light" | "dark";
 
-export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
+// --- Store externo para tema (DOM + localStorage) ---
+// Patron useSyncExternalStore: evita setState-in-effect (cascading renders)
+// y mantiene el estado de React sincronizado con el DOM real.
 
-  // Inicializa el tema desde el DOM (el script anti-FOUC ya lo aplicó)
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-  }, []);
+const THEME_KEY = "theme";
+const DARK_CLASS = "dark";
+
+function subscribe(callback: () => void): () => void {
+  //Escucha cambios desde otras instancias del toggle (multiples pestanas)
+  window.addEventListener("storage", onStorageChange);
+  return () => window.removeEventListener("storage", onStorageChange);
+
+  function onStorageChange(e: StorageEvent) {
+    if (e.key === THEME_KEY) callback();
+  }
+}
+
+function getSnapshot(): Theme {
+  // Lee el estado actual del DOM (fuente autoritativa despues del script anti-FOUC)
+  return document.documentElement.classList.contains(DARK_CLASS)
+    ? "dark"
+    : "light";
+}
+
+function getServerSnapshot(): Theme {
+  // En el servidor no hay DOM; defaulta a dark (tema base del portafolio)
+  return "dark";
+}
+
+function setTheme(theme: Theme): void {
+  const root = document.documentElement;
+
+  if (theme === "dark") {
+    root.classList.add(DARK_CLASS);
+  } else {
+    root.classList.remove(DARK_CLASS);
+  }
+
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    // localStorage podria estar bloqueado (modo privado); el toggle visual sigue funcionando
+  }
+
+  // Actualiza meta theme-color dinamicamente
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", theme === "dark" ? "#1a1a2e" : "#f4f1e8");
+  }
+}
+
+export default function ThemeToggle() {
+  const theme = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
 
   const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next: Theme = prev === "dark" ? "light" : "dark";
-      const root = document.documentElement;
-
-      if (next === "dark") {
-        root.classList.add("dark");
-      } else {
-        root.classList.remove("dark");
-      }
-
-      try {
-        localStorage.setItem("theme", next);
-      } catch {
-        // localStorage podría estar bloqueado (modo privado); el toggle visual sigue funcionando
-      }
-
-      // Actualiza meta theme-color dinámicamente
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) {
-        meta.setAttribute(
-          "content",
-          next === "dark" ? "#1a1a2e" : "#f4f1e8",
-        );
-      }
-
-      return next;
-    });
-  }, []);
-
-  // Evita render hasta que el tema esté determinado (prevents hydration mismatch)
-  if (theme === null) {
-    return (
-      <div
-        className="w-9 h-9 border-2 flex items-center justify-center"
-        style={{ borderColor: "var(--ink)" }}
-        aria-hidden="true"
-      />
-    );
-  }
+    setTheme(theme === "dark" ? "light" : "dark");
+  }, [theme]);
 
   const isDark = theme === "dark";
 
@@ -75,7 +87,7 @@ export default function ThemeToggle() {
       aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
       title={isDark ? "Modo claro" : "Modo oscuro"}
     >
-      {/* Icono sol (modo oscuro → acción: ir a claro) */}
+      {/* Icono sol (modo oscuro -> accion: ir a claro) */}
       {!isDark && (
         <svg
           width="18"
@@ -93,7 +105,7 @@ export default function ThemeToggle() {
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
         </svg>
       )}
-      {/* Icono luna (modo claro → acción: ir a oscuro) */}
+      {/* Icono luna (modo claro -> accion: ir a oscuro) */}
       {isDark && (
         <svg
           width="18"

@@ -1,6 +1,6 @@
 # PROJECT.md — Portafolio (Constellation)
 
-> **Estado:** Activo | **Versión:** MVP (Phase 5 completa) + S-02 Dark Mode Toggle | **Stack:** Next.js 16 + Tailwind v4 + Three.js
+> **Estado:** Activo | **Versión:** 0.1.1 + S-02 Dark Mode Toggle (finalizado) + Deploy-ready Vercel | **Stack:** Next.js 16 + Tailwind v4 + Three.js
 
 ---
 
@@ -95,20 +95,19 @@ portafolio/
 | Phase 2 | Capa de datos centralizada | [init] | `src/content/data.ts` fuente única |
 | Phase 3 | Animaciones: Starfield 3D (Three.js → refactorizado Canvas 2D), Framer Motion, typewriter | [init] | Starfield 60fps, Typewriter roles |
 | Phase 4 | Backend: API `/api/contact` con Zod + Resend + honeypot | [init] | Form funcional |
-| Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; Pendiente deploy Vercel (requiere auth interactiva) |
-| Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | En planificación | — |
+| Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; `vercel.json` creado para deploy |
+| Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | En progreso | S-02 finalizado, lint+build 0 errores, `vercel.json` listo |
 
 ### Próximos Pasos (Backlog de Sprints) – Fase 6
-> Los items del backlog ahora se planifican como Sprints activos con SPEC + PLAN + TASKS.
 
 | Sprint | Objetivo | Issue | Prioridad |
 |--------|----------|-------|-----------|
-| S-01 | Deploy a Vercel + Lighthouse ≥ 95 | #2 | Alta |
-| S-02 | Dark mode toggle (alternar tema oscuro/claro) | #1 | Alta ✅ |
-| S-03 | Testimonios opcional con carrusel | #3 | Media |
-| S-04 | Resume download multi-formato (PDF, MD) | #4 | Media |
-| S-05 | i18n multi-idioma (en/es) con hreflang | #5 | Baja |
-| S-06 | Blog section (MDX posts técnicos) | #6 | Baja |
+| S-01 | Deploy a Vercel + Lighthouse ≥ 95 | #2 | Alta (listo para deploy) |
+| S-02 | Dark mode toggle (alternar tema oscuro/claro) | #1 | Alta ✅ Finalizado |
+| S-03 | Testimonios opcional con carrusel | #3 | Media ✅ Implementado |
+| S-04 | Resume download multi-formato (PDF, MD) | #4 | Media ✅ Implementado |
+| S-05 | i18n multi-idioma (en/es) con hreflang | #5 | Baja ✅ Implementado |
+| S-06 | Blog section (MDX posts técnicos) | #6 | Baja ✅ Implementado |
 
 ### Estado del Sprint Activo: S-02 — Dark Mode Toggle
 > **Sprint:** S-02 | **Iniciado:** completado | **Objetivo:** Implementar toggle de tema oscuro/claro
@@ -160,18 +159,21 @@ Como visitante del portafolio, quiero alternar entre tema oscuro (galáctico) y 
 | S2-T4 | ~~Atenuar `Starfield.tsx`~~ N/A — Starfield removido en rediseño neobrutalist | ⏭️ N/A | dev | S2-T1 |
 | S2-T5 | Code review: LSP 0 errores + build exit 0 | ✅ done | orchestrator | S2-T3, S2-T4 |
 | S2-T6 | Verificación: `npm run build` exit 0, LSP `live_diagnostics` 0 errores en 3 archivos | ✅ done | dev | S2-T5 |
+| S2-T7 | Refactor ThemeToggle a `useSyncExternalStore` (React 19) + lint 0 errores + `vercel.json` deploy-ready | ✅ done | dev | S2-T6 |
 
 ### Estado del Sprint
 ```
-Sprint S-02: Dark Mode Toggle
+Sprint S-02: Dark Mode Toggle — FINALIZADO
 ├── S2-T1: ✅ done — variables CSS `:root.dark` en globals.css
 ├── S2-T2: ✅ done — script anti-FOUC + suppressHydrationWarning en layout.tsx
 ├── S2-T3: ✅ done — ThemeToggle.tsx + integración en Navbar.tsx
 ├── S2-T4: ⏭️ N/A — Starfield removido en rediseño neobrutalist
 ├── S2-T5: ✅ done — LSP 0 errores + build exit 0
-└── S2-T6: ✅ done — npm run build exit 0, 15 páginas estáticas
+├── S2-T6: ✅ done — npm run build exit 0, 22 páginas estáticas
+├── S2-T7: ✅ done — refactor useSyncExternalStore + lint 0 errores + vercel.json
+└── RESULTADO: Build ✅, Lint 0 errores ✅, Deploy-ready ✅
 
-Progreso: 5/6 tasks completadas (1 N/A)
+Progreso: 7/7 tasks completadas (1 N/A)
 ```
 
 > **Flujo del orchestrator:** Lee este PROJECT.md → crea cards en kanban con `parents=[...]` según la columna "Depende de" → workers ejecutan → al completar, actualizan estado aquí.
@@ -179,7 +181,7 @@ Progreso: 5/6 tasks completadas (1 N/A)
 ---
 ## ⚠️ Limitaciones Conocidas
 
-1. **Sin deploy en Vercel aún**: Phase 5 completa excepto el deploy que requiere auth interactiva del usuario
+1. **Deploy Vercel listo para ejecutar**: `vercel.json` creado con headers de seguridad, caching estático inmutable y región bog1. Solo falta `vercel deploy --prod` con autenticación interactiva del usuario
 2. **Lighthouse score no medido post-deploy**: target >= 95 pero sin medida en prod todavía
 3. **Sin backend testing**: API `/api/contact` funciona en dev pero sin E2E/test suite automático
 4. **Starfield Canvas 2D**: suficientes partículas, pero sin el realismo del WebGL shader simular nebulosas
