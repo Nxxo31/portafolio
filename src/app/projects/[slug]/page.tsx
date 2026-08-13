@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import type { ResolvingMetadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { contentData } from "@/content/data";
 
@@ -18,7 +17,6 @@ export function generateStaticParams() {
 // Metadata dinámica por proyecto para SEO
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> },
-  _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { slug } = await params;
   const t = await getTranslations("ProjectDetail");

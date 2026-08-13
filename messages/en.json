@@ -18,7 +18,9 @@
     "services": "SERVICES",
     "experience": "EXPERIENCE",
     "skills": "SKILLS",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "resume": "RESUME",
+    "blog": "BLOG"
   },
   "Hero": {
     "sectionLabel": "Hero section",
@@ -177,6 +179,8 @@
     "sectionLabel": "Testimonials",
     "title": "Testimonials",
     "indicatorsLabel": "Testimonial selector",
+    "prevLabel": "Previous testimonial",
+    "nextLabel": "Next testimonial",
     "items": [
       {
         "author": "Professional reference",
@@ -266,5 +270,47 @@
       "Docker",
       "LangChain"
     ]
+  },
+  "Resume": {
+    "sectionLabel": "Resume",
+    "eyebrow": "// RESUME",
+    "title": "Download my resume",
+    "subtitle": "Available in PDF and Markdown formats",
+    "pdfButton": "DOWNLOAD PDF",
+    "pdfAria": "Download resume as PDF",
+    "mdButton": "DOWNLOAD MARKDOWN",
+    "mdAria": "Download resume as Markdown",
+    "back": "← BACK HOME",
+    "backAria": "Back to portfolio home",
+    "education": "Education",
+    "languages": "Languages",
+    "summary": "Summary",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "downloadInfo": "Files are generated on-demand from the latest portfolio data.",
+    "jobTitle": "Full-Stack Developer & AI Agent Architect",
+    "summaryText": "Software engineer with experience in full-stack development, AI agent architecture, and supply chain security. Specialized in Next.js, React, TypeScript, Python (FastAPI), and Go. I build systems that scale, from desktop apps with AES-256-GCM encryption to algorithmic trading platforms.",
+    "location": "Colombia (Remote / Worldwide)",
+    "email": "Email",
+    "phone": "Phone",
+    "website": "Website",
+    "github": "GitHub",
+    "availability": "Open to freelance and full-time opportunities."
+  },
+  "Blog": {
+    "sectionLabel": "Blog",
+    "eyebrow": "// BLOG",
+    "title": "WRITINGS",
+    "subtitle": "Thoughts on DJ technology, software engineering, and the intersection of both.",
+    "back": "← ALL POSTS",
+    "backAria": "Back to blog index",
+    "readNext": "NEXT ARTICLE →",
+    "tableOfContents": "Table of contents",
+    "readingTime": "{minutes} min read",
+    "publishedOn": "Published on",
+    "noPosts": "No posts yet. Check back soon.",
+    "noPostFound": "Post not found."
   }
 }

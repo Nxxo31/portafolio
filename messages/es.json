@@ -18,7 +18,9 @@
     "services": "SERVICIOS",
     "experience": "EXPERIENCIA",
     "skills": "SKILLS",
-    "contact": "CONTACTO"
+    "contact": "CONTACTO",
+    "resume": "CV",
+    "blog": "BLOG"
   },
   "Hero": {
     "sectionLabel": "Sección de inicio",
@@ -177,6 +179,8 @@
     "sectionLabel": "Testimonios",
     "title": "Testimonios",
     "indicatorsLabel": "Selector de testimonio",
+    "prevLabel": "Testimonio anterior",
+    "nextLabel": "Testimonio siguiente",
     "items": [
       {
         "author": "Referencia profesional",
@@ -266,5 +270,47 @@
       "Docker",
       "LangChain"
     ]
+  },
+  "Resume": {
+    "sectionLabel": "Currículum",
+    "eyebrow": "// CV",
+    "title": "Descarga mi currículum",
+    "subtitle": "Disponible en formato PDF y Markdown",
+    "pdfButton": "DESCARGAR PDF",
+    "pdfAria": "Descargar currículum en PDF",
+    "mdButton": "DESCARGAR MARKDOWN",
+    "mdAria": "Descargar currículum en Markdown",
+    "back": "← VOLVER AL INICIO",
+    "backAria": "Volver al inicio del portafolio",
+    "education": "Educación",
+    "languages": "Idiomas",
+    "summary": "Resumen",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto",
+    "downloadInfo": "Los archivos se generan bajo demanda con los últimos datos del portafolio.",
+    "jobTitle": "Desarrollador Full-Stack & Arquitecto de Agentes IA",
+    "summaryText": "Ingeniero de software con experiencia en desarrollo full-stack, arquitectura de agentes IA y seguridad de supply chain. Especializado en Next.js, React, TypeScript, Python (FastAPI) y Go. Construyo sistemas que escalan, desde apps de escritorio con encriptación AES-256-GCM hasta plataformas de trading algorítmico.",
+    "location": "Colombia (Remoto / Mundial)",
+    "email": "Email",
+    "phone": "Teléfono",
+    "website": "Sitio web",
+    "github": "GitHub",
+    "availability": "Abierto a oportunidades freelance y tiempo completo."
+  },
+  "Blog": {
+    "sectionLabel": "Blog",
+    "eyebrow": "// BLOG",
+    "title": "ESCRITOS",
+    "subtitle": "Reflexiones sobre tecnología DJ, ingeniería de software y la intersección entre ambos.",
+    "back": "← TODOS LOS ARTÍCULOS",
+    "backAria": "Volver al índice del blog",
+    "readNext": "SIGUIENTE ARTÍCULO →",
+    "tableOfContents": "Tabla de contenidos",
+    "readingTime": "{minutes} min de lectura",
+    "publishedOn": "Publicado el",
+    "noPosts": "No hay artículos aún. Vuelve pronto.",
+    "noPostFound": "Artículo no encontrado."
   }
 }

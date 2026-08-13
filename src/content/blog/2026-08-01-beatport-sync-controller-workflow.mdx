@@ -1,0 +1,61 @@
+---
+slug: "beatport-sync-controller-workflow"
+title: "Building a Live DJ Workflow: Beatport Sync + Controller + OBS"
+date: "2026-08-01"
+tags: ["DJ", "streaming", "hardware", "OBS"]
+category: "DJ Technology"
+author: "Sebastián Velasco"
+description: "How I wired Beatport LINK to a Traktor Kontrol S4 MK3 and OBS for a seamless livestream workflow — the gear, the routing, and the pain points."
+---
+
+## Why streaming from a controller is harder than it looks
+
+Most "DJ livestream" guides assume you have a hardware mixer with a built-in audio interface and that the world is made of Yamaha HS5s and a PreSonus squeaky-clean signal chain. Reality is messier: you have a controller, an iPad, a copy of OBS, and three hours before the set.
+
+I run a Traktor Kontrol S4 MK3 as my primary deck, feed tracks from **Beatport LINK** so I don't have to manage a 200-GB library, and route everything into OBS for Twitch streamouts. Here is what works and what falls apart.
+
+## Signal chain that actually works
+
+The most fragile part of the chain is the audio route from Traktor to OBS without bleed. The S4 MK3 exposes **two stereo pairs** on a single USB device: one for the main mix (what the audience hears) and one for the booth output. The trick is to use the booth output as the OBS monitor tap, not the main mix — that way you can cue independently without adjusting the live level.
+
+```
+S4 MK3 USB → Traktor Pro 3 → Booth Out (channel 3+4)
+                                ↓
+                          OBS Audio Capture (Device)
+                                ↓
+                          AAC 160 kbps stream
+```
+
+### Why not WASAPI loopback?
+
+WASAPI loopback captures the system output. On Windows 11 with ASIO routing through the S4, the loopback often double-throttles because ASIO and WASAPI don't share nicely. A direct OBS device capture on channels 3+4 avoids the round trip through the Windows mixer entirely.
+
+## Beatport LINK — the dirty secret
+
+Beatport LINK is the solution to "I want to play tracks I don't own". The dirty secret is that it doesn't expose a stable download — you have a streaming buffer that can stall if your network flakes for even a second. During build-up phases, a stall means silence, and silence kills the momentum of a room.
+
+The mitigation is aggressive: pre-cache the first 12 tracks of every set 30 minutes before doors open. Traktor's LINK cache window is configurable — set it to **10 seconds of pre-roll** or higher. The cache sits on disk, and as long as you don't jump further than the cache ahead, you're protected.
+
+### The failure mode nobody warns you about
+
+The single most painful failure mode is **track not cached + network drop mid-drop**. Traktor will wait for the stream, and if the buffer underflows, it freezes the playhead. It doesn't cut to silence — it stops the track dead. To recover you have to eject, reload, and re-cue. In front of 200 people.
+
+## OBS — the cheap redundancy
+
+OBS is not designed for low-latency DJ monitoring. Expect 80–120 ms of monitoring latency through the mixer panel. For livestream that's fine — the audio leaves OBS pre-encoded to the stream, so the audience doesn't see the latency you see in headphones. But if you ever try to cue up live against what you hear in OBS, you'll drift.
+
+The fix: don't mix against OBS. Mix against the S4's direct headphone out. OBS is downstream of the audience — it is what they get, not what you hear.
+
+## Hardware checklist for the same setup
+
+- **Controller:** Traktor Kontrol S4 MK3 (4-channel, hi-gain internally, per-channel meters)
+- **Headphones:** closed-back, isolating — Beyerdynamic DT 770 Pro 80 Ω
+- **Network:** wired gigabit from router to the machine; Beatport LINK stutters on Wi-Fi
+- **Backup:** a USB stick with 200 curated tracks in legacy export format (Traktor's old `.nml` library + the actual files) so a LINK outage is recoverable
+- **UPS:** a 400 W mini-UPS so a power blip doesn't take down the controller mid-transition
+
+## What I'd change next time
+
+The next iteration will use a **dedicated streaming interface** (Audient EVO 16) so the booth tap goes to a separate USB capture rather than competing for the S4's second stereo pair. It doubles the device panel countdown in OBS but eliminates the latency guesswork.
+
+The workflow works. The pain points are recoverable. The set is everything.

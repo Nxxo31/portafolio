@@ -15,8 +15,10 @@ const NAV_LINKS = [
   { id: "about", key: "about" },
   { id: "projects", key: "projects" },
   { id: "services", key: "services" },
-  { id: "experience", key: "experience" },
   { id: "skills", key: "skills" },
+  { id: "experience", key: "experience" },
+  { id: "blog", key: "blog" },
+  { id: "resume", key: "resume" },
   { id: "contact", key: "contact" },
 ] as const;
 

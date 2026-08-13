@@ -10,6 +10,7 @@ import Projects from "@/sections/Projects";
 import Skills from "@/sections/Skills";
 import Services from "@/sections/Services";
 import Experience from "@/sections/Experience";
+import Testimonials from "@/sections/Testimonials";
 import Contact from "@/sections/Contact";
 import Footer from "@/sections/Footer";
 
@@ -40,7 +41,7 @@ export default function Home() {
   }, [isLoading, shouldReduceMotion]);
 
   useEffect(() => {
-    const sections = ["hero", "about", "projects", "skills", "contact"];
+    const sections = ["hero", "about", "projects", "skills", "testimonials", "contact"];
     const handleScroll = () => {
       const scrollY = window.scrollY + 300;
       for (const section of sections) {
@@ -117,6 +118,7 @@ export default function Home() {
         <Skills />
         <Services />
         <Experience />
+        <Testimonials />
         <Contact />
         <Footer />
       </main>
