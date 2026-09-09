@@ -1,0 +1,93 @@
+---
+slug: "web-audio-latency-dj-tools"
+title: "Browser Audio Latency and Why DJ Tools Are Stuck on Desktop"
+date: "2026-08-07"
+tags: ["Web Audio API", "DJ", "performance", "WASM"]
+category: "Engineering"
+author: "Sebastián Velasco"
+description: "I built a beat-cutter in the browser and got my ass handed to me by Web Audio API's latency ceiling. Here's what works, what doesn't, and what the AudioWorklet actually buys you."
+---
+
+## The premise: a browser-native DJ tool
+
+A month ago I had the idea: build a browser-native DJ beat-cutter with non-linear looping — the kind of thing you'd want for an interactive jam in the browser, not for a club. The pitch was "drop your audio file in, get a tape-looper inside the tab, no install."
+
+This is a story about that idea and how badly it went.
+
+## The latency wall
+
+Browser audio latency in 2026 is still terrible for live performance. On Chrome on a Windows Surface, `audioContext.baseLatency` is around 20 ms. `outputLatency` (introduced in 2020 but unevenly shipped) is closer to 60–80 ms. iOS Safari under a PWA runs about 90 ms.
+
+For context: an SK4 MK3 wired-in speaker chain runs about **3–5 ms**.
+
+```
+Browser base output latency:
+  - Chrome / Windows:  20-30 ms
+  - Safari / iOS:      90-120 ms (non-PWA)
+  - Firefox / Linux:   45-90 ms (round-trip)
+  - WASAPI exclusive / DAW: 5-10 ms
+
+Live DJ feel requirement: <20 ms one-way.
+```
+
+20 ms is the floor. Above that, hand-eye-audio coherence breaks — you press a button, hear it a beat later, and your brain goes "wait, did I double-tap?" That's tolerable for a casual looper. For anything you'd play live, it's brutal.
+
+### What the AudioWorklet actually buys you
+
+The AudioWorklet runs DSP code on the audio thread — meaning once audio is in the worklet, the audio-rendering thread can process it with low latency. The bottleneck is *not* the DSP — it's the round-trip from user input (the main thread) to the audio thread responding.
+
+You can't dispatch input events to the audio thread without going through `MessagePort` — that's a hop back to the main thread. The performance pattern: cache the input, batch it, and post the buffer to the worklet every frame (~16 ms on a 60 Hz display). That's still 1 frame ≈ 16 ms of input-to-audio latency before the audio thread even processes.
+
+### The honest ceiling
+
+Right now, with everything done right — AudioWorklet, no round trips, batched input — a browser-native DJ tool can deliver **~35-40 ms total latency.** Workable for hobby loops. Not workable for anything rhythmic.
+
+## What does work in the browser
+
+The browser isn't useless for DJ tools. Here's what works:
+
+### Waveform rendering
+
+`OffscreenCanvas` + `requestAnimationFrame` renders a waveform of a 6-minute track in about half a second. The track is fetched as `AudioBuffer`, downsampled to whatever your visual resolution needs (say 5000 amplitude points), and drawn once. Zooming is just re-drawing from the cached samples.
+
+This is **wildly useful** and is the part of any browser DJ tool that "just works".
+
+### Track analysis (BPM detection, key detection)
+
+A library that offloads to WASM like `essentia.js` runs librosa-class feature extraction in the browser. It's faster than re-uploading to a backend. The user drags a file in, the orb spins, **BPM and key drop out**. No server.
+
+### Grid editing and export
+
+Editing a track grid (the cue-point marker system) and exporting the result to a `.nml` Traktor file or a `.csv` of cue points — that's pure React/DOM work, no real-time audio involvement. The browser is great at this.
+
+## What doesn't work in the browser
+
+- **Live crossfader.** The audio thread can't see the slider move; the UI thread can.
+- **Sync.** Disk A and Disk B in time sync only fly if you can adjust Pitch in嘀ms. With audio buffer round trips of 90 ms (iOS) the sync drifts audibly after 8 bars.
+- **Sample-accurate looping.** The browser's `AudioBufferSourceNode.loopStart/loopEnd` is sample-accurate, but if you want to scrub the loop *interactively* — change loopIn point on the fly and re-render — you have to create a new source node and reconnect. The reconnect gap is the floor latency.
+
+## The fix that nobody likes: WASM audio engine, native UI
+
+The strategy that the high-end browser audio tools use — like Soundtrap and BandLab — is: WASM audio engine on a Worker, AudioWorklet as a thin bridge, browser only handles UI. The DSP runs in pure WASM (Rust or emscriptened C++). UI runs in React. They tickle each other through `postMessage`.
+
+That gives you about **15–20 ms round-trip audio latency** on desktop Chromium. Compared to 30–40 ms for "everything in the AudioWorklet," it's not free, but it's *the* path to live-feeling.
+
+The cost: you've re-implemented audio infrastructure in WASM. You're not using Web Audio. You've built a DAW inside a WASM blob and the browser becomes the renderer.
+
+## Why I parked the project
+
+The honest answer: the browser-native DJ tool requires you to rewrite what a desktop application already does, plus fight the platform's latency ceiling. Beatport DJ, VirtualDJ's web client, dj.studio's browser version — they all hit the same wall and all silently degrade their live-performance promises.
+
+If the goal is "playable live in a browser," the floor is too high. If the goal is "premix and export," browsers are fine — that's where I'd actually invest.
+
+### Where I would put energy next
+
+- **Template exporters**: generate cue-point `.nml` files in-browser for desktop Traktor. No real-time audio required. The browser is dead-market-standard for text file generation.
+- **Cross-platform waveform viewers**: render once, ship anywhere. Plugin for React, Vue, vanilla. Most DJ apps have garbage waveform rendering anyway — there's space for a fast, free web-native waveform renderer.
+- **Library pre-processing tools** (like the multi-agent LLM tagger I wrote about before) — full pipeline in the browser would be 40ms slower but shipping-free.
+
+## The takeaway
+
+The web audio APIs are great for **analysis**, fine for **rendering**, and bad for **live performance**. If you want to build a DJ tool, build the analysis and editing in the browser. Leave the live play to the native binaries.
+
+Anything else is a performance you have to apologize for.

@@ -1,0 +1,309 @@
+{
+  "About": {
+    "title": "Sobre NX Studio",
+    "sectionLabel": "Sobre NX Studio",
+    "eyebrow": "Latin American Technology Partner",
+    "whoWeAre": "Quiénes Somos",
+    "whoWeAreDesc": "NX Studio es una empresa de desarrollo tecnológico fundada por Sebastián Velasco Ocampo, Ingeniero de Sistemas especializado en crear soluciones a medida para el mercado latinoamericano. Combinamos la agilidad y comprensión cultural de equipos regionales con la rigurosidad técnica y escalabilidad de las mejores prácticas globales de desarrollo de software.",
+    "ourApproach": "Nuestro Enfoque",
+    "myBackground": "Mi Formación y Experiencia",
+    "myBackgroundDesc": "Con más de 4 años de experiencia en desarrollo full-stack, arquitectura de sistemas y aplicación práctica de inteligencia artificial, he liderado proyectos que van desde aplicaciones de escritorio multiplataforma hasta plataformas SaaS de trading algorítmico y sistemas de detección de fraude electoral. Mi enfoque combina expertise técnico profundo con comprensión de los desafíos específicos del contexto latinoamericano: conectividad intermitente, regulaciones locales, necesidades de inclusión financiera y adaptación cultural.",
+    "technicalExpertise": "Experiencia Técnica",
+    "values": "Nuestros Valores",
+    "githubLabel": "GitHub",
+    "emailLabel": "Email"
+  },
+  "Navbar": {
+    "navLabel": "Navegación principal",
+    "logo": "S_VELASCO",
+    "goHome": "Ir al inicio",
+    "home": "INICIO",
+    "about": "SOBRE MÍ",
+    "projects": "PROYECTOS",
+    "services": "SERVICIOS",
+    "experience": "EXPERIENCIA",
+    "skills": "SKILLS",
+    "contact": "CONTACTO",
+    "resume": "CV",
+    "blog": "BLOG"
+  },
+  "Hero": {
+    "sectionLabel": "Sección de inicio",
+    "greeting": ">_ Hola, soy",
+    "tagline": "Desarrollador Full-Stack & Arquitecto de Agentes IA",
+    "viewProjects": "VER PROYECTOS",
+    "viewProjectsAria": "Ver proyectos",
+    "github": "GITHUB ↗",
+    "githubAria": "Ver GitHub de Sebastián Velasco",
+    "heroCTA": "Solicitar Consulta Técnica Gratis",
+    "heroCV": "Descargar Currículum"
+  },
+  "Projects": {
+    "sectionLabel": "Proyectos",
+    "eyebrow": "// PROYECTOS",
+    "title": "COSAS QUE HE CONSTRUIDO",
+    "filterAll": "Todos",
+    "filterFeatured": "Destacados",
+    "filterFrontend": "Frontend",
+    "filterBackend": "Backend",
+    "filterDataAI": "Data/IA",
+    "featuredBadge": "FEATURED",
+    "featuredAria": "Proyecto destacado",
+    "impactLabel": "▶ Impacto:",
+    "codeLink": "CÓDIGO ↗",
+    "codeLinkAria": "Ver repositorio de {title} en GitHub",
+    "detailLink": "DETALLE →",
+    "detailLinkAria": "Ver detalles de {title}",
+    "nam": {
+      "title": "Nameless Framework",
+      "shortDescription": "Framework para construcción de aplicaciones empresariales con arquitectura hexagonal.",
+      "role": "Arquitecto de Soluciones",
+      "impact": "Reducción del 40% en tiempo de desarrollo de módulos core."
+    },
+    "synthetic-trader": {
+      "title": "Synthetic Trader",
+      "shortDescription": "Bot de trading algorítmico basado en aprendizaje por refuerzo.",
+      "role": "Desarrollador Principal",
+      "impact": "Retorno anualizado del 22% en condiciones de mercado simuladas."
+    },
+    "e14-fraud-detector": {
+      "title": "E14 Fraud Detector",
+      "shortDescription": "Sistema de detección de fraude en tiempo real usando grafos de conocimiento.",
+      "role": "Lead Engineer",
+      "impact": "Detección de fraude con 95% de precisión y menos de 100ms de latencia."
+    },
+    "contract-guard": {
+      "title": "Contract Guard",
+      "shortDescription": "Plataforma de análisis inteligente de contratos legales.",
+      "role": "Full-Stack Developer",
+      "impact": "Reducción del 70% en tiempo de revisión de contratos."
+    },
+    "supply-radar": {
+      "title": "Supply Radar",
+      "shortDescription": "Monitor de riesgos en cadena de suministro usando IA y datos geoespaciales.",
+      "role": "Arquitecto de Sistemas",
+      "impact": "Identificación proactiva de riesgos con 30 días de anticipación."
+    },
+    "grani-usco": {
+      "title": "GraníUSCO",
+      "shortDescription": "Marketplace B2B para productos de construcción con pagos escrow.",
+      "role": "CTO & Co-fundador",
+      "impact": "Facilitó +$2M en transacciones en el primer año."
+    },
+    "flag-edge": {
+      "title": "Flag Edge",
+      "shortDescription": "Plataforma de monitoreo de cumplimiento regulatorio para instituciones financieras.",
+      "role": "Arquitecto de Soluciones",
+      "impact": "Reducción de falsos positivos en un 60% mediante ML explicable."
+    }
+  },
+  "Skills": {
+    "sectionLabel": "Habilidades",
+    "eyebrow": "// STACK",
+    "title": "HABILIDADES",
+    "catFrontend": "FRONTEND",
+    "catBackend": "BACKEND",
+    "catAIAgents": "IA / AGENTES",
+    "catDevops": "DEVOPS",
+    "catData": "DATA",
+    "yearsSuffix": "y",
+    "proficiencyAria": "{name}: nivel {level} de 5"
+  },
+  "Services": {
+    "title": "Nuestros Servicios Especializados",
+    "sectionLabel": "Servicios especializados",
+    "eyebrow": "Soluciones a medida para el mercado latinoamericano",
+    "description": "Desarrollamos tecnología que combina rigor técnico global con comprensión profunda del contexto latinoamericano. Nuestro enfoque se centra en crear soluciones que resuelvan problemas reales de negocio, no solo entregar código.",
+    "specialties": "Especialidades",
+    "technologies": "Tecnologías",
+    "learnMore": "Más información",
+    "servicesCta": "¿Listo para transformar tu desafío en una ventaja tecnológica?",
+    "servicesCtaButton": "Solicitar Propuesta"
+  },
+  "Experience": {
+    "sectionLabel": "Experiencia profesional",
+    "eyebrow": "// TRAYECTORIA",
+    "title": "EXPERIENCIA",
+    "exp-1": {
+      "period": "2023 - Presente",
+      "role": "Desarrollador Full-Stack & Arquitecto de Agentes IA",
+      "company": "Freelance / Proyectos Personales",
+      "description": "Desarrollo de proyectos propios enfocados en automatización de flujos de trabajo con IA, trading algorítmico, sistemas multi-agente y seguridad de supply chain."
+    }
+  },
+  "Contact": {
+    "sectionLabel": "Contacto",
+    "eyebrow": "// CONTACTO",
+    "title": "HABLEMOS",
+    "emailLabel": "EMAIL",
+    "copyEmailAria": "Copiar email al portapapeles",
+    "copied": "[COPIADO]",
+    "githubLabel": "GITHUB",
+    "githubAria": "Ver GitHub de {name}",
+    "locationLabel": "UBICACIÓN",
+    "locationValue": "Colombia 🇨🇴",
+    "formLabel": "Formulario de contacto",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "emailFieldLabel": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "subjectLabel": "Asunto",
+    "subjectPlaceholder": "¿De qué se trata?",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntame sobre tu proyecto...",
+    "submit": "ENVIAR MENSAJE →",
+    "submitting": "ENVIANDO...",
+    "submittingStatus": "Enviando...",
+    "errorStatus": "Error al enviar",
+    "success": "¡Mensaje enviado! Te responderé pronto.",
+    "error": "Error al enviar. Intenta de nuevo o escríbeme directo."
+  },
+  "Footer": {
+    "sectionLabel": "Pie de página",
+    "socialsLabel": "Redes sociales",
+    "github": "GITHUB ↗",
+    "githubAria": "Ver GitHub (abre en nueva pestaña)",
+    "email": "EMAIL",
+    "emailAria": "Enviar email a Sebastián Velasco",
+    "backToTop": "↑ ARRIBA",
+    "backToTopAria": "Volver al inicio de la página"
+  },
+  "Testimonials": {
+    "sectionLabel": "Testimonios",
+    "title": "Testimonios",
+    "indicatorsLabel": "Selector de testimonio",
+    "prevLabel": "Testimonio anterior",
+    "nextLabel": "Testimonio siguiente",
+    "items": [
+      {
+        "author": "Referencia profesional",
+        "role": "Tech Lead",
+        "company": "Disponible bajo solicitud",
+        "quote": "Sebastián no solo entrega código, entrega arquitecturas que escalan. Su capacidad de diseñar sistemas complejos y llevarlos a producción es excepcional."
+      },
+      {
+        "author": "Referencia profesional",
+        "role": "Product Manager",
+        "company": "Disponible bajo solicitud",
+        "quote": "Trabajar con Sebastián es tener un ingeniero senior que piensa en trade-offs, validez de datos y seguridad. Cada decisión está documentada con rationale."
+      },
+      {
+        "author": "Referencia profesional",
+        "role": "Senior Engineer",
+        "company": "Disponible bajo solicitud",
+        "quote": "El nivel de rigor técnico de Sebastián es poco común. Domina desde sistemas distribuidos hasta UI/UX, y siempre busca la solución más simple que funcione."
+      }
+    ]
+  },
+  "NotFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o fue movida.",
+    "body": "La página que buscas no existe. Quizás el enlace está roto, o nunca existió en este directorio.",
+    "back": "← VOLVER AL INICIO",
+    "backAria": "Volver al inicio del portafolio"
+  },
+  "Loader": {
+    "ariaLabel": "Cargando el portafolio",
+    "brand": "S VELASCO",
+    "loading": "Cargando..."
+  },
+  "SkipLink": {
+    "text": "Saltar al contenido principal"
+  },
+  "LanguageToggle": {
+    "switchToEn": "Switch to English",
+    "switchToEs": "Cambiar a español"
+  },
+  "Metadata": {
+    "title": "Sebastián Velasco | Full-Stack Developer & AI Architect",
+    "titleTemplate": "%s | Sebastián Velasco",
+    "description": "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
+    "ogDescription": "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
+    "keywords": [
+      "Sebastián Velasco",
+      "Desarrollador Full-Stack",
+      "Arquitecto de IA",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Portafolio",
+      "Colombia",
+      "Multi-agente",
+      "LangChain",
+      "Docker"
+    ],
+    "ogAlt": "Sebastián Velasco — Portafolio de Full-Stack Developer & AI Architect"
+  },
+  "ProjectDetail": {
+    "back": "← PROYECTOS",
+    "backAria": "Volver a proyectos",
+    "eyebrow": "// PROYECTO",
+    "roleLabel": "Rol",
+    "impactLabel": "Impacto",
+    "featuredBadge": "FEATURED",
+    "codeLink": "CÓDIGO ↗",
+    "askLink": "PREGUNTAR →",
+    "linksAria": "Enlaces del proyecto",
+    "notFoundTitle": "Proyecto no encontrado"
+  },
+  "JsonLd": {
+    "jobTitle": "Ingeniero de Software & Arquitecto de Agentes IA",
+    "description": "Desarrollador Full-Stack especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
+    "websiteDescription": "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
+    "knowsAbout": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "Inteligencia Artificial",
+      "Aprendizaje Automático",
+      "DevOps",
+      "Docker",
+      "LangChain"
+    ]
+  },
+  "Resume": {
+    "sectionLabel": "Currículum",
+    "eyebrow": "// CV",
+    "title": "Descarga mi currículum",
+    "subtitle": "Disponible en formato PDF y Markdown",
+    "pdfButton": "DESCARGAR PDF",
+    "pdfAria": "Descargar currículum en PDF",
+    "mdButton": "DESCARGAR MARKDOWN",
+    "mdAria": "Descargar currículum en Markdown",
+    "back": "← VOLVER AL INICIO",
+    "backAria": "Volver al inicio del portafolio",
+    "education": "Educación",
+    "languages": "Idiomas",
+    "summary": "Resumen",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto",
+    "downloadInfo": "Los archivos se generan bajo demanda con los últimos datos del portafolio.",
+    "jobTitle": "Desarrollador Full-Stack & Arquitecto de Agentes IA",
+    "summaryText": "Ingeniero de software con experiencia en desarrollo full-stack, arquitectura de agentes IA y seguridad de supply chain. Especializado en Next.js, React, TypeScript, Python (FastAPI) y Go. Construyo sistemas que escalan, desde apps de escritorio con encriptación AES-256-GCM hasta plataformas de trading algorítmico.",
+    "location": "Colombia (Remoto / Mundial)",
+    "email": "Email",
+    "phone": "Teléfono",
+    "website": "Sitio web",
+    "github": "GitHub",
+    "availability": "Abierto a oportunidades freelance y tiempo completo."
+  },
+  "Blog": {
+    "sectionLabel": "Blog",
+    "eyebrow": "// BLOG",
+    "title": "ESCRITOS",
+    "subtitle": "Reflexiones sobre tecnología DJ, ingeniería de software y la intersección entre ambos.",
+    "back": "← TODOS LOS ARTÍCULOS",
+    "backAria": "Volver al índice del blog",
+    "readNext": "SIGUIENTE ARTÍCULO →",
+    "tableOfContents": "Tabla de contenidos",
+    "readingTime": "{minutes} min de lectura",
+    "publishedOn": "Publicado el",
+    "noPosts": "No hay artículos aún. Vuelve pronto.",
+    "noPostFound": "Artículo no encontrado."
+  }
+}

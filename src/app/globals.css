@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --color-ink: #1a1a2e;
+  --color-paper: #f4f1e8;
+  --color-accent-1: #ff6b35;
+  --color-accent-2: #00a6fb;
+  --color-accent-3: #ffd23f;
+  --color-accent-4: #06d6a0;
+  --color-accent-5: #ef476f;
+  --color-surface: #ffffff;
+  --color-surface-dark: #1a1a2e;
+}
+
+:root {
+  --ink: #1a1a2e;
+  --paper: #f4f1e8;
+  --accent-1: #ff6b35;
+  --accent-2: #00a6fb;
+  --accent-3: #ffd23f;
+  --accent-4: #06d6a0;
+  --accent-5: #ef476f;
+  --surface: #ffffff;
+  --surface-dark: #1a1a2e;
+
+  --container-max: 1200px;
+  --section-padding: 6rem;
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.25s ease;
+  --ring: 2px solid var(--ink);
+}
+
+/* Tema oscuro neobrutalist: invierte ink/paper y superficies */
+/* Se activa con la clase .dark en <html> */
+:root.dark {
+  --ink: #f4f1e8;
+  --paper: #1a1a2e;
+  --accent-1: #ff8c42;
+  --accent-2: #4dc4ff;
+  --accent-3: #ffe066;
+  --accent-4: #2ee59d;
+  --accent-5: #ff6b9d;
+  --surface: #232342;
+  --surface-dark: #0d0d18;
+  --ring: 2px solid var(--ink);
+}
+
+/* Transición suave entre temas (respeta prefers-reduced-motion) */
+:root:not(.dark) body,
+:root.dark body {
+  transition: background-color var(--transition-medium), color var(--transition-medium);
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Neobrutalist scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+::selection {
+  background: var(--accent-1);
+  color: var(--ink);
+}
+
+/* Neobrutalist shadow utilities */
+.nb-shadow {
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.nb-shadow-sm {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.nb-shadow-lg {
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.nb-card {
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.nb-card-hover {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.nb-card-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+
+.nb-card-hover:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+}

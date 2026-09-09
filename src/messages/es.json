@@ -1,0 +1,23 @@
+{
+  "Index": {
+    "hero_title": "Hola, soy {{name}}",
+    "hero_subtitle": "Desarrollador Full-Stack & Arquitecto de Agentes IA",
+    "hero_roles_1": "Full-Stack Developer→Arquitecto de Agentes IA→Especialista en Automatización→Systems Builder→",
+    "hero_roles_2": "→→→→",
+    "cta_projects": "Ver proyectos",
+    "cta_contact": "Contactar",
+    "about_title": "Sobre mí",
+    "about_description": "Construyo sistemas digitales y automatizo flujos con agentes de IA. Apasionado por la eficiencia y las soluciones técnicas elegantes.",
+    "projects_title": "Proyectos",
+    "services_title": "Servicios",
+    "contact_title": "Contacto",
+    "contact_form_name": "Nombre",
+    "contact_form_email": "Email",
+    "contact_form_company": "Empresa (opcional)",
+    "contact_form_project_type": "Tipo de proyecto",
+    "contact_form_budget": "Presupuesto estimado",
+    "contact_form_message": "Mensaje",
+    "contact_form_submit": "Enviar mensaje",
+    "footer_copyright": "Todos los derechos reservados."
+  }
+}

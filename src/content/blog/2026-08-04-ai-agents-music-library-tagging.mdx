@@ -1,0 +1,95 @@
+---
+slug: "ai-agents-music-library-tagging"
+title: "Using LLM Agents to Tame a 40k-Track Music Library"
+date: "2026-08-04"
+tags: ["AI agents", "DJ", "Python", "LLM"]
+category: "Engineering"
+author: "Sebastián Velasco"
+description: "How I used a multi-agent LLM pipeline to normalize BPM, key, genre and energy-level metadata across a disorganized 40k-track personal library — without paying for a SaaS subscription."
+---
+
+## The problem
+
+Every DJ has the same problem: by the time you've been collecting for ten years, your library is garbage. Beatport's tags are inconsistent across era. Bandcamp imports come in as whatever metadata the artist bothered to fill in — usually nothing. Spotify exports are nonexistent. You end up with a Traktor collection where half the tracks say "BPM 128" on a clear 142 BPM house track, and genre tags like "Electronica / Leftfield / Deep House / 808s" that mean nothing.
+
+Manually re-tagging a 40,000-track library is a death sentence. I'd rather code my way out.
+
+## The architecture
+
+I built a **three-agent pipeline** in Python against local models. Local because I am not uploading 40,000 tracks to a cloud service that's going to add their 1,500-track "pre-release" recommendations to my account.
+
+### Agent 1 — the listener
+
+Runs `librosa` to extract:
+
+- Tempo (BPM) via beat tracking
+- Estimated key via chroma features
+- RMS energy across the track (for energy-level tagging)
+- Spectral flatness (to detect whether a track is sparse house or dense techno)
+
+The output is a feature vector per track in JSON. **Librosa's key estimation is wrong 40% of the time** — I use it as a prior, not ground truth.
+
+```
+{
+  "track": "Artist - Track.flac",
+  "bpm": 128.3,
+  "key_prior": "A minor",
+  "energy_rms": 0.42,
+  "spectral_flatness": 0.18,
+  "duration": 361.8
+}
+```
+
+### Agent 2 — the classifier
+
+It's an LLM endpoint with access to three low-res spectrograms (full track overview zoomed out; mid-freq detail at 30s from the drop; high-freq detail at the same window) plus the librosa features. I send a structured prompt:
+
+- The librosa-estimated BPM and key.
+- Track metrics: spectral_flatness across 8 bands.
+- Spectrograms attached as images.
+
+The LLM returns:
+
+- Final BPM (adjusted against librosa's estimate + subjective judgment)
+- Camelot key (musical key in wheel notation)
+- Genre (normalized to a 15-box taxonomy)
+- Energy rating (1-10 scale)
+- Subgenre tag
+
+This is where the LLM's **audio multimodal capability matters** — you can't classify genre from features alone. The waveform tells you whether "128 BPM ambient-adjacent" is really *ambient* or *melodic techno with a coffee shop intro*.
+
+### Agent 3 — the writer
+
+Validates. If the LLM says BPM 128 but librosa says 142, it writes back the LLM's value and flags the track for manual review. Writes to the FLAC `BPM`, `INITIALKEY`, `GENRE`, `COMMENT` (energy level) tags via `mutagen`. Re-imports into Traktor.
+
+## What worked and what didn't
+
+### Worked: tagging energy level as a continuous variable
+
+I tagged energy as **1-10 with two-digit precision** (e.g., 7.4) rather than the *Essential Mix / Mixmag-style "warm-up / peak / closing" 3-box* system. The reason: when DJing a 2-hour set, what matters is *the next track's delta-from-current*, not its bucket. A track at 8.1 into a track at 8.9 is a clean ramp. An 8 into a 9 is too crude.
+
+### Didn't work: librosa BPM for half-time / double-time
+
+Librosa's beat tracking locks to the strongest periodicity. For dubstep at 140 BPM, it often reports 70 BPM (half-time). The fix is in the classifier prompt: explicitly tell the LLM *"librosa frequently confuses half-time vs full-time on electronic music; cross-check against the genre."* Cost: a few more LLM calls on the tracks where the heuristic fires on the log.
+
+### Didn't work: asking one LLM call to do it all
+
+First iteration threw the entire track feature vector and spectrograms at one endpoint in one shot. It merged what should have been three separate judgments into one messy "well, it sounds like it's probably..." essay. Splitting into three agents (listener / classifier / writer) gave each a narrow job and raised precision by 30% in spot-checks.
+
+## The audit
+
+Spot-checking **200 random tracks** after the pass: 86% had correct BPM within 0.5. 92% had correct Camelot key. Energy level felt right on 80% during actual use (rendering each spot-checked track into a test set and listening).
+
+The remaining 20% are what the fix flags for **manual review**. A 200-track review queue is manageable. **40,000 tracks** is not.
+
+### What this cost
+
+40,000 LLM calls. Even at $0.005 per call that's $200 of compute. Acceptable for a one-time pass. If I kept the pipeline running on monthly imports, it would cost roughly $5-10 a month — cheaper than Beatport's streaming plan and it works offline.
+
+## What I'd build next
+
+- A **migration detector** — a fourth agent that watches the energy curve of a track and detects reverse energy drops (intro high → build → drops to breakdown → climbs back), so I can tag "safe to mix out of" vs "tracks you play at the peak and don't want to follow".
+- **Dynamic energy compliance**: the pipeline should refuse to assign energy ratings to tracks in genres where the track has a long build — tech house builds are misleading.
+- fade-in/out timing metadata for grid alignment so the DJ software doesn't assume every track has an 8-bar intro.
+
+The library is now an order of magnitude more usable. Build-time cost is recoverable; library cleanup is a one-time pain worth automating.
