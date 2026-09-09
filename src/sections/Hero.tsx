@@ -5,120 +5,102 @@ import { useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function HeroSection() {
-  const shouldReduceMotion = useReducedMotion();
   const t = useTranslations("Hero");
-  const { name, githubUrl } = contentData.profile;
-  const firstName = name.split(" ")[0];
-  const lastName = name.split(" ").slice(1).join(" ");
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-6 pt-20"
+      className="relative py-24 px-6"
       aria-label={t("sectionLabel")}
+      style={{ backgroundColor: "var(--paper)" }}
     >
-      <div className="text-center max-w-5xl">
-        <motion.p
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="font-mono text-sm md:text-base mb-6 tracking-[0.3em] uppercase font-medium"
-          style={{ color: "var(--accent-1)" }}
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Header */ }
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
         >
-          {t("greeting")}
-        </motion.p>
+          <h1
+            className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight"
+            style={{ color: "var(--ink)" }}
+          >
+            {contentData.profile.name || contentData.profile.name}
+          </h1>
+          <p
+            className="font-mono text-base md:text-lg uppercase tracking-wider mb-6"
+            style={{ color: "var(--accent-1)" }}
+          >
+            {contentData.profile.tagline || contentData.profile.tagline}
+          </p>
+        </motion.div>
 
-        <motion.h1
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="font-heading font-bold leading-[0.95] tracking-tight mb-3"
-          style={{ color: "var(--ink)" }}
-        >
-          <span className="block text-6xl md:text-8xl lg:text-9xl">
-            {firstName}
-          </span>
-          <span className="block text-6xl md:text-8xl lg:text-9xl">
-            {lastName}
-          </span>
-        </motion.h1>
-
-        <motion.p
-          initial={shouldReduceMotion ? false : { opacity: 0 }}
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.35 }}
-          className="font-mono text-lg md:text-xl mb-10 max-w-2xl mx-auto"
-          style={{ color: "var(--ink)" }}
-        >
-          {t("tagline")}
-        </motion.p>
-
+        {/* Vision/Mission */ }
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-4"
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-10"
         >
-          <button
+          <p
+            className="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
+            style={{ color: "var(--ink)" }}
+          >
+            {contentData.profile.name ? "Ser el puente tecnológico que conecta el potencial latinoamericano con las demandas del mercado global, desarrollando soluciones que resuelvan problemas locales con estándares internacionales." : "Ingeniero de Sistemas especializado en soluciones tecnológicas para el mercado latinoamericano"}
+          </p>
+        </motion.div>
+
+        {/* Call to Action */ }
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="space-x-4 sm:space-x-6"
+        >
+          <a
+            href="#contact"
             onClick={() => {
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" });
+              const el = document.getElementById('contact');
+              if (el) {
+                el.scrollIntoView({
+                  behavior: shouldReduceMotion ? "auto" : "smooth",
+                });
+              }
             }}
-            className="font-heading font-bold text-base px-7 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            className="px-6 py-3 font-heading font-bold text-lg uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
             style={{
               backgroundColor: "var(--accent-1)",
               color: "var(--ink)",
               borderColor: "var(--ink)",
-              boxShadow: "5px 5px 0 var(--ink)",
-            }}
-            aria-label={t("viewProjectsAria")}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.boxShadow = "8px 8px 0 var(--ink)")
-            }
-            onMouseDown={(e) =>
-              (e.currentTarget.style.boxShadow = "2px 2px 0 var(--ink)")
-            }
-            onMouseUp={(e) =>
-              (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
-            }
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)";
-              e.currentTarget.style.transform = "";
+              boxShadow: "4px 4px 0 var(--ink)",
             }}
           >
-            {t("viewProjects")}
-          </button>
+            {t("heroCTA") || "Solicitar Consulta Técnica Gratis"}
+          </a>
 
           <a
-            href={githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-heading font-bold text-base px-7 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            href="/resume"
+            className="px-6 py-3 font-heading font-bold text-lg uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
             style={{
-              backgroundColor: "var(--paper)",
+              backgroundColor: "transparent",
               color: "var(--ink)",
               borderColor: "var(--ink)",
-              boxShadow: "5px 5px 0 var(--ink)",
+              boxShadow: "4px 4px 0 var(--ink)",
             }}
-            aria-label={t("githubAria")}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.boxShadow = "8px 8px 0 var(--ink)")
-            }
-            onMouseDown={(e) =>
-              (e.currentTarget.style.boxShadow = "2px 2px 0 var(--ink)")
-            }
-            onMouseUp={(e) =>
-              (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.boxShadow = "5px 5px 0 var(--ink)")
-            }
           >
-            {t("github")}
+            {t("heroCV") || "Descargar Currículum"}
           </a>
         </motion.div>
+
+        {/* Optional: Animated background or decorative elements */ }
+        {/* Keep existing Three.js canvas or other visual elements if desired */ }
       </div>
     </section>
   );
 }
+

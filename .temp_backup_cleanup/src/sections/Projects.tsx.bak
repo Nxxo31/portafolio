@@ -2,11 +2,13 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { contentData } from "@/content/data";
 
 export default function ProjectsSection() {
   const t = useTranslations("Projects");
   const shouldReduceMotion = useReducedMotion();
+  const router = useRouter();
 
   return (
     <section
@@ -169,7 +171,7 @@ export default function ProjectsSection() {
                       className="text-sm font-italic leading-relaxed"
                       style={{ color: "var(--ink)" }}
                     >
-                      {project.testimonial}
+                      "{project.testimonial}"
                     </p>
                   </div>
                 )}
@@ -206,7 +208,7 @@ export default function ProjectsSection() {
                     style={{ color: `var(--accent-${((index % 4) + 1)})` }}
                   >
                     {t("viewDetails") || "Ver caso de estudio completo →"}
-                    <span className="ml-1" aria-hidden="true">{'→'}</span>
+                    <span className="ml-1" aria-hidden="true">{'\\u2192'}</span>
                   </a>
                 </div>
               </motion.div>

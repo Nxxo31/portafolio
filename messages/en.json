@@ -1,10 +1,15 @@
 {
   "About": {
-    "title": "ABOUT ME",
-    "sectionLabel": "About me",
-    "bio1": "I'm <strong>{name}</strong>, a software engineer focused on building robust systems: from desktop apps with AES-256-GCM encryption to algorithmic trading bots and supply chain security tools in Go.",
-    "bio2": "I work primarily with TypeScript (Next.js / Electron), Python (FastAPI) and Go. I'm interested in hexagonal architecture, domain-driven design, and automation with AI agents.",
-    "bio3": "I operate from Colombia for the world. Every project is a real engineering problem, not a portfolio exercise.",
+    "title": "About NX Studio",
+    "sectionLabel": "About NX Studio",
+    "eyebrow": "Latin American Technology Partner",
+    "whoWeAre": "Who We Are",
+    "whoWeAreDesc": "NX Studio is a technology development company founded by Sebastián Velasco Ocampo, a Systems Engineer specialized in creating custom solutions for the Latin American market. We combine the agility and cultural understanding of regional teams with the technical rigor and scalability of global software development best practices.",
+    "ourApproach": "Our Approach",
+    "myBackground": "My Background and Experience",
+    "myBackgroundDesc": "With over 4 years of experience in full-stack development, systems architecture, and practical application of artificial intelligence, I have led projects ranging from cross-platform desktop applications to algorithmic trading SaaS platforms and electoral fraud detection systems. My approach combines deep technical expertise with an understanding of the specific challenges of the Latin American context: intermittent connectivity, local regulations, financial inclusion needs, and cultural adaptation.",
+    "technicalExpertise": "Technical Expertise",
+    "values": "Our Values",
     "githubLabel": "GitHub",
     "emailLabel": "Email"
   },
@@ -29,7 +34,9 @@
     "viewProjects": "VIEW PROJECTS",
     "viewProjectsAria": "View projects",
     "github": "GITHUB ↗",
-    "githubAria": "View Sebastián Velasco's GitHub"
+    "githubAria": "View Sebastián Velasco's GitHub",
+    "heroCTA": "Request Free Technical Consultation",
+    "heroCV": "Download Resume"
   },
   "Projects": {
     "sectionLabel": "Projects",
@@ -103,29 +110,15 @@
     "proficiencyAria": "{name}: level {level} of 5"
   },
   "Services": {
-    "sectionLabel": "Services",
-    "eyebrow": "// SERVICES",
-    "title": "HOW I CAN HELP",
-    "desarrollo-fullstack": {
-      "title": "Full-Stack Development",
-      "description": "I build scalable web applications from scratch: architecture, frontend development, backend API, database, and deployment. Specialized in Next.js 14+ with App Router.",
-      "shortDescription": "Modern web applications with Next.js, React, and Node.js"
-    },
-    "automatizacion-ia": {
-      "title": "AI Automation",
-      "description": "I design and implement systems that use language models and AI agents to automate repetitive processes, generate content, and analyze data.",
-      "shortDescription": "Automation of workflows with intelligent agents"
-    },
-    "sistemas-multi-agente": {
-      "title": "Multi-Agent Systems",
-      "description": "I build infrastructures where multiple AI agents collaborate to solve complex problems, using orchestrators, task queues, and workflows.",
-      "shortDescription": "Complex AI agent coordination architectures"
-    },
-    "consultoria-devops": {
-      "title": "DevOps Consulting",
-      "description": "Application containerization, CI/CD pipelines, VPS deployment with Dokploy, and production environment configuration.",
-      "shortDescription": "Infrastructure, CI/CD, and automated deployment"
-    }
+    "title": "Our Specialized Services",
+    "sectionLabel": "Specialized services",
+    "eyebrow": "Custom solutions for the Latin American market",
+    "description": "We develop technology that combines global technical rigor with deep understanding of the Latin American context. Our focus is on creating solutions that solve real business problems, not just delivering code.",
+    "specialties": "Specialties",
+    "technologies": "Technologies",
+    "learnMore": "Learn more",
+    "servicesCta": "Ready to transform your challenge into a technological advantage?",
+    "servicesCtaButton": "Request Proposal"
   },
   "Experience": {
     "sectionLabel": "Professional experience",

@@ -1,10 +1,15 @@
 {
   "About": {
-    "title": "SOBRE MÍ",
-    "sectionLabel": "Sobre mí",
-    "bio1": "Soy <strong>{name}</strong>, ingeniero de software centrado en construir sistemas robustos: desde apps de escritorio con encriptación AES-256-GCM hasta bots de trading algorítmico y herramientas de supply chain security en Go.",
-    "bio2": "Trabajo principalmente con TypeScript (Next.js / Electron), Python (FastAPI) y Go. Me interesa la arquitectura hexagonal, el domain-driven design y la automatización con agentes de IA.",
-    "bio3": "Opero desde Colombia para el mundo. Cada proyecto es un problema de ingeniería real, no un ejercicio de portafolio.",
+    "title": "Sobre NX Studio",
+    "sectionLabel": "Sobre NX Studio",
+    "eyebrow": "Latin American Technology Partner",
+    "whoWeAre": "Quiénes Somos",
+    "whoWeAreDesc": "NX Studio es una empresa de desarrollo tecnológico fundada por Sebastián Velasco Ocampo, Ingeniero de Sistemas especializado en crear soluciones a medida para el mercado latinoamericano. Combinamos la agilidad y comprensión cultural de equipos regionales con la rigurosidad técnica y escalabilidad de las mejores prácticas globales de desarrollo de software.",
+    "ourApproach": "Nuestro Enfoque",
+    "myBackground": "Mi Formación y Experiencia",
+    "myBackgroundDesc": "Con más de 4 años de experiencia en desarrollo full-stack, arquitectura de sistemas y aplicación práctica de inteligencia artificial, he liderado proyectos que van desde aplicaciones de escritorio multiplataforma hasta plataformas SaaS de trading algorítmico y sistemas de detección de fraude electoral. Mi enfoque combina expertise técnico profundo con comprensión de los desafíos específicos del contexto latinoamericano: conectividad intermitente, regulaciones locales, necesidades de inclusión financiera y adaptación cultural.",
+    "technicalExpertise": "Experiencia Técnica",
+    "values": "Nuestros Valores",
     "githubLabel": "GitHub",
     "emailLabel": "Email"
   },
@@ -29,7 +34,9 @@
     "viewProjects": "VER PROYECTOS",
     "viewProjectsAria": "Ver proyectos",
     "github": "GITHUB ↗",
-    "githubAria": "Ver GitHub de Sebastián Velasco"
+    "githubAria": "Ver GitHub de Sebastián Velasco",
+    "heroCTA": "Solicitar Consulta Técnica Gratis",
+    "heroCV": "Descargar Currículum"
   },
   "Projects": {
     "sectionLabel": "Proyectos",
@@ -103,29 +110,15 @@
     "proficiencyAria": "{name}: nivel {level} de 5"
   },
   "Services": {
-    "sectionLabel": "Servicios",
-    "eyebrow": "// SERVICIOS",
-    "title": "EN QUÉ PUEDO AYUDARTE",
-    "desarrollo-fullstack": {
-      "title": "Desarrollo Full-Stack",
-      "description": "Construyo aplicaciones web escalables desde cero: arquitectura, desarrollo frontend, API backend, base de datos y despliegue. Especializado en Next.js 14+ con App Router.",
-      "shortDescription": "Aplicaciones web modernas con Next.js, React y Node.js"
-    },
-    "automatizacion-ia": {
-      "title": "Automatización con IA",
-      "description": "Diseño e implemento sistemas que usan modelos de lenguaje y agentes de IA para automatizar procesos repetitivos, generar contenido y analizar datos.",
-      "shortDescription": "Automatización de flujos de trabajo con agentes inteligentes"
-    },
-    "sistemas-multi-agente": {
-      "title": "Sistemas Multi-Agente",
-      "description": "Construyo infraestructuras donde múltiples agentes de IA colaboran para resolver problemas complejos, usando orquestadores, colas de tareas y flujos de trabajo.",
-      "shortDescription": "Arquitecturas complejas de coordinación de agentes IA"
-    },
-    "consultoria-devops": {
-      "title": "Consultoría DevOps",
-      "description": "Dockerización de aplicaciones, pipelines de CI/CD, despliegue en VPS con Dokploy y configuración de entornos de producción.",
-      "shortDescription": "Infraestructura, CI/CD y despliegue automatizado"
-    }
+    "title": "Nuestros Servicios Especializados",
+    "sectionLabel": "Servicios especializados",
+    "eyebrow": "Soluciones a medida para el mercado latinoamericano",
+    "description": "Desarrollamos tecnología que combina rigor técnico global con comprensión profunda del contexto latinoamericano. Nuestro enfoque se centra en crear soluciones que resuelvan problemas reales de negocio, no solo entregar código.",
+    "specialties": "Especialidades",
+    "technologies": "Tecnologías",
+    "learnMore": "Más información",
+    "servicesCta": "¿Listo para transformar tu desafío en una ventaja tecnológica?",
+    "servicesCtaButton": "Solicitar Propuesta"
   },
   "Experience": {
     "sectionLabel": "Experiencia profesional",

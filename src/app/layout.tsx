@@ -36,6 +36,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
   const locale = await getLocale();
   
+  // Handle keywords array properly
+  const keywordsRaw = t("keywords");
+  const keywords = Array.isArray(keywordsRaw) ? keywordsRaw.join(", ") : keywordsRaw;
+  
   return {
     metadataBase: new URL(BASE_URL),
     title: {
@@ -43,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: t("titleTemplate"),
     },
     description: t("description"),
-    keywords: t("keywords"),
+    keywords: keywords,
     authors: [{ name: "Sebastián Velasco", url: "https://github.com/Nxxo31" }],
     creator: "Sebastián Velasco Ocampo",
     publisher: "Sebastián Velasco Ocampo",
