@@ -194,9 +194,43 @@
 > | Phase 3 | Animaciones: Starfield 3D (Three.js → refactorizado Canvas 2D), Framer Motion, typewriter | [init] | Starfield 60fps, Typewriter roles |
 > | Phase 4 | Backend: API `/api/contact` con Zod + Resend + honeypot | [init] | Form funcional |
 > | Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; `vercel.json` creado para deploy |
-> | Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | En progreso | S-02 finalizado, lint+build 0 errores, `vercel.json` listo |
-> 
-> ### Próximos Pasos (Backlog de Sprints) – Fase 6
+| Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | En progreso | S-02 finalizado, lint+build 0 errores, `vercel.json` listo |
+| Phase 7 | Estrategia dual portafolio+NX-Studio: docs de posicionamiento, sin cambios UI | TBD | PROJECT.md + AGENTS.md actualizados |
+
+## 🤝 Estrategia dual · portafolio ↔ NX-Studio (2026-09-14)
+
+Este portafolio y `NX-Studio/` son **dos proyectos que se complementan mutuamente**, no variantes del mismo sitio:
+
+| | portafolio (este) | NX-Studio |
+|---|---|---|
+| **Naturaleza** | Personal | Empresarial |
+| **Stack** | Next.js 16 + React 19 + Tailwind v4 | Astro 7 + Tailwind v4 (Vite plugin) |
+| **Identidad visual** | Púrpura `#7c5bff` + cian `#22d3ee` (neobrutalist galáctico) | Lava neon naranja/rojizo `#ff4500/#ff6a00` (Matrix NX-Studio) |
+| **Audiencia** | Reclutadores, clientes directos, networking técnico | Leads B2B, empresas LATAM, prospectos |
+| **Propósito** | Mostrar expertise individual + capacidad técnica | Posicionar marca, captar leads, ofrecer servicios |
+| **Contenido** | Sobre mí, proyectos propios, skills, blog técnico, contacto personal | Catálogo de productos, servicios especializados, cotizador, templates, OSINT/Testing |
+| **Hosting** | Vercel (planeado) | GitHub Pages (`nxxo31.github.io/NX-Studio/`) |
+
+### Lo que este portafolio NO debe hacer (delimitación)
+- No debe mostrar servicios empresariales (eso es NX-Studio)
+- No debe tener cotizador (eso es NX-Studio)
+- No debe tener catálogo de templates (eso es NX-Studio)
+- No debe mostrar capacidades de OSINT/Testing como servicio (eso es NX-Studio)
+
+### Lo que este portafolio SÍ debe hacer (foco)
+- Mostrar quién es Sebastian Velasco técnicamente
+- Demostrar expertise vía proyectos propios (NAM, E-14 Fraud Detector, NVA Demons, etc.)
+- Blog técnico personal
+- Contacto directo (form personal, no corporativo)
+- i18n ES/EN
+- Deploy a Vercel con Lighthouse ≥95
+
+### Cross-links estratégicos
+- Footer/About puede mencionar "También fundador de NX-Studio → nxxo31.github.io/NX-Studio"
+- NO duplicar contenido entre los dos sitios
+- Cada uno tiene su propio SEO, sitemap, OG cards
+
+### Próximos Pasos (Backlog de Sprints) – Fase 6
 > 
 > | Sprint | Objetivo | Issue | Prioridad |
 > |--------|----------|-------|-----------|

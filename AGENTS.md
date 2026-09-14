@@ -93,3 +93,33 @@ This version has breaking changes — APIs, conventions, and file structure may 
 NO vitest, NO jest, NO playwright, NO `tsc --noEmit` directo. Los gates son determinísticos: LSP live_diagnostics + delegate_task review + gitleaks + GitHub commit.
 NO separate spec files, drift reports, docs/specs/, architecture overviews, or any .md outside PROJECT.md. Everything goes in PROJECT.md.
 
+## Estrategia dual · portafolio ↔ NX-Studio (2026-09-14)
+
+Este portafolio es el **sitio personal** de Sebastian Velasco. NX-Studio (proyecto hermano en `../NX-Studio/`) es el **sitio empresarial**. Son proyectos independientes con identidades visuales distintas.
+
+### Delimitación de responsabilidades
+- **Este portafolio**: sobre mí, proyectos personales, blog técnico, contacto directo, i18n ES/EN
+- **NX-Studio** (proyecto separado): servicios empresariales, cotizador, catálogo de templates, OSINT/Testing
+
+### Lo que este portafolio NO debe incluir
+- Cotizador (eso es NX-Studio)
+- Marketplace de templates (eso es NX-Studio)
+- OSINT/Testing como servicios (eso es NX-Studio)
+- Sección "Services for hire" (eso es NX-Studio)
+
+### Cross-links permitidos
+- Footer/About puede mencionar "También fundador de NX-Studio → https://nxxo31.github.io/NX-Studio/"
+- Blog posts pueden referenciar proyectos de NX-Studio como contexto
+- Compartir mismos assets (avatar, OG base, fonts) pero identidad visual se mantiene diferenciada
+
+### Identidad visual (NO cambiar)
+- Paleta púrpura `#7c5cff` + cian `#22d3ee` (neobrutalist galáctico)
+- `--bg-void: #05050e`, `--bg-nebula: #0d0a1f`
+- `--accent-primary: #7c5cff`, `--accent-secondary: #22d3ee`, `--accent-gold: #f5c451`
+- El rediseño lava neon (naranja/rojizo) es SOLO para NX-Studio, NO aplicar aquí
+
+### Si necesitas implementar algo que cruza ambos proyectos
+- Primero confirmar con Sebastian si va en portafolio, NX-Studio, o ambos
+- Si va en ambos: definir si comparte componentes o se duplican (probablemente duplicar por ahora, las sintasidades son distintas)
+- Documentar la decisión en PROJECT.md de cada uno
+
