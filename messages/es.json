@@ -1,17 +1,29 @@
 {
   "About": {
-    "title": "Sobre NX Studio",
-    "sectionLabel": "Sobre NX Studio",
-    "eyebrow": "Latin American Technology Partner",
-    "whoWeAre": "Quiénes Somos",
-    "whoWeAreDesc": "NX Studio es una empresa de desarrollo tecnológico fundada por Sebastián Velasco Ocampo, Ingeniero de Sistemas especializado en crear soluciones a medida para el mercado latinoamericano. Combinamos la agilidad y comprensión cultural de equipos regionales con la rigurosidad técnica y escalabilidad de las mejores prácticas globales de desarrollo de software.",
-    "ourApproach": "Nuestro Enfoque",
-    "myBackground": "Mi Formación y Experiencia",
-    "myBackgroundDesc": "Con más de 4 años de experiencia en desarrollo full-stack, arquitectura de sistemas y aplicación práctica de inteligencia artificial, he liderado proyectos que van desde aplicaciones de escritorio multiplataforma hasta plataformas SaaS de trading algorítmico y sistemas de detección de fraude electoral. Mi enfoque combina expertise técnico profundo con comprensión de los desafíos específicos del contexto latinoamericano: conectividad intermitente, regulaciones locales, necesidades de inclusión financiera y adaptación cultural.",
-    "technicalExpertise": "Experiencia Técnica",
-    "values": "Nuestros Valores",
-    "githubLabel": "GitHub",
-    "emailLabel": "Email"
+    "sectionLabel": "Sobre mí",
+    "eyebrow": "// 01 — BITÁCORA",
+    "title": "Sobre mí",
+    "intro": "Ingeniero de Software colombiano trabajando en arquitectura full-stack, sistemas multi-agente y producto. Este sitio es la bitácora de lo que construyo, lo que aprendo y lo que me mueve.",
+    "mission": {
+      "eyebrow": "Misión",
+      "title": "Construir software que la gente realmente use",
+      "body": "Mi trabajo de cada día: llevar ideas a producto vivo. Diseño sistemas que resuelven problemas reales — desde un cotizador B2B hasta un detector de fraude electoral — con código que sobrevive al contacto con producción."
+    },
+    "vision": {
+      "eyebrow": "Visión",
+      "title": "LATAM como hub de ingeniería de frontera",
+      "body": "Demostrar que desde Neiva, Bogotá, Buenos Aires o CDMX se puede construir software al nivel de cualquier硅谷 del mundo, sin renunciar al contexto cultural y a la velocidad que da estar cerca del problema."
+    },
+    "values": {
+      "eyebrow": "Valores",
+      "title": "Rigor, transparencia y craft",
+      "body": "Commits atómicos. Documentación que sirve. Tests donde agregan valor. Reviews que enseñan. Prefiero decir 'no sé' antes que inventar. Mido éxito en producción, no en demos."
+    },
+    "ambitions": {
+      "eyebrow": "Ambiciones",
+      "title": "Llevar Sophia al siguiente nivel",
+      "body": "Sophia es mi proyecto central: un sistema multi-agente autónomo que orquesta Claude Code, Codex y OpenCode sobre Hermes + dark-memory. Quiero llevarla de prototipo a producto, con UI pública y casos de uso abiertos."
+    }
   },
   "Navbar": {
     "navLabel": "Navegación principal",
@@ -25,7 +37,9 @@
     "skills": "SKILLS",
     "contact": "CONTACTO",
     "resume": "CV",
-    "blog": "BLOG"
+    "blog": "BLOG",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
   "Hero": {
     "sectionLabel": "Sección de inicio",
@@ -95,7 +109,15 @@
       "shortDescription": "Plataforma de monitoreo de cumplimiento regulatorio para instituciones financieras.",
       "role": "Arquitecto de Soluciones",
       "impact": "Reducción de falsos positivos en un 60% mediante ML explicable."
-    }
+    },
+    "description": "Detalles del proyecto",
+    "challenge": "Desafío",
+    "solution": "Solución",
+    "technologies": "Tecnologías",
+    "results": "Resultados",
+    "viewDetails": "Ver detalle →",
+    "projectsCta": "¿Tenés un proyecto similar en mente?",
+    "projectsCtaButton": "Hablemos"
   },
   "Skills": {
     "sectionLabel": "Habilidades",
@@ -219,20 +241,7 @@
     "titleTemplate": "%s | Sebastián Velasco",
     "description": "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript, arquitecturas escalables y sistemas multi-agente con IA.",
     "ogDescription": "Portafolio profesional de Sebastián Velasco — Ingeniero de Software especializado en Next.js, React, TypeScript y arquitecturas escalables.",
-    "keywords": [
-      "Sebastián Velasco",
-      "Desarrollador Full-Stack",
-      "Arquitecto de IA",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Portafolio",
-      "Colombia",
-      "Multi-agente",
-      "LangChain",
-      "Docker"
-    ],
+    "keywords": "Sebastián Velasco, Desarrollador Full-Stack, Arquitecto de IA, Next.js, React, TypeScript, Node.js, Portafolio, Colombia, Multi-agente, LangChain, Docker",
     "ogAlt": "Sebastián Velasco — Portafolio de Full-Stack Developer & AI Architect"
   },
   "ProjectDetail": {

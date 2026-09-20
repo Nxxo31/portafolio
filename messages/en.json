@@ -1,17 +1,29 @@
 {
   "About": {
-    "title": "About NX Studio",
-    "sectionLabel": "About NX Studio",
-    "eyebrow": "Latin American Technology Partner",
-    "whoWeAre": "Who We Are",
-    "whoWeAreDesc": "NX Studio is a technology development company founded by Sebastián Velasco Ocampo, a Systems Engineer specialized in creating custom solutions for the Latin American market. We combine the agility and cultural understanding of regional teams with the technical rigor and scalability of global software development best practices.",
-    "ourApproach": "Our Approach",
-    "myBackground": "My Background and Experience",
-    "myBackgroundDesc": "With over 4 years of experience in full-stack development, systems architecture, and practical application of artificial intelligence, I have led projects ranging from cross-platform desktop applications to algorithmic trading SaaS platforms and electoral fraud detection systems. My approach combines deep technical expertise with an understanding of the specific challenges of the Latin American context: intermittent connectivity, local regulations, financial inclusion needs, and cultural adaptation.",
-    "technicalExpertise": "Technical Expertise",
-    "values": "Our Values",
-    "githubLabel": "GitHub",
-    "emailLabel": "Email"
+    "sectionLabel": "About me",
+    "eyebrow": "// 01 — LOGBOOK",
+    "title": "About me",
+    "intro": "Colombian Software Engineer working on full-stack architecture, multi-agent systems, and product. This site is the logbook of what I build, what I learn, and what drives me.",
+    "mission": {
+      "eyebrow": "Mission",
+      "title": "Build software people actually use",
+      "body": "My daily work: turning ideas into live product. I design systems that solve real problems — from a B2B pricing engine to electoral fraud detection — with code that survives contact with production."
+    },
+    "vision": {
+      "eyebrow": "Vision",
+      "title": "LATAM as a frontier engineering hub",
+      "body": "Show that from Neiva, Bogotá, Buenos Aires, or CDMX you can build software at the level of any 硅谷 in the world — without giving up cultural context or the speed that comes from being close to the problem."
+    },
+    "values": {
+      "eyebrow": "Values",
+      "title": "Rigor, transparency, and craft",
+      "body": "Atomic commits. Documentation that helps. Tests where they add value. Reviews that teach. I'd rather say 'I don't know' than invent. I measure success in production, not in demos."
+    },
+    "ambitions": {
+      "eyebrow": "Ambitions",
+      "title": "Take Sophia to the next level",
+      "body": "Sophia is my central project: an autonomous multi-agent system orchestrating Claude Code, Codex, and OpenCode over Hermes + dark-memory. I want to take her from prototype to product, with a public UI and open use cases."
+    }
   },
   "Navbar": {
     "navLabel": "Main navigation",
@@ -25,7 +37,9 @@
     "skills": "SKILLS",
     "contact": "CONTACT",
     "resume": "RESUME",
-    "blog": "BLOG"
+    "blog": "BLOG",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "Hero": {
     "sectionLabel": "Hero section",
@@ -95,7 +109,15 @@
       "shortDescription": "Regulatory compliance monitoring platform for financial institutions.",
       "role": "Solutions Architect",
       "impact": "60% reduction in false positives via explainable ML."
-    }
+    },
+    "description": "Project details",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "technologies": "Technologies",
+    "results": "Results",
+    "viewDetails": "View detail →",
+    "projectsCta": "Got a similar project in mind?",
+    "projectsCtaButton": "Let's talk"
   },
   "Skills": {
     "sectionLabel": "Skills",
@@ -219,20 +241,7 @@
     "titleTemplate": "%s | Sebastián Velasco",
     "description": "Sebastián Velasco's professional portfolio — Software Engineer specialized in Next.js, React, TypeScript, scalable architectures, and multi-agent AI systems.",
     "ogDescription": "Sebastián Velasco's professional portfolio — Software Engineer specialized in Next.js, React, TypeScript, and scalable architectures.",
-    "keywords": [
-      "Sebastián Velasco",
-      "Full-Stack Developer",
-      "AI Architect",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Portfolio",
-      "Colombia",
-      "Multi-agent",
-      "LangChain",
-      "Docker"
-    ],
+    "keywords": "Sebastián Velasco, Full-Stack Developer, AI Architect, Next.js, React, TypeScript, Node.js, Portfolio, Colombia, Multi-agent, LangChain, Docker",
     "ogAlt": "Sebastián Velasco — Portfolio of Full-Stack Developer & AI Architect"
   },
   "ProjectDetail": {

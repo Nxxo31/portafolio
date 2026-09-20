@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function HeroSection() {
   const t = useTranslations("Hero");
+  const locale = useLocale();
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -19,8 +21,7 @@ export default function HeroSection() {
         {/* Header */ }
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
@@ -41,9 +42,8 @@ export default function HeroSection() {
         {/* Vision/Mission */ }
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           className="mb-10"
         >
           <p
@@ -57,9 +57,8 @@ export default function HeroSection() {
         {/* Call to Action */ }
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="space-x-4 sm:space-x-6"
         >
           <a
@@ -83,18 +82,18 @@ export default function HeroSection() {
             {t("heroCTA") || "Solicitar Consulta Técnica Gratis"}
           </a>
 
-          <a
-            href="/resume"
-            className="px-6 py-3 font-heading font-bold text-lg uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
-            style={{
-              backgroundColor: "transparent",
-              color: "var(--ink)",
-              borderColor: "var(--ink)",
-              boxShadow: "4px 4px 0 var(--ink)",
-            }}
-          >
-            {t("heroCV") || "Descargar Currículum"}
-          </a>
+          <Link
+                      href={`/${locale}/resume`}
+                      className="px-6 py-3 font-heading font-bold text-lg uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                      style={{
+                        backgroundColor: "transparent",
+                        color: "var(--ink)",
+                        borderColor: "var(--ink)",
+                        boxShadow: "4px 4px 0 var(--ink)",
+                      }}
+                    >
+                      {t("heroCV") || "Descargar Currículum"}
+                    </Link>
         </motion.div>
 
         {/* Optional: Animated background or decorative elements */ }

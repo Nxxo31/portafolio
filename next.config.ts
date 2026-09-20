@@ -11,6 +11,8 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // Permitir 127.0.0.1 y localhost en dev (Next.js 16 bloquea cross-origin por defecto)
+  allowedDevOrigins: ["127.0.0.1", "localhost", "0.0.0.0"],
   // React strict mode detecta problemas en desarrollo (no afecta producción)
   reactStrictMode: true,
   // Compresión gzip/brotli en respuestas HTTP

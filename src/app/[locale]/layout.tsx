@@ -1,4 +1,4 @@
-import { Metadata, Viewport } from "next";
+import { Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
