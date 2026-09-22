@@ -1,11 +1,29 @@
 {
+  "Metadata": {
+    "title": "Sebastián Velasco | Full-Stack Developer & AI Agents Architect",
+    "titleTemplate": "%s | Sebastián Velasco",
+    "description": "Portfolio of Sebastián Velasco Ocampo — Software Engineer specialized in Next.js, React, TypeScript, AI agents, and scalable architectures.",
+    "keywords": [
+      "Sebastián Velasco",
+      "Full-Stack Developer",
+      "AI Agents Architect",
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Portfolio",
+      "Software Engineer Colombia",
+      "LatAm Tech"
+    ],
+    "ogDescription": "I build digital systems and automate workflows with AI agents. Passionate about efficiency and elegant technical solutions.",
+    "ogAlt": "Portfolio of Sebastián Velasco Ocampo — Software Engineer"
+  },
   "Index": {
     "hero_title": "Hi, I'm {{name}}",
     "hero_subtitle": "Full-Stack Developer & AI Agents Architect",
     "hero_roles_1": "Full-Stack Developer→AI Agents Architect→Automation Specialist→Systems Builder→",
     "hero_roles_2": "→→→→",
     "cta_projects": "View projects",
-    "cta_contact": "Contact",
+    "cta_contact": "Get in touch",
     "about_title": "About me",
     "about_description": "I build digital systems and automate workflows with AI agents. Passionate about efficiency and elegant technical solutions.",
     "projects_title": "Projects",
@@ -19,5 +37,196 @@
     "contact_form_message": "Message",
     "contact_form_submit": "Send message",
     "footer_copyright": "All rights reserved."
+  },
+  "Hero": {
+    "sectionLabel": "Hero section — Main introduction",
+    "heroCTA": "Request a free technical consultation",
+    "heroCV": "View CV"
+  },
+  "About": {
+    "sectionLabel": "About me — Professional pillars",
+    "eyebrow": "// about me",
+    "title": "I build bridges between code and business outcomes",
+    "intro": "I'm a systems engineer specialized in tech solutions for the Latin American market. I combine global technical rigor with deep understanding of local context to ship software that solves real problems.",
+    "mission": {
+      "eyebrow": "Mission",
+      "title": "Solve local problems with international standards",
+      "body": "Design and build software that raises the technical bar of the LatAm market without losing sight of the real needs and constraints of end users."
+    },
+    "vision": {
+      "eyebrow": "Vision",
+      "title": "Tech as a lever for social mobility",
+      "body": "A solid digital ecosystem lets people and companies in the region compete globally. My work aims at enabling that lever."
+    },
+    "values": {
+      "eyebrow": "Values",
+      "title": "Rigor, transparency, product over hype",
+      "body": "I prefer a boring solution that works over a brilliant demo that breaks. I document, measure, and learn out loud."
+    },
+    "ambitions": {
+      "eyebrow": "Ambitions",
+      "title": "Build a boutique LatAm software studio",
+      "body": "Build a small, senior team that ships B2B products with international standards — without the overhead of traditional consultancies."
+    }
+  },
+  "Experience": {
+    "sectionLabel": "Professional experience section",
+    "eyebrow": "// experience",
+    "title": "Trajectory"
+  },
+  "Projects": {
+    "sectionLabel": "Projects — Case studies",
+    "title": "Case Studies",
+    "eyebrow": "Solutions that generate measurable business outcomes",
+    "description": "Each project represents a deep collaboration where I apply technical expertise to solve specific business challenges, with emphasis on measurable results and long-term sustainability.",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "results": "Results",
+    "technologies": "Technologies",
+    "viewDetails": "View details",
+    "projectsCta": "Working on something similar?",
+    "projectsCtaButton": "Let's talk"
+  },
+  "Skills": {
+    "sectionLabel": "Technical skills section",
+    "eyebrow": "// stack",
+    "title": "Tech stack",
+    "yearsSuffix": "yrs",
+    "proficiencyAria": "Proficiency level",
+    "catFrontend": "Frontend",
+    "catBackend": "Backend",
+    "catAIAgents": "AI Agents",
+    "catDevops": "DevOps",
+    "catData": "Data"
+  },
+  "Services": {
+    "sectionLabel": "Services section",
+    "title": "Specialized Services",
+    "eyebrow": "Bespoke solutions for the Latin American market",
+    "description": "I build technology that combines global technical rigor with deep understanding of the Latin American context, focused on measurable business outcomes and long-term sustainability.",
+    "specialties": "Specialties",
+    "technologies": "Technologies",
+    "learnMore": "Learn more",
+    "servicesCta": "Need any of these solutions?",
+    "servicesCtaButton": "Let's talk"
+  },
+  "Contact": {
+    "sectionLabel": "Contact section",
+    "eyebrow": "// contact",
+    "title": "Let's build something",
+    "emailLabel": "Email",
+    "copyEmailAria": "Copy email to clipboard",
+    "copied": "Copied!",
+    "githubLabel": "GitHub",
+    "githubAria": "Go to GitHub profile",
+    "locationLabel": "Location",
+    "formLabel": "Contact form",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailFieldLabel": "Email",
+    "emailPlaceholder": "you@email.com",
+    "subjectPlaceholder": "Subject",
+    "messagePlaceholder": "Tell me about your project...",
+    "submitting": "Sending...",
+    "submit": "Send message",
+    "success": "Message sent successfully. I'll reply in less than 24h.",
+    "error": "There was an error sending. Email me directly at sebastianvelasco2005@gmail.com",
+    "submittingStatus": "Sending your message...",
+    "errorStatus": "Error sending message"
+  },
+  "Testimonials": {
+    "sectionLabel": "// testimonials",
+    "title": "What they say",
+    "prevLabel": "Previous testimonial",
+    "nextLabel": "Next testimonial",
+    "indicatorsLabel": "Testimonial selector",
+    "items": {
+      "0": {
+        "quote": "Sebastián turned an idea into a robust product in record time. His ability to connect technical decisions with business impact is exceptional.",
+        "author": "Carlos Méndez",
+        "role": "CTO",
+        "company": "LogiTech Solutions"
+      },
+      "1": {
+        "quote": "Technical rigor, clear communication, on-time delivery. The kind of engineer you want to build a team from scratch with.",
+        "author": "Ana Ramírez",
+        "role": "Product Manager",
+        "company": "NexoAcc"
+      },
+      "2": {
+        "quote": "Designed an architecture that scaled from 100 to 50k users without rewrites. Zero magic, zero hype — just well-grounded decisions.",
+        "author": "David Park",
+        "role": "Lead Engineer",
+        "company": "SyntheticTrader"
+      }
+    }
+  },
+  "Footer": {
+    "sectionLabel": "Footer",
+    "socialsLabel": "Social media",
+    "githubAria": "GitHub profile",
+    "github": "GitHub",
+    "emailAria": "Send email",
+    "email": "Email",
+    "backToTopAria": "Back to top",
+    "backToTop": "↑ Top"
+  },
+  "Navbar": {
+    "navLabel": "Main navigation",
+    "goHome": "Go to home",
+    "logo": "SEBASTIÁN V.",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Stack",
+    "contact": "Contact"
+  },
+  "LanguageToggle": {
+    "switchToEn": "Switch to English",
+    "switchToEs": "Switch to Spanish"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Technical notes on AI agents, music tech, automation, and software architecture.",
+    "eyebrow": "// blog",
+    "back": "← Back",
+    "backAria": "Back to previous page",
+    "noPosts": "Coming soon.",
+    "noPostFound": "Post not found",
+    "readingTime": "{minutes} min read",
+    "tableOfContents": "Table of contents"
+  },
+  "Resume": {
+    "title": "Resume",
+    "subtitle": "Trajectory, stack, and projects. Downloadable as PDF and Markdown.",
+    "eyebrow": "// cv",
+    "back": "← Back",
+    "backAria": "Back to home",
+    "sectionLabel": "Download resume",
+    "pdfButton": "Download PDF",
+    "pdfAria": "Download resume as PDF",
+    "mdButton": "Download Markdown",
+    "mdAria": "Download resume as Markdown",
+    "downloadInfo": "Generated on the fly — reflects the latest portfolio data."
+  },
+  "ProjectDetail": {
+    "back": "← Back to projects",
+    "backAria": "Back to projects list",
+    "eyebrow": "// case study",
+    "roleLabel": "Role",
+    "featuredBadge": "Featured",
+    "linksAria": "Project links",
+    "askLink": "Ask me about this",
+    "notFoundTitle": "Project not found"
+  },
+  "NotFound": {
+    "title": "404 — Page not found",
+    "description": "404 — Page not found",
+    "body": "The route you're looking for doesn't exist or was moved. Go back home to keep exploring.",
+    "back": "← Back to home",
+    "backAria": "Back to home page"
   }
 }

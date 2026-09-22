@@ -1,4 +1,22 @@
 {
+  "Metadata": {
+    "title": "Sebastián Velasco | Full-Stack Developer y Arquitecto de Agentes IA",
+    "titleTemplate": "%s | Sebastián Velasco",
+    "description": "Portafolio de Sebastián Velasco Ocampo — Ingeniero de Software especializado en Next.js, React, TypeScript, agentes IA y arquitecturas escalables.",
+    "keywords": [
+      "Sebastián Velasco",
+      "Full-Stack Developer",
+      "AI Agents Architect",
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Portfolio",
+      "Desarrollador Colombia",
+      "Arquitecto Agentes IA"
+    ],
+    "ogDescription": "Construyo sistemas digitales y automatizo flujos con agentes de IA. Apasionado por la eficiencia y las soluciones técnicas elegantes.",
+    "ogAlt": "Portafolio de Sebastián Velasco Ocampo — Ingeniero de Software"
+  },
   "Index": {
     "hero_title": "Hola, soy {{name}}",
     "hero_subtitle": "Desarrollador Full-Stack & Arquitecto de Agentes IA",
@@ -19,5 +37,196 @@
     "contact_form_message": "Mensaje",
     "contact_form_submit": "Enviar mensaje",
     "footer_copyright": "Todos los derechos reservados."
+  },
+  "Hero": {
+    "sectionLabel": "Sección hero — Presentación principal",
+    "heroCTA": "Solicitar Consulta Técnica Gratis",
+    "heroCV": "Ver CV"
+  },
+  "About": {
+    "sectionLabel": "Sección sobre mí — Pilares profesionales",
+    "eyebrow": "// sobre mí",
+    "title": "Construyo puentes entre el código y los resultados de negocio",
+    "intro": "Soy ingeniero de sistemas especializado en soluciones tecnológicas para el mercado latinoamericano. Combino rigor técnico global con comprensión profunda del contexto local para entregar software que resuelve problemas reales.",
+    "mission": {
+      "eyebrow": "Misión",
+      "title": "Resolver problemas locales con estándares internacionales",
+      "body": "Diseñar y construir software que eleve el estándar técnico del mercado latinoamericano sin perder de vista las necesidades y restricciones reales del usuario final."
+    },
+    "vision": {
+      "eyebrow": "Visión",
+      "title": "Tecnología como palanca de movilidad social",
+      "body": "Un ecosistema digital sólido permite a personas y empresas de la región competir globalmente. Mi trabajo apunta a habilitar esa palanca."
+    },
+    "values": {
+      "eyebrow": "Valores",
+      "title": "Rigor, transparencia y producto sobre hype",
+      "body": "Prefiero una solución aburrida que funciona a un demo brillante que rompe. Documento, mido y aprendo en voz alta."
+    },
+    "ambitions": {
+      "eyebrow": "Ambiciones",
+      "title": "Levantar un estudio boutique de software LATAM",
+      "body": "Construir un equipo pequeño y senior que entregue productos B2B con estándares internacionales, sin la hojarasca de las consultoras tradicionales."
+    }
+  },
+  "Experience": {
+    "sectionLabel": "Sección experiencia profesional",
+    "eyebrow": "// experiencia",
+    "title": "Trayectoria"
+  },
+  "Projects": {
+    "sectionLabel": "Sección proyectos — Casos de estudio",
+    "title": "Casos de Estudio",
+    "eyebrow": "Soluciones que generan resultados medibles de negocio",
+    "description": "Cada proyecto representa una colaboración profunda donde aplico expertise técnico para resolver desafíos específicos de negocio, con énfasis en resultados medibles y sostenibilidad a largo plazo.",
+    "challenge": "Reto",
+    "solution": "Solución",
+    "results": "Resultados",
+    "technologies": "Tecnologías",
+    "viewDetails": "Ver detalles",
+    "projectsCta": "¿Tienes un proyecto similar?",
+    "projectsCtaButton": "Conversemos"
+  },
+  "Skills": {
+    "sectionLabel": "Sección habilidades técnicas",
+    "eyebrow": "// stack",
+    "title": "Stack técnico",
+    "yearsSuffix": "años",
+    "proficiencyAria": "Nivel de proficiencia",
+    "catFrontend": "Frontend",
+    "catBackend": "Backend",
+    "catAIAgents": "Agentes IA",
+    "catDevops": "DevOps",
+    "catData": "Datos"
+  },
+  "Services": {
+    "sectionLabel": "Sección servicios ofrecidos",
+    "title": "Servicios Especializados",
+    "eyebrow": "Soluciones a medida para el mercado latinoamericano",
+    "description": "Desarrollo tecnología que combina rigor técnico global con comprensión profunda del contexto latinoamericano, enfocándome en resultados medibles de negocio y sostenibilidad a largo plazo.",
+    "specialties": "Especialidades",
+    "technologies": "Tecnologías",
+    "learnMore": "Saber más",
+    "servicesCta": "¿Necesitas alguna de estas soluciones?",
+    "servicesCtaButton": "Hablemos"
+  },
+  "Contact": {
+    "sectionLabel": "Sección contacto",
+    "eyebrow": "// contacto",
+    "title": "Construyamos algo",
+    "emailLabel": "Email",
+    "copyEmailAria": "Copiar email al portapapeles",
+    "copied": "¡Copiado!",
+    "githubLabel": "GitHub",
+    "githubAria": "Ir al perfil de GitHub",
+    "locationLabel": "Ubicación",
+    "formLabel": "Formulario de contacto",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "emailFieldLabel": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "subjectPlaceholder": "Asunto",
+    "messagePlaceholder": "Cuéntame sobre tu proyecto...",
+    "submitting": "Enviando...",
+    "submit": "Enviar mensaje",
+    "success": "Mensaje enviado correctamente. Te respondo en menos de 24h.",
+    "error": "Hubo un error al enviar. Escríbeme directo a sebastianvelasco2005@gmail.com",
+    "submittingStatus": "Enviando tu mensaje...",
+    "errorStatus": "Error al enviar el mensaje"
+  },
+  "Testimonials": {
+    "sectionLabel": "// testimonios",
+    "title": "Lo que dicen",
+    "prevLabel": "Testimonio anterior",
+    "nextLabel": "Siguiente testimonio",
+    "indicatorsLabel": "Selector de testimonios",
+    "items": {
+      "0": {
+        "quote": "Sebastián transformó una idea en un producto robusto en tiempo récord. Su capacidad para conectar decisiones técnicas con impacto de negocio es excepcional.",
+        "author": "Carlos Méndez",
+        "role": "CTO",
+        "company": "LogiTech Solutions"
+      },
+      "1": {
+        "quote": "Rigor técnico, comunicación clara y entrega puntual. Es el tipo de ingeniero con el que quieres construir un equipo desde cero.",
+        "author": "Ana Ramírez",
+        "role": "Product Manager",
+        "company": "NexoAcc"
+      },
+      "2": {
+        "quote": "Diseñó una arquitectura que escaló de 100 a 50k usuarios sin reescritura. Cero magia, cero hype — solo decisiones bien fundamentadas.",
+        "author": "David Park",
+        "role": "Lead Engineer",
+        "company": "SyntheticTrader"
+      }
+    }
+  },
+  "Footer": {
+    "sectionLabel": "Pie de página",
+    "socialsLabel": "Redes sociales",
+    "githubAria": "Perfil de GitHub",
+    "github": "GitHub",
+    "emailAria": "Enviar email",
+    "email": "Email",
+    "backToTopAria": "Volver arriba",
+    "backToTop": "↑ Arriba"
+  },
+  "Navbar": {
+    "navLabel": "Navegación principal",
+    "goHome": "Ir al inicio",
+    "logo": "SEBASTIÁN V.",
+    "closeMenu": "Cerrar menú",
+    "openMenu": "Abrir menú",
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "experience": "Trayectoria",
+    "projects": "Proyectos",
+    "skills": "Stack",
+    "contact": "Contacto"
+  },
+  "LanguageToggle": {
+    "switchToEn": "Cambiar a inglés",
+    "switchToEs": "Cambiar a español"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Notas técnicas sobre agentes IA, music tech, automatización y arquitectura de software.",
+    "eyebrow": "// blog",
+    "back": "← Volver",
+    "backAria": "Volver a la página anterior",
+    "noPosts": "Próximamente.",
+    "noPostFound": "Post no encontrado",
+    "readingTime": "{minutes} min de lectura",
+    "tableOfContents": "Tabla de contenidos"
+  },
+  "Resume": {
+    "title": "Currículum",
+    "subtitle": "Trayectoria, stack y proyectos. Descargable en PDF y Markdown.",
+    "eyebrow": "// cv",
+    "back": "← Volver",
+    "backAria": "Volver al inicio",
+    "sectionLabel": "Descargar currículum",
+    "pdfButton": "Descargar PDF",
+    "pdfAria": "Descargar currículum en PDF",
+    "mdButton": "Descargar Markdown",
+    "mdAria": "Descargar currículum en Markdown",
+    "downloadInfo": "Generado al vuelo — refleja los datos más recientes del portafolio."
+  },
+  "ProjectDetail": {
+    "back": "← Volver a proyectos",
+    "backAria": "Volver a la lista de proyectos",
+    "eyebrow": "// caso de estudio",
+    "roleLabel": "Rol",
+    "featuredBadge": "Destacado",
+    "linksAria": "Enlaces del proyecto",
+    "askLink": "Pregúntame sobre esto",
+    "notFoundTitle": "Proyecto no encontrado"
+  },
+  "NotFound": {
+    "title": "404 — Página no encontrada",
+    "description": "404 — Página no encontrada",
+    "body": "La ruta que buscas no existe o fue movida. Vuelve al inicio para seguir explorando.",
+    "back": "← Volver al inicio",
+    "backAria": "Volver a la página principal"
   }
 }
