@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { getPost } from '@/lib/blog'
 
+// Páginas dinámicas: on-demand per request. Ver projects/[slug]/page.tsx.
+export const dynamic = 'force-dynamic'
+
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sebastianvelasco.dev'
 

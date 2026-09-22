@@ -4,6 +4,11 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { contentData } from "@/content/data";
 
+// Páginas dinámicas: se renderizan on-demand en cada request.
+// Necesario porque getRequestConfig lee el locale del middleware (per-request).
+// Sin esto, next build intenta prerenderizar y falla con DYNAMIC_SERVER_USAGE.
+export const dynamic = "force-dynamic";
+
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://sebastianvelasco.dev";
 
