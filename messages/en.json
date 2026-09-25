@@ -129,20 +129,9 @@
     "catDevops": "DEVOPS",
     "catData": "DATA",
     "yearsSuffix": "y",
-    "proficiencyAria": "{name}: level {level} of 5"
-  },
-  "Services": {
-    "title": "Our Specialized Services",
-    "sectionLabel": "Specialized services",
-    "eyebrow": "Custom solutions for the Latin American market",
-    "description": "We develop technology that combines global technical rigor with deep understanding of the Latin American context. Our focus is on creating solutions that solve real business problems, not just delivering code.",
-    "specialties": "Specialties",
-    "technologies": "Technologies",
-    "learnMore": "Learn more",
-    "servicesCta": "Ready to transform your challenge into a technological advantage?",
-    "servicesCtaButton": "Request Proposal"
-  },
-  "Experience": {
+        "proficiencyAria": "{name}: level {level} of 5"
+      },
+      "Experience": {
     "sectionLabel": "Professional experience",
     "eyebrow": "// TRAJECTORY",
     "title": "EXPERIENCE",

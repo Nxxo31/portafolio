@@ -184,18 +184,48 @@
 > || Hosting | Vercel (planeado S-01) | Netlify, Railway | Next.js nativo, Edge network, analytics free ||
 > || Styling | Tailwind v4 | styled-components, CSS modules | Zero-runtime, utility-first, coherencia diseño ||
 >
-> ## 📦 Estado de Implementación>
-> 
-> | Fase | Descripción | Commit | Verificación |
-> |------|-------------|--------|--------------|
-> | Phase 0 | Foundation: Next.js 16, Tailwind v4, layout con metadata | [init] | Estructura base con metadata defined |
-> | Phase 1 | Estructura estática: Navbar, Hero, About, Projects, Skills, Contact, Footer | [init] | Todas las secciones implementadas |
-> | Phase 2 | Capa de datos centralizada | [init] | `src/content/data.ts` fuente única |
-> | Phase 3 | Animaciones: Starfield 3D (Three.js → refactorizado Canvas 2D), Framer Motion, typewriter | [init] | Starfield 60fps, Typewriter roles |
-> | Phase 4 | Backend: API `/api/contact` con Zod + Resend + honeypot | [init] | Form funcional |
-> | Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; `vercel.json` creado para deploy |
-| Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | En progreso | S-02 finalizado, lint+build 0 errores, `vercel.json` listo |
-| Phase 7 | Estrategia dual portafolio+NX-Studio: docs de posicionamiento, sin cambios UI | TBD | PROJECT.md + AGENTS.md actualizados |
+## 📦 Estado de Implementación>
+
+| Fase | Descripción | Commit | Verificación |
+|------|-------------|--------|--------------|
+| Phase 0 | Foundation: Next.js 16, Tailwind v4, layout con metadata | [init] | Estructura base con metadata defined |
+| Phase 1 | Estructura estática: Navbar, Hero, About, Projects, Skills, Contact, Footer | [init] | Todas las secciones implementadas |
+| Phase 2 | Capa de datos centralizada | [init] | `src/content/data.ts` fuente única |
+| Phase 3 | Animaciones: Starfield 3D (Three.js → refactorizado Canvas 2D), Framer Motion, typewriter | [init] | Starfield 60fps, Typewriter roles |
+| Phase 4 | Backend: API `/api/contact` con Zod + Resend + honeypot | [init] | Form funcional |
+| Phase 5 | SEO & Performance: sitemap dinámico, robots, manifest, OG, JSON-LD, canonical, hrefLang, StarField refactor, favicon | 1bb6a9a | `tsc --noEmit` = 0 errors; `vercel.json` creado para deploy |
+| Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | 90c1ebd, 9cc231a | S-02..S-06 finalizados, lint+build 0 errores, `vercel.json` listo |
+| Phase 7 | Estrategia dual portafolio+NX-Studio: docs de posicionamiento, sin cambios UI | d8ab4e5 | PROJECT.md + AGENTS.md actualizados |
+| Phase 8 | Cleanup dual (Services → NX-Studio) + Sistema de temáticas múltiples | TBD | Build verde, 5 themes (default/dark/lava-neon/obsidian-teal/navy-gold) activables con `data-theme` |
+
+### Phase 8 — Detalle (2026-09-24)
+
+**Cleanup dual:**
+- Borrado `src/sections/Services.tsx` (services for hire vive solo en NX-Studio)
+- Eliminado `businessModel` + `services` arrays de `src/content/data.ts` (400+ líneas)
+- Limpiados tipos `ServiceCard`, `BusinessModelStep`, `BusinessModelService`, `BusinessModel` en `src/types/content.ts`
+- Quitado namespace `Services` de `messages/es.json` y `messages/en.json` (paridad i18n intacta)
+- Eliminado `services` campo de `ContentData` (4 campos quedan: profile, projects, skills, experience)
+
+**Sistema de temáticas múltiples (`data-theme` en `<html>`):**
+- `src/app/globals.css` refactor: 5 temas con CSS variables compartidas
+  - `default` (púrpura/cyan neobrutalist light) · `default-dark` (modo oscuro)
+  - `lava-neon` (naranja/rojizo gemelo temático de NX-Studio)
+  - `obsidian-teal` (engineering minimal, Vercel vibe)
+  - `navy-gold` (premium enterprise, Andela/Toptal vibe)
+- Script anti-FOUC en `src/app/layout.tsx` aplica `data-theme` antes de hydration
+- `src/components/ThemeSwitcher.tsx` (nuevo): dropdown con 5 temas, swatches preview, localStorage key `portfolio-theme`, click-outside + Escape para cerrar
+- `src/components/ThemeToggle.tsx` refactor: ahora atajo rápido entre `default` ↔ `default-dark`, usa el mismo `data-theme` store que ThemeSwitcher
+- `src/components/Navbar.tsx`: integrado ThemeSwitcher entre LanguageToggle y ThemeToggle (desktop + mobile)
+- `meta[name="theme-color"]` se actualiza dinámicamente por theme
+
+**Verificación:**
+- `npm run build` exit 0, 9 páginas, todas SSG correctas
+- Smoke test: `/`, `/es`, `/en`, `/es/blog`, `/en/blog` → 200
+- Grep "Servicios Especializados" → 0 matches (namespace limpio)
+- Bootstrap script presente en HTML con `localStorage.getItem('portfolio-theme')`
+- ThemeSwitcher renderizado en navbar (aria-label="Cambiar temática visual")
+
 
 ## 🤝 Estrategia dual · portafolio ↔ NX-Studio (2026-09-14)
 
@@ -230,20 +260,25 @@ Este portafolio y `NX-Studio/` son **dos proyectos que se complementan mutuament
 - NO duplicar contenido entre los dos sitios
 - Cada uno tiene su propio SEO, sitemap, OG cards
 
-### Próximos Pasos (Backlog de Sprints) – Fase 6
-> 
+### Próximos Pasos (Backlog de Sprints) – Fase 6+
+>
 > | Sprint | Objetivo | Issue | Prioridad |
 > |--------|----------|-------|-----------|
 > | S-01 | Deploy a Vercel + Lighthouse ≥ 95 | #2 | Alta (listo para deploy) |
-> | S-02 | Dark mode toggle (alternar tema oscuro/claro) | #1 | Alta ✅ Finalizado |
-> | S-03 | Testimonios opcional con carrusel | #3 | Media ✅ Implementado |
-> | S-04 | Resume download multi-formato (PDF, MD) | #4 | Media ✅ Implementado |
-> | S-05 | i18n multi-idioma (en/es) con hreflang | #5 | Baja ✅ Implementado |
-> | S-06 | Blog section (MDX posts técnicos) | #6 | Baja ✅ Implementado |
-> 
-> ### Estado del Sprint Activo: S-02 — Dark Mode Toggle
-> > **Sprint:** S-02 | **Iniciado:** completado | **Objetivo:** Implementar toggle de tema oscuro/claro
-> > **Issue:** #1 | **Perfil asignado:** dev | **Blocker:** Depende de S-01 (deploy) para verificar en prod
+> | S-02 | Dark mode toggle (alternar tema oscuro/claro) | #1 | ✅ Finalizado |
+> | S-03 | Testimonios opcional con carrusel | #3 | ✅ Implementado |
+> | S-04 | Resume download multi-formato (PDF, MD) | #4 | ✅ Implementado |
+> | S-05 | i18n multi-idioma (en/es) con hreflang | #5 | ✅ Implementado |
+> | S-06 | Blog section (MDX posts técnicos) | #6 | ✅ Implementado |
+> | S-07 | Cleanup dual (Services → NX-Studio) | — | ✅ Implementado |
+> | S-08 | Sistema de temáticas múltiples (5 themes, data-theme selector) | — | ✅ Implementado |
+>
+> ### Estado del Sprint Activo
+> Sprint S-02 ya completado, no hay sprint activo abierto. Los pendientes operativos son:
+> 1. **S-01 Deploy** — requiere interacción manual (auth Vercel). No bloqueante.
+> 2. Visual QA a números finales de cada nueva temática (los tokens están creados pero no se han comparado visualmente contra `default`)
+>
+> **Nota histórica:** El detalle del Sprint S-02 queda aquí como referencia (tasks completadas, decisions de useSyncExternalStore, vercel.json deploy-ready). No hay blockers activos.
 > 
 > #### Especificación (SPEC)
 > **User Story:**

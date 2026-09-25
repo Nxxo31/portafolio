@@ -2,71 +2,82 @@
 
 import { useSyncExternalStore, useCallback } from "react";
 
-type Theme = "light" | "dark";
+/**
+ * ThemeToggle — atajo rápido para alternar entre `default` ↔ `default-dark`.
+ *
+ * Conservado como UX familiar: el switcher completo (`ThemeSwitcher.tsx`)
+ * vive al lado en el navbar y ofrece las 5 temáticas. Este botón solo
+ * maneja la conmutación claro/oscuro del theme neobrutalist original.
+ *
+ * Usa el mismo store externo que ThemeSwitcher (mismo `data-theme` attr),
+ * así ambos componentes se mantienen sincronizados en multi-tab y comparten
+ * el snapshot de useSyncExternalStore.
+ */
 
-// --- Store externo para tema (DOM + localStorage) ---
-// Patron useSyncExternalStore: evita setState-in-effect (cascading renders)
-// y mantiene el estado de React sincronizado con el DOM real.
-
-const THEME_KEY = "theme";
+type Mode = "light" | "dark";
+const STORAGE_KEY = "portfolio-theme";
 const DARK_CLASS = "dark";
+const DEFAULT_DARK = "default-dark";
+const DEFAULT_LIGHT = "default";
 
 function subscribe(callback: () => void): () => void {
-  //Escucha cambios desde otras instancias del toggle (multiples pestanas)
-  window.addEventListener("storage", onStorageChange);
-  return () => window.removeEventListener("storage", onStorageChange);
+  window.addEventListener("storage", onStorage);
+  return () => window.removeEventListener("storage", onStorage);
 
-  function onStorageChange(e: StorageEvent) {
-    if (e.key === THEME_KEY) callback();
+  function onStorage(e: StorageEvent) {
+    if (e.key === STORAGE_KEY) callback();
   }
 }
 
-function getSnapshot(): Theme {
-  // Lee el estado actual del DOM (fuente autoritativa despues del script anti-FOUC)
+function getSnapshot(): Mode {
+  // Lee data-theme y mapea a light/dark
+  const theme = document.documentElement.getAttribute("data-theme");
+  if (theme === DEFAULT_DARK) return "dark";
+  if (theme && theme !== DEFAULT_LIGHT) return "light"; // otros themes = light surface
   return document.documentElement.classList.contains(DARK_CLASS)
     ? "dark"
     : "light";
 }
 
-function getServerSnapshot(): Theme {
-  // En el servidor no hay DOM; defaulta a dark (tema base del portafolio)
+function getServerSnapshot(): Mode {
   return "dark";
 }
 
-function setTheme(theme: Theme): void {
+function toggleMode(current: Mode): void {
   const root = document.documentElement;
+  const next: Mode = current === "dark" ? "light" : "dark";
+  const nextTheme = next === "dark" ? DEFAULT_DARK : DEFAULT_LIGHT;
 
-  if (theme === "dark") {
+  root.setAttribute("data-theme", nextTheme);
+
+  if (next === "dark") {
     root.classList.add(DARK_CLASS);
   } else {
     root.classList.remove(DARK_CLASS);
   }
 
   try {
-    localStorage.setItem(THEME_KEY, theme);
+    localStorage.setItem(STORAGE_KEY, nextTheme);
   } catch {
-    // localStorage podria estar bloqueado (modo privado); el toggle visual sigue funcionando
+    // localStorage bloqueado
   }
 
-  // Actualiza meta theme-color dinamicamente
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
-    meta.setAttribute("content", theme === "dark" ? "#1a1a2e" : "#f4f1e8");
+    meta.setAttribute("content", next === "dark" ? "#1a1a2e" : "#f4f1e8");
   }
 }
 
 export default function ThemeToggle() {
-  const theme = useSyncExternalStore(
+  const mode = useSyncExternalStore(
     subscribe,
     getSnapshot,
     getServerSnapshot,
   );
 
-  const toggle = useCallback(() => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  }, [theme]);
+  const toggle = useCallback(() => toggleMode(mode), [mode]);
 
-  const isDark = theme === "dark";
+  const isDark = mode === "dark";
 
   return (
     <button
@@ -87,7 +98,7 @@ export default function ThemeToggle() {
       aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
       title={isDark ? "Modo claro" : "Modo oscuro"}
     >
-      {/* Icono sol (modo oscuro -> accion: ir a claro) */}
+      {/* Sol (modo claro → ir a oscuro) */}
       {!isDark && (
         <svg
           width="18"
@@ -105,7 +116,7 @@ export default function ThemeToggle() {
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
         </svg>
       )}
-      {/* Icono luna (modo claro -> accion: ir a oscuro) */}
+      {/* Luna (modo oscuro → ir a claro) */}
       {isDark && (
         <svg
           width="18"

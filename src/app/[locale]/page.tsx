@@ -6,6 +6,10 @@ import SkillsSection from "@/sections/Skills";
 import ContactSection from "@/sections/Contact";
 import Footer from "@/sections/Footer";
 
+// Services section removed: per dual-strategy (PROJECT.md), "Services for
+// hire" lives in NX-Studio, not in this personal portfolio. The portfolio
+// focuses on personal brand, projects, and blog.
+
 // NOTE: page-level metadata removed on purpose. Title/description come from
 // generateMetadata() in src/app/layout.tsx, which is locale-aware via
 // next-intl. Exporting a static `metadata` here was overriding the layout

@@ -1,22 +1,34 @@
 @import "tailwindcss";
 
+/*
+ * Sistema de temáticas múltiples — portafolio personal.
+ *
+ * Inspirado en NX-Studio (mismo patrón de `data-palette="..."` sobre `<html>`),
+ * pero acá se llama `data-theme`. Permite que el portafolio personal cambie
+ * entre múltiples identidades visuales manteniendo las primitivas
+ * neobrutalist compartidas.
+ *
+ * Themes disponibles:
+ *   - default        → púrpura cyan neobrutalist (light, identidad original)
+ *   - default-dark   → púrpura cyan neobrutalist (dark)
+ *   - lava-neon      → naranja/rojizo Matrix-style (gemelo temático de NX-Studio)
+ *   - obsidian-teal  → engineering minimal (Vercel vibe, paleta fría)
+ *   - navy-gold      → premium enterprise (Andela/Toptal vibe)
+ *
+ * El cambio es instantáneo: solo se modifica el `data-theme` en <html>.
+ */
+
 @theme inline {
   --font-sans: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
   --font-heading: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-
-  --color-ink: #1a1a2e;
-  --color-paper: #f4f1e8;
-  --color-accent-1: #ff6b35;
-  --color-accent-2: #00a6fb;
-  --color-accent-3: #ffd23f;
-  --color-accent-4: #06d6a0;
-  --color-accent-5: #ef476f;
-  --color-surface: #ffffff;
-  --color-surface-dark: #1a1a2e;
 }
 
-:root {
+/* =========================================================================
+ * THEME 1: default — púrpura/cyan neobrutalist (light, identidad original)
+ * ========================================================================= */
+:root,
+:root[data-theme="default"] {
   --ink: #1a1a2e;
   --paper: #f4f1e8;
   --accent-1: #ff6b35;
@@ -26,17 +38,21 @@
   --accent-5: #ef476f;
   --surface: #ffffff;
   --surface-dark: #1a1a2e;
-
   --container-max: 1200px;
   --section-padding: 6rem;
   --transition-fast: 0.15s ease;
   --transition-medium: 0.25s ease;
   --ring: 2px solid var(--ink);
+  --theme-color: #f4f1e8;
+  --theme-label: "default";
 }
 
-/* Tema oscuro neobrutalist: invierte ink/paper y superficies */
-/* Se activa con la clase .dark en <html> */
-:root.dark {
+/* =========================================================================
+ * THEME 2: default-dark — púrpura/cyan neobrutalist (dark)
+ * Activa con `data-theme="default-dark"` o clase legacy `.dark` en <html>
+ * ========================================================================= */
+:root[data-theme="default-dark"],
+:root.dark:not([data-theme]) {
   --ink: #f4f1e8;
   --paper: #1a1a2e;
   --accent-1: #ff8c42;
@@ -47,11 +63,74 @@
   --surface: #232342;
   --surface-dark: #0d0d18;
   --ring: 2px solid var(--ink);
+  --theme-color: #1a1a2e;
+  --theme-label: "default-dark";
 }
 
-/* Transición suave entre temas (respeta prefers-reduced-motion) */
-:root:not(.dark) body,
-:root.dark body {
+/* Compatibilidad retro: clase `.dark` legacy mapea a default-dark */
+:root.dark:not([data-theme]) {
+  --theme-label: "default-dark";
+}
+
+/* =========================================================================
+ * THEME 3: lava-neon — naranja/rojizo Matrix (gemelo temático NX-Studio)
+ * Light variante: paper crema, ink casi-negro cálido, lava como accent
+ * ========================================================================= */
+:root[data-theme="lava-neon"] {
+  --ink: #1a0f0a;
+  --paper: #fef4ec;
+  --accent-1: #ff4500;     /* lava principal */
+  --accent-2: #5e6ad2;     /* indigo NX-Studio */
+  --accent-3: #ff8c00;     /* lava soft */
+  --accent-4: #ffd23f;     /* gold highlight */
+  --accent-5: #8b0000;     /* lava deep */
+  --surface: #ffffff;
+  --surface-dark: #1a0f0a;
+  --ring: 2px solid var(--ink);
+  --theme-color: #fef4ec;
+  --theme-label: "lava-neon";
+}
+
+/* =========================================================================
+ * THEME 4: obsidian-teal — engineering minimal (Vercel vibe)
+ * Light: paper blanco-grisáceo, ink navy profundo, teal como accent
+ * ========================================================================= */
+:root[data-theme="obsidian-teal"] {
+  --ink: #0a1929;
+  --paper: #f5f7fa;
+  --accent-1: #14b8a6;     /* teal principal */
+  --accent-2: #0ea5e9;     /* sky */
+  --accent-3: #f59e0b;     /* amber warm */
+  --accent-4: #10b981;     /* emerald */
+  --accent-5: #6366f1;     /* indigo */
+  --surface: #ffffff;
+  --surface-dark: #0a1929;
+  --ring: 2px solid var(--ink);
+  --theme-color: #f5f7fa;
+  --theme-label: "obsidian-teal";
+}
+
+/* =========================================================================
+ * THEME 5: navy-gold — premium enterprise (Andela/Toptal vibe)
+ * Light: paper ivory, ink navy, gold como accent principal
+ * ========================================================================= */
+:root[data-theme="navy-gold"] {
+  --ink: #0f1e3d;
+  --paper: #faf8f3;
+  --accent-1: #c89b3c;     /* gold principal */
+  --accent-2: #1e3a8a;     /* navy deep */
+  --accent-3: #d4a951;     /* gold soft */
+  --accent-4: #0e7490;     /* cyan-dark */
+  --accent-5: #7c2d12;     /* burgundy */
+  --surface: #ffffff;
+  --surface-dark: #0f1e3d;
+  --ring: 2px solid var(--ink);
+  --theme-color: #faf8f3;
+  --theme-label: "navy-gold";
+}
+
+/* Transición suave entre themes (respeta prefers-reduced-motion) */
+:root body {
   transition: background-color var(--transition-medium), color var(--transition-medium);
 }
 

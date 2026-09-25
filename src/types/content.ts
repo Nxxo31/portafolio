@@ -42,17 +42,6 @@ export interface Skill {
   description: string;
 }
 
-export interface ServiceCard {
-  id: string;
-  title: string;
-  shortDescription: string;
-  fullDescription: string;
-  icon: string;
-  color: string;
-  especialidades?: string[];
-  tecnologias?: string[];
-}
-
 export interface ExperienceEntry {
   id: string;
   period: string;
@@ -62,43 +51,9 @@ export interface ExperienceEntry {
   technologies: string[];
 }
 
-export interface BusinessModelStep {
-  paso: string;
-  titulo: string;
-  descripcion: string;
-  detalles: string[];
-}
-
-export interface BusinessModelService {
-  id: string;
-  title: string;
-  shortDescription: string;
-  fullDescription: string;
-  icon: string;
-  color: string;
-  especialidades: string[];
-  tecnologias: string[];
-}
-
-export interface BusinessModel {
-  vision: string;
-  mission: string;
-  enfoque: string[];
-  servicios: BusinessModelService[];
-  proceso: BusinessModelStep[];
-  diferenciacion: string[];
-  lita: string[];
-  techParaTodos: string[];
-  metricas: string[];
-  goToMarket: string[];
-  procesoInicio: string[];
-}
-
 export interface ContentData {
   profile: Profile;
   projects: Project[];
   skills: Skill[];
-  services: ServiceCard[];
   experience: ExperienceEntry[];
-  businessModel: BusinessModel;
 }
