@@ -26,14 +26,45 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - 'Avanza con todo' = ejecutar autonomamente sin pausas
 
 ### Sistema de diseño (CSS variables, NO hardcodear colores)
-- `--bg-void: #05050e` (fondo base)
-- `--bg-nebula: #0d0a1f` (fondo secundario)
-- `--accent-primary: #7c5cff` (violeta/indigo)
-- `--accent-secondary: #22d3ee` (cian - hover y lineas constelacion)
-- `--accent-gold: #f5c451` (dorado - CTAs premium)
-- `--text-primary: #f4f4f8`
-- `--text-muted: #a3a3b8`
-- `--star-dim: #4a4a6a`
+
+Tokens compartidos por todas las temáticas (definidos en `src/app/globals.css`):
+- `--ink` (texto/borde principal)
+- `--paper` (fondo base)
+- `--surface` (cards/inputs)
+- `--surface-dark` (sección oscura)
+- `--accent-1` a `--accent-5` (paleta de 5 colores por theme)
+- `--theme-color` (meta theme-color)
+- `--theme-label` (debug, identifica el theme activo)
+
+**Importante:** los colores púrpura/cian de las líneas 29-35 están **obsoletos**. El rediseño neobrutalist eliminó el starfield galáctico y reemplazó todo por un sistema de temáticas swappables.
+
+### Sistema de temáticas múltiples (S-08)
+
+5 themes disponibles, activables con `data-theme="..."` en `<html>`:
+
+| Theme ID | Vibe | Identidad |
+|----------|------|-----------|
+| `default` | Púrpura/cyan neobrutalist light | Identidad original |
+| `default-dark` | Púrpura/cyan neobrutalist dark | Modo oscuro |
+| `lava-neon` | Naranja/rojizo Matrix | Gemelo temático de NX-Studio |
+| `obsidian-teal` | Engineering minimal teal | Vercel vibe |
+| `navy-gold` | Premium gold/navy | Andela/Toptal vibe |
+
+**Mecánica:**
+- Script anti-FOUC en `src/app/layout.tsx` lee `localStorage['portfolio-theme']` antes de hydration
+- `src/components/ThemeSwitcher.tsx`: dropdown con swatches preview, click-outside + Escape
+- `src/components/ThemeToggle.tsx`: atajo rápido `default` ↔ `default-dark` (conserva UX sol/luna)
+- `meta[name="theme-color"]` se actualiza dinámicamente por theme
+- Clase legacy `.dark` mappea retroactivamente a `default-dark` (compatibilidad)
+
+**Para agregar un theme nuevo:**
+1. Agregar bloque `:root[data-theme="<id>"] { --ink: ...; --paper: ...; ... }` en `globals.css`
+2. Agregar entrada en array `THEMES` de `ThemeSwitcher.tsx` (id, label, description, swatches)
+3. Agregar color en mapa `COLORS` de ThemeSwitcher.tsx (para meta theme-color)
+4. Agregar script bootstrap en `layout.tsx` (default fallback y meta color)
+5. Si el theme tiene dark variant, agregar toggle en `ThemeToggle.tsx`
+
+**No hardcodear** hex colors en componentes — siempre `var(--ink)`, `var(--paper)`, `var(--accent-X)`. Los swatches del ThemeSwitcher son la única excepción documentada (preview visual).
 
 ### Accesibilidad obligatoria
 - Todas las animaciones respetan `prefers-reduced-motion: reduce`
