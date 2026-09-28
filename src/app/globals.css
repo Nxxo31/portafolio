@@ -237,6 +237,176 @@ html {
   }
 }
 
+/* =========================================================================
+ * VIBRANT STYLE — efectos visuales adicionales (S-09)
+ * Cross-theme: aplican a las 5 temáticas. Respeta prefers-reduced-motion.
+ * ========================================================================= */
+
+/* Scanlines horizontales sutiles (CRT/afterhours vibe).
+   Solo afecta lo que esté dentro de un contenedor .scanlines */
+.scanlines {
+  position: relative;
+}
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 3px
+  );
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+[data-theme="default-dark"] .scanlines::before,
+[data-theme="lava-neon"] .scanlines::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.025) 2px,
+    rgba(255, 255, 255, 0.025) 3px
+  );
+  mix-blend-mode: screen;
+}
+
+/* Borde neón animado — para cards/secciones destacadas.
+   Respeta el theme activo. */
+@keyframes neon-border-breath {
+  0%, 100% {
+    box-shadow:
+      0 0 8px var(--accent-1),
+      0 0 16px var(--accent-2),
+      inset 0 0 8px rgba(255, 107, 53, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 16px var(--accent-1),
+      0 0 32px var(--accent-2),
+      inset 0 0 12px rgba(255, 107, 53, 0.15);
+  }
+}
+
+.neon-border {
+  border: 2px solid var(--ink);
+  animation: neon-border-breath 3.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-border {
+    animation: none;
+    box-shadow: 0 0 8px var(--accent-1), 0 0 16px var(--accent-2);
+  }
+}
+
+/* Glitch effect para títulos principales.
+   Activar con class="glitch" + data-text="..." */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.glitch::before {
+  color: var(--accent-1);
+  animation: glitch-shift-1 2.5s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+.glitch::after {
+  color: var(--accent-2);
+  animation: glitch-shift-2 2.2s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+@keyframes glitch-shift-1 {
+  0%, 90%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  92% { transform: translate(-2px, 0); clip-path: inset(20% 0 60% 0); }
+  94% { transform: translate(2px, -1px); clip-path: inset(50% 0 20% 0); }
+  96% { transform: translate(-1px, 1px); clip-path: inset(10% 0 80% 0); }
+}
+
+@keyframes glitch-shift-2 {
+  0%, 88%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  90% { transform: translate(2px, 0); clip-path: inset(60% 0 20% 0); }
+  93% { transform: translate(-2px, 1px); clip-path: inset(30% 0 50% 0); }
+  96% { transform: translate(1px, -1px); clip-path: inset(70% 0 10% 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch::before,
+  .glitch::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Marquee/scrolling strip para tags (Skills, Project stack) */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  animation: marquee 30s linear infinite;
+  gap: 2rem;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+/* Pulsing dot (status indicator estilo live set DJ) */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-1);
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent-1);
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

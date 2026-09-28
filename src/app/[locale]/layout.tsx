@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import WaveBackground from "@/components/WaveBackground";
 import "../globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -163,7 +164,11 @@ export default async function LocaleLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
           />
           <Navbar />
-          <main className="pt-16">{children}</main>
+          {/* Fondo animado con ondas + visualizador (cross-theme) */}
+          <WaveBackground intensity={0.18} />
+          <main className="pt-16 relative" style={{ zIndex: 1 }}>
+            {children}
+          </main>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -20,15 +20,15 @@ function PillarCard({
 }: PillarCardProps) {
   const shouldReduceMotion = useReducedMotion();
   return (
-    <motion.article
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={
-        shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-      }
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.45, delay }}
-      className="nb-card nb-card-hover p-6 flex flex-col gap-3 h-full"
-    >
+      <motion.article
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+        whileInView={
+          shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+        }
+        viewport={{ once: true, margin: "-10% 0px" }}
+        transition={{ duration: 0.45, delay }}
+        className="nb-card nb-card-hover neon-border p-6 flex flex-col gap-3 h-full"
+      >
       <span
         className="font-mono text-[10px] uppercase tracking-[0.3em]"
         style={{ color: accentVar }}

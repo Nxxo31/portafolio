@@ -50,7 +50,8 @@
     "github": "GITHUB ↗",
     "githubAria": "View Sebastián Velasco's GitHub",
     "heroCTA": "Request Free Technical Consultation",
-    "heroCV": "Download Resume"
+        "heroCV": "Download Resume",
+        "statusLabel": "ON AIR · BUILDING"
   },
   "Projects": {
     "sectionLabel": "Projects",
