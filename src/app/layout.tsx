@@ -26,13 +26,13 @@ const themeBootstrap = `
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
       var colors = {
-        'default': '#f4f1e8',
+        'default': '#0b0b14',
         'default-dark': '#1a1a2e',
         'lava-neon': '#fef4ec',
         'obsidian-teal': '#f5f7fa',
         'navy-gold': '#faf8f3'
       };
-      meta.setAttribute('content', colors[theme] || '#f4f1e8');
+      meta.setAttribute('content', colors[theme] || '#0b0b14');
     }
   } catch (e) {}
 })();

@@ -1,244 +1,149 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { contentData } from "@/content/data";
 
 export default function ProjectsSection() {
   const t = useTranslations("Projects");
+  const locale = useLocale();
   const shouldReduceMotion = useReducedMotion();
+
+  const featured = contentData.projects.filter((p) => p.featured);
 
   return (
     <section
       id="projects"
-      className="relative py-24 px-6"
+      className="relative py-20 md:py-28 px-6"
       aria-label={t("sectionLabel")}
-      style={{ backgroundColor: "var(--paper)" }}
     >
-      <div className="max-w-4xl mx-auto">
-        {/* Header */ }
-        <motion.div
+      <div className="max-w-5xl mx-auto">
+        {/* Editorial header */}
+        <motion.header
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="mb-12 text-center"
+          className="grid grid-cols-12 gap-4 md:gap-6 mb-12"
         >
-          <h2
-            className="font-heading text-4xl md:text-5xl font-bold"
-            style={{ color: "var(--ink)" }}
-          >
-            {t("title") || "Casos de Estudio"}
-          </h2>
-          <p
-            className="font-mono text-sm tracking-[0.3em] uppercase mb-4"
-            style={{ color: "var(--accent-1)" }}
-          >
-            {t("eyebrow") || "Soluciones que generan resultados medibles de negocio"}
-          </p>
-          <p
-            className="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
-            style={{ color: "var(--ink)" }}
-          >
-            {t("description") || "Cada proyecto representa una colaboración profunda donde aplicamos nuestro expertise técnico para resolver desafíos específicos de negocio, con énfasis en resultados medibles y sostenibilidad a largo plazo."}
-          </p>
-        </motion.div>
+          <div className="col-span-12 md:col-span-3">
+            <p
+              className="font-mono text-[10px] uppercase tracking-[0.3em]"
+              style={{ color: "var(--accent-2)" }}
+            >
+              {t("eyebrow") || "// PROJECTS"}
+            </p>
+          </div>
+          <div className="col-span-12 md:col-span-9">
+            <h2
+              className="font-heading text-4xl md:text-5xl font-bold"
+              style={{ color: "var(--ink)" }}
+            >
+              {t("title")}
+            </h2>
+            <p
+              className="text-base md:text-lg leading-relaxed max-w-2xl mt-3"
+              style={{ color: "var(--ink)", opacity: 0.85 }}
+            >
+              {t("description") || "Una selección curada de proyectos que muestran cómo abordo problemas técnicos complejos y entrego software en producción."}
+            </p>
+          </div>
+        </motion.header>
 
-        {/* Featured Projects Grid */ }
+        {/* Featured projects - editorial stacked */}
+        <div className="space-y-6">
+          {featured.map((project, index) => (
+            <motion.article
+              key={project.slug}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.4,
+                delay: shouldReduceMotion ? 0 : Math.min(index * 0.08, 0.3),
+              }}
+              className="grid grid-cols-12 gap-4 md:gap-6 p-6 md:p-8 border hover:-translate-y-0.5 transition-transform duration-150"
+              style={{
+                backgroundColor: "color-mix(in oklab, var(--surface) 60%, transparent)",
+                borderColor: "var(--border)",
+              }}
+            >
+              {/* Index */}
+              <div className="col-span-12 md:col-span-1">
+                <span
+                  className="font-mono text-xs font-bold"
+                  style={{ color: "var(--accent-2)" }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              {/* Body */}
+              <div className="col-span-12 md:col-span-8">
+                <h3
+                  className="font-heading text-2xl md:text-3xl font-bold mb-2"
+                  style={{ color: "var(--ink)" }}
+                >
+                  {project.title}
+                </h3>
+                <p
+                  className="text-sm md:text-base leading-relaxed mb-4"
+                  style={{ color: "var(--ink)", opacity: 0.85 }}
+                >
+                  {project.shortDescription || project.challenge}
+                </p>
+                {/* Tech stack */}
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.slice(0, 6).map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 font-mono text-[10px] uppercase tracking-wide border"
+                      style={{
+                        backgroundColor: "transparent",
+                        color: "var(--ink)",
+                        borderColor: "var(--border)",
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              {/* CTA */}
+              <div className="col-span-12 md:col-span-3 flex md:items-end md:justify-end">
+                <Link
+                  href={`/${locale}/projects/${project.slug}`}
+                  className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wide font-bold transition-all duration-150 hover:translate-x-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  style={{ color: "var(--accent-1)" }}
+                >
+                  {t("viewDetails") || "Detalle"}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* Ver todos */}
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="grid md:grid-cols-1 lg:grid-cols-2 gap-8"
+          className="mt-12 text-center"
         >
-          {contentData.projects
-            .filter(project => project.featured)
-            .map((project, index) => (
-              <motion.div
-                key={project.slug}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
-                whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--paper)] px-6 py-8 transition-all duration-200 hover:bg-[var(--accent-50)] hover:border-[var(--accent-200)] hover:shadow-[0_0_0_2px_var(--accent-200)]"
-              >
-                {/* Project Header */ }
-                <div className="mb-4">
-                  <h3
-                    className="font-heading text-2xl font-semibold"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {project.title}
-                  </h3>
-                  {project.client && (
-                    <p
-                      className="font-mono text-sm tracking-[0.2em] uppercase mb-2"
-                      style={{ color: `var(--accent-${((index % 4) + 1)})` }}
-                    >
-                      Cliente: {project.client}
-                    </p>
-                  )}
-                  {project.industry && (
-                    <p
-                      className="text-sm"
-                      style={{ color: "var(--ink)" }}
-                    >
-                      Industria: {project.industry}
-                    </p>
-                  )}
-                </div>
-
-                {/* Project Description */ }
-                <div className="mb-6">
-                  <h4
-                    className="font-semibold text-sm mb-2"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {t("challenge") || "El Desafío"}
-                  </h4>
-                  <p
-                    className="text-base leading-relaxed"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {project.challenge || project.shortDescription}
-                  </p>
-                </div>
-
-                {/* Solution */ }
-                <div className="mb-6">
-                  <h4
-                    className="font-semibold text-sm mb-2"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {t("solution") || "Nuestra Solución"}
-                  </h4>
-                  <p
-                    className="text-base leading-relaxed"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {project.solution || project.fullDescription}
-                  </p>
-                </div>
-
-                {/* Results and Metrics */ }
-                <div className="mb-6">
-                  <h4
-                    className="font-semibold text-sm mb-2"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {t("results") || "Resultados"}
-                  </h4>
-                  <div className="space-y-2">
-                    {project.results && (
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{ color: "var(--ink)" }}
-                      >
-                        {project.results}
-                      </p>
-                    )}
-                    {project.metrics && (
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{ color: "var(--ink)" }}
-                      >
-                        {project.metrics}
-                      </p>
-                    )}
-                    {project.impact && (
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{ color: "var(--ink)" }}
-                      >
-                        {project.impact}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Testimonial */ }
-                {project.testimonial && (
-                  <div className="border-l-2 pl-4"
-                        style={{
-                          borderColor: `var(--accent-${((index % 4) + 1)})`,
-                          backgroundColor: `var(--accent-${((index % 4) + 1)})05`
-                        }}
-                  >
-                    <p
-                      className="text-sm font-italic leading-relaxed"
-                      style={{ color: "var(--ink)" }}
-                    >
-                      {project.testimonial}
-                    </p>
-                  </div>
-                )}
-
-                {/* Tech Stack */ }
-                <div className="mb-4">
-                  <h4
-                    className="font-semibold text-sm mb-2"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {t("technologies") || "Tecnologías Utilizadas"}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.stack.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-2 py-0.5 rounded text-xs font-mono"
-                        style={{
-                          backgroundColor: `var(--accent-${((index % 4) + 1)})10`,
-                          color: `var(--accent-${((index % 4) + 1)})`
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Call to Action */ }
-                <div className="mt-6">
-                  <a
-                    href={`/projects/${project.slug}`}
-                    className="flex items-center text-sm font-semibold"
-                    style={{ color: `var(--accent-${((index % 4) + 1)})` }}
-                  >
-                    {t("viewDetails") || "Ver caso de estudio completo →"}
-                    <span className="ml-1" aria-hidden="true">{'→'}</span>
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-        </motion.div>
-
-        {/* Call to Action for More Projects */ }
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <p
-            className="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-6"
-            style={{ color: "var(--ink)" }}
-          >
-            {t("projectsCta") || "¿Tienes un desafío tecnológico que resolver?"}
-          </p>
-          <a
-            href="#contact"
-            className="px-6 py-3 font-heading font-bold text-lg uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+          <Link
+            href={`/${locale}/projects`}
+            className="inline-flex items-center gap-2 px-6 py-3 font-heading font-bold text-sm uppercase tracking-wider border transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{
-              backgroundColor: "var(--accent-1)",
+              backgroundColor: "transparent",
               color: "var(--ink)",
-              borderColor: "var(--ink)",
-              boxShadow: "4px 4px 0 var(--ink)",
+              borderColor: "var(--border)",
             }}
           >
-            {t("projectsCtaButton") || "Iniciar Conversación"}
-          </a>
+            <span>{t("projectsCta") || "Ver todos los proyectos"}</span>
+            <span aria-hidden="true">→</span>
+          </Link>
         </motion.div>
       </div>
     </section>

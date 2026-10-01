@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import WaveBackground from "@/components/WaveBackground";
 import "../globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -30,10 +29,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f1e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#1a1a2e" },
+    { media: "(prefers-color-scheme: light)", color: "#0b0b14" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b14" },
   ],
-  colorScheme: "light dark",
+  colorScheme: "dark",
 };
 
 export async function generateMetadata({
@@ -137,24 +136,15 @@ export default async function LocaleLayout({
     author: { "@type": "Person", name: "Sebastián Velasco Ocampo" },
   };
 
-  const themeScript = `
-    (function() {
-      try {
-        var stored = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var isDark = stored ? stored === 'dark' : prefersDark;
-        if (isDark) {
-          document.documentElement.classList.add('dark');
-        }
-      } catch (e) {}
-    })();
-  `;
+  // NOTA: el anti-FOUC para data-theme vive en src/app/layout.tsx (root).
+  // Este layout solo renderiza <Navbar> + <main> dentro del <html> del root,
+  // y necesita `suppressHydrationWarning` para que React no se queje
+  // cuando el root layout setea data-theme antes de hydration.
 
   return (
     <html lang={localeParam} suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}>
         <NextIntlClientProvider locale={localeParam} messages={messages}>
-          <script dangerouslySetInnerHTML={{ __html: themeScript }} />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -164,11 +154,7 @@ export default async function LocaleLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
           />
           <Navbar />
-          {/* Fondo animado con ondas + visualizador (cross-theme) */}
-          <WaveBackground intensity={0.18} />
-          <main className="pt-16 relative" style={{ zIndex: 1 }}>
-            {children}
-          </main>
+          <main className="pt-16 relative">{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>

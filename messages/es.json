@@ -26,9 +26,10 @@
     }
   },
   "Navbar": {
-    "navLabel": "Navegación principal",
-    "logo": "S_VELASCO",
-    "goHome": "Ir al inicio",
+      "navLabel": "Navegación principal",
+      "logo": "SVO",
+      "logoSublabel": "Developer · Blog · Portfolio",
+      "goHome": "Ir al inicio",
     "home": "INICIO",
     "about": "SOBRE MÍ",
     "projects": "PROYECTOS",

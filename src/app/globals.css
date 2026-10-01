@@ -25,25 +25,29 @@
 }
 
 /* =========================================================================
- * THEME 1: default — púrpura/cyan neobrutalist (light, identidad original)
+ * THEME 1: default — STEEL-INDIGO (identidad compartida con NX-Studio)
+ * Lava como acento emocional (CTAs heroicos), indigo como acento corporativo.
+ * Backgrounds: cool blue-tinted darks (Linear/Vercel vibe).
  * ========================================================================= */
 :root,
 :root[data-theme="default"] {
-  --ink: #1a1a2e;
-  --paper: #f4f1e8;
-  --accent-1: #ff6b35;
-  --accent-2: #00a6fb;
-  --accent-3: #ffd23f;
-  --accent-4: #06d6a0;
-  --accent-5: #ef476f;
-  --surface: #ffffff;
-  --surface-dark: #1a1a2e;
+  /* Backgrounds — cool navy blue-tinted (Linear-style) */
+  --ink: #f1f1f4;            /* texto principal (sobre dark) */
+  --paper: #0b0b14;          /* fondo base navy */
+  --accent-1: #ff4500;       /* lava primary (CTA emocional) */
+  --accent-2: #5e6ad2;       /* indigo (acento corporativo) */
+  --accent-3: #818cf8;       /* indigo-soft */
+  --accent-4: #22c55e;       /* success/verde para tags */
+  --accent-5: #ff6a00;       /* lava-soft ember */
+  --surface: #15172a;        /* cards sobre fondo */
+  --surface-dark: #06060d;   /* secciones oscuras profundas */
+  --border: rgba(94, 106, 210, 0.18);
   --container-max: 1200px;
   --section-padding: 6rem;
   --transition-fast: 0.15s ease;
   --transition-medium: 0.25s ease;
-  --ring: 2px solid var(--ink);
-  --theme-color: #f4f1e8;
+  --ring: 1px solid var(--border);
+  --theme-color: #0b0b14;
   --theme-label: "default";
 }
 
@@ -143,6 +147,43 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeSpeed;
+}
+
+/* Lava grid sutil de fondo (heredado de NX-Studio, steel-indigo vibe) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(to right, rgba(94, 106, 210, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(94, 106, 210, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+}
+
+/* Vignette sutil para mejorar legibilidad del texto sobre el grid */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 50%,
+    transparent 20%,
+    rgba(11, 11, 20, 0.55) 70%,
+    rgba(11, 11, 20, 0.85) 100%
+  );
+}
+
+/* El contenido va sobre los pseudo-elementos del body */
+main, nav, footer {
+  position: relative;
+  z-index: 1;
 }
 
 html {

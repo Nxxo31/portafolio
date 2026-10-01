@@ -197,34 +197,45 @@
 | Phase 6 | Producción y Optimización: Deploy, modo oscuro, testimonios, currículum, i18n, blog | 90c1ebd, 9cc231a | S-02..S-06 finalizados, lint+build 0 errores, `vercel.json` listo |
 | Phase 7 | Estrategia dual portafolio+NX-Studio: docs de posicionamiento, sin cambios UI | d8ab4e5 | PROJECT.md + AGENTS.md actualizados |
 | Phase 8 | Cleanup dual (Services → NX-Studio) + Sistema de temáticas múltiples | TBD | Build verde, 5 themes (default/dark/lava-neon/obsidian-teal/navy-gold) activables con `data-theme` |
+| Phase 9 | Refactor steel-indigo + S-09 VIBRANT STYLE (CSS-driven) — borra audio components, simplifica ThemeSwitcher | pending | Build verde, TypeScript 0 errors, LSP clean |
 
-### Phase 8 — Detalle (2026-09-24)
+### Phase 9 — Detalle (2026-10-01)
 
-**Cleanup dual:**
-- Borrado `src/sections/Services.tsx` (services for hire vive solo en NX-Studio)
-- Eliminado `businessModel` + `services` arrays de `src/content/data.ts` (400+ líneas)
-- Limpiados tipos `ServiceCard`, `BusinessModelStep`, `BusinessModelService`, `BusinessModel` en `src/types/content.ts`
-- Quitado namespace `Services` de `messages/es.json` y `messages/en.json` (paridad i18n intacta)
-- Eliminado `services` campo de `ContentData` (4 campos quedan: profile, projects, skills, experience)
+**Refactor steel-indigo + S-09 VIBRANT STYLE** — simplifica el sistema de temáticas para alinearlo con la identidad compartida NX-Studio (steel-indigo + lava), elimina los componentes audio experimentales que S-08 había agregado pero no llegaron a deployarse, e introduce efectos visuales CSS-driven cross-theme.
 
-**Sistema de temáticas múltiples (`data-theme` en `<html>`):**
-- `src/app/globals.css` refactor: 5 temas con CSS variables compartidas
-  - `default` (púrpura/cyan neobrutalist light) · `default-dark` (modo oscuro)
-  - `lava-neon` (naranja/rojizo gemelo temático de NX-Studio)
-  - `obsidian-teal` (engineering minimal, Vercel vibe)
-  - `navy-gold` (premium enterprise, Andela/Toptal vibe)
-- Script anti-FOUC en `src/app/layout.tsx` aplica `data-theme` antes de hydration
-- `src/components/ThemeSwitcher.tsx` (nuevo): dropdown con 5 temas, swatches preview, localStorage key `portfolio-theme`, click-outside + Escape para cerrar
-- `src/components/ThemeToggle.tsx` refactor: ahora atajo rápido entre `default` ↔ `default-dark`, usa el mismo `data-theme` store que ThemeSwitcher
-- `src/components/Navbar.tsx`: integrado ThemeSwitcher entre LanguageToggle y ThemeToggle (desktop + mobile)
-- `meta[name="theme-color"]` se actualiza dinámicamente por theme
+**Theme `default` redefinido a "STEEL-INDIGO"** (`src/app/globals.css`):
+- Antes: púrpura/cyan neobrutalist light
+- Ahora: navy `#0b0b14` (Linear/Vercel vibe) + lava `#ff4500` (CTA emocional) + indigo `#5e6ad2` (acento corporativo). Identidad compartida con NX-Studio.
+- Las otras 4 temáticas (`default-dark`, `lava-neon`, `obsidian-teal`, `navy-gold`) mantienen sus paletas originales
+- Background cross-theme: lava grid sutil (`body::before`) + vignette (`body::after`)
+
+**Componentes audio eliminados** (S-08 experimental → reemplazados por CSS):
+- `src/components/AudioVisualizer.tsx` (borrado, 129 líneas)
+- `src/components/NeonText.tsx` (borrado, 121 líneas)
+- `src/components/WaveBackground.tsx` (borrado, 225 líneas)
+- Reemplazados por utilidades CSS `.scanlines`, `.neon-border`, `.glitch`, `.marquee`, `.pulse-dot` que respetan el theme actual y `prefers-reduced-motion`
+
+**Sistema de switcher de tema simplificado:**
+- `ThemeSwitcher.tsx` y `ThemeToggle.tsx` borrados (no estaban en producción aún)
+- El anti-FOUC script en `src/app/layout.tsx` (root) sigue leyendo `localStorage['portfolio-theme']` con fallback a `prefers-color-scheme`
+- `src/app/[locale]/layout.tsx` ya NO duplica el script (single source of truth)
+- Theme `default` se aplica via `data-theme="default"` en el root layout
+
+**i18n consolidado:**
+- `src/messages/en.json` + `src/messages/es.json` movidos a `messages/` (root level, junto a next-intl.config convention)
+- Reducción neta: -1511 líneas (582 insertions, 2095 deletions)
+
+**Bug fix detectado por `tsc --noEmit`:**
+- `Hero.tsx` referenciaba `contentData.profile.vision` (removido en Phase 7 cleanup). Reemplazado por el hardcoded fallback que ya existía en la línea.
+
+**Higiene:**
+- `.gitignore` ahora excluye `/temp_backup_cleanup/` (carpeta de backups pre-refactor) y `/reforge-state.json*`
 
 **Verificación:**
-- `npm run build` exit 0, 9 páginas, todas SSG correctas
-- Smoke test: `/`, `/es`, `/en`, `/es/blog`, `/en/blog` → 200
-- Grep "Servicios Especializados" → 0 matches (namespace limpio)
-- Bootstrap script presente en HTML con `localStorage.getItem('portfolio-theme')`
-- ThemeSwitcher renderizado en navbar (aria-label="Cambiar temática visual")
+- `npm run build` exit 0, 9 páginas, 0 errores TypeScript
+- LSP `get_diagnostics` → "No errors. Safe to proceed"
+- Manual secret scan (regex sk-/ghp_/github_pat_/xox-/AIza/ya29./Bearer) → 0 hits
+- Production smoke: pendiente post-deploy (Vercel redeploy automático al push)
 
 
 ## 🤝 Estrategia dual · portafolio ↔ NX-Studio (2026-09-14)

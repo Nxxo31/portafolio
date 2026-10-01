@@ -18,15 +18,9 @@ interface FormStatus {
 }
 
 const INPUT_BASE_STYLE: React.CSSProperties = {
-  backgroundColor: "var(--surface)",
-  border: "2px solid var(--ink)",
+  backgroundColor: "color-mix(in oklab, var(--surface) 60%, transparent)",
+  border: "1px solid var(--border)",
   color: "var(--ink)",
-  boxShadow: "4px 4px 0 var(--ink)",
-};
-
-const INPUT_FOCUS_STYLE: React.CSSProperties = {
-  boxShadow: "2px 2px 0 var(--ink)",
-  transform: "translate(2px, 2px)",
 };
 
 export default function ContactSection() {
@@ -38,10 +32,7 @@ export default function ContactSection() {
     subject: "",
     message: "",
   });
-  const [status, setStatus] = useState<FormStatus>({
-    type: "idle",
-    message: "",
-  });
+  const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
   const [copied, setCopied] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
@@ -54,26 +45,17 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus({ type: "submitting", message: t("submittingStatus") });
-
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       if (!res.ok) throw new Error(t("errorStatus"));
-
-      setStatus({
-        type: "success",
-        message: t("success"),
-      });
+      setStatus({ type: "success", message: t("success") });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {
-      setStatus({
-        type: "error",
-        message: t("error"),
-      });
+      setStatus({ type: "error", message: t("error") });
     }
   };
 
@@ -83,67 +65,63 @@ export default function ContactSection() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Silenciar si el clipboard no está disponible
+      // Silenciar si clipboard no disponible
     }
   };
 
   return (
     <section
       id="contact"
-      className="relative py-24 px-6"
+      className="relative py-20 md:py-28 px-6"
       aria-label={t("sectionLabel")}
-      style={{ backgroundColor: "var(--paper)" }}
     >
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <motion.div
+        {/* Editorial header */}
+        <motion.header
           initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="mb-12"
+          className="grid grid-cols-12 gap-4 md:gap-6 mb-12"
         >
-          <p
-            className="font-mono text-sm tracking-[0.3em] uppercase mb-2"
-            style={{ color: "var(--accent-1)" }}
-          >
-            {t("eyebrow")}
-          </p>
-          <h2
-            className="font-heading text-5xl md:text-6xl font-bold"
-            style={{ color: "var(--ink)" }}
-          >
-            {t("title")}
-          </h2>
-        </motion.div>
+          <div className="col-span-12 md:col-span-3">
+            <p
+              className="font-mono text-[10px] uppercase tracking-[0.3em]"
+              style={{ color: "var(--accent-2)" }}
+            >
+              {t("eyebrow")}
+            </p>
+          </div>
+          <div className="col-span-12 md:col-span-9">
+            <h2
+              className="font-heading text-4xl md:text-5xl font-bold"
+              style={{ color: "var(--ink)" }}
+            >
+              {t("title")}
+            </h2>
+          </div>
+        </motion.header>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Info */}
+        <div className="grid md:grid-cols-12 gap-4 md:gap-6">
+          {/* Info col izq */}
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
             whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="space-y-6"
+            className="md:col-span-4 space-y-4"
           >
-            <div
-              className="p-6"
-              style={{
-                backgroundColor: "var(--surface)",
-                border: "2px solid var(--ink)",
-                boxShadow: "6px 6px 0 var(--ink)",
-              }}
-            >
+            <div className="p-4 border" style={{ borderColor: "var(--border)" }}>
               <p
-                className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
-                style={{ color: "var(--ink)" }}
+                className="font-mono text-[10px] uppercase tracking-[0.2em] mb-2"
+                style={{ color: "var(--accent-2)" }}
               >
                 {t("emailLabel")}
               </p>
               <button
                 onClick={copyEmail}
-                className="font-mono text-sm font-bold break-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
-                style={{ color: "var(--accent-1)" }}
+                className="font-mono text-sm font-bold break-all text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ color: "var(--ink)" }}
                 aria-label={t("copyEmailAria")}
                 aria-live="polite"
               >
@@ -160,17 +138,10 @@ export default function ContactSection() {
               </button>
             </div>
 
-            <div
-              className="p-6"
-              style={{
-                backgroundColor: "var(--accent-2)",
-                border: "2px solid var(--ink)",
-                boxShadow: "6px 6px 0 var(--ink)",
-              }}
-            >
+            <div className="p-4 border" style={{ borderColor: "var(--border)" }}>
               <p
-                className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
-                style={{ color: "var(--ink)" }}
+                className="font-mono text-[10px] uppercase tracking-[0.2em] mb-2"
+                style={{ color: "var(--accent-2)" }}
               >
                 {t("githubLabel")}
               </p>
@@ -178,7 +149,7 @@ export default function ContactSection() {
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-base font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                className="font-mono text-sm font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{ color: "var(--ink)" }}
                 aria-label={t("githubAria", { name })}
               >
@@ -186,44 +157,34 @@ export default function ContactSection() {
               </a>
             </div>
 
-            <div
-              className="p-6"
-              style={{
-                backgroundColor: "var(--accent-3)",
-                border: "2px solid var(--ink)",
-                boxShadow: "6px 6px 0 var(--ink)",
-              }}
-            >
+            <div className="p-4 border" style={{ borderColor: "var(--border)" }}>
               <p
-                className="font-mono text-xs uppercase tracking-wide font-bold mb-3"
-                style={{ color: "var(--ink)" }}
+                className="font-mono text-[10px] uppercase tracking-[0.2em] mb-2"
+                style={{ color: "var(--accent-2)" }}
               >
                 {t("locationLabel")}
               </p>
-              <p
-                className="font-mono text-base font-bold"
-                style={{ color: "var(--ink)" }}
-              >
+              <p className="font-mono text-sm font-bold" style={{ color: "var(--ink)" }}>
                 Colombia 🇨🇴
               </p>
             </div>
           </motion.div>
 
-          {/* Form */}
+          {/* Form col der */}
           <motion.form
-            initial={shouldReduceMotion ? false : { opacity: 0, x: 30 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, x: 20 }}
             whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
             onSubmit={handleSubmit}
-            className="space-y-5"
+            className="md:col-span-8 space-y-4"
             aria-label={t("formLabel")}
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label
                   htmlFor="name"
-                  className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                  className="block font-mono text-[10px] uppercase tracking-wide font-bold mb-2"
                   style={{ color: "var(--ink)" }}
                 >
                   {t("nameLabel")}
@@ -237,16 +198,14 @@ export default function ContactSection() {
                   required
                   autoComplete="name"
                   style={INPUT_BASE_STYLE}
-                  onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
-                  onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
-                  className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
+                  className="w-full px-4 py-3 font-mono text-sm focus:outline-none placeholder:opacity-60"
                   placeholder={t("namePlaceholder")}
                 />
               </div>
               <div>
                 <label
                   htmlFor="email"
-                  className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                  className="block font-mono text-[10px] uppercase tracking-wide font-bold mb-2"
                   style={{ color: "var(--ink)" }}
                 >
                   {t("emailFieldLabel")}
@@ -260,9 +219,7 @@ export default function ContactSection() {
                   required
                   autoComplete="email"
                   style={INPUT_BASE_STYLE}
-                  onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
-                  onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
-                  className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
+                  className="w-full px-4 py-3 font-mono text-sm focus:outline-none placeholder:opacity-60"
                   placeholder={t("emailPlaceholder")}
                 />
               </div>
@@ -271,7 +228,7 @@ export default function ContactSection() {
             <div>
               <label
                 htmlFor="subject"
-                className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                className="block font-mono text-[10px] uppercase tracking-wide font-bold mb-2"
                 style={{ color: "var(--ink)" }}
               >
                 Asunto
@@ -284,9 +241,7 @@ export default function ContactSection() {
                 onChange={handleChange}
                 required
                 style={INPUT_BASE_STYLE}
-                onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
-                onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
-                className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none placeholder:opacity-60"
+                className="w-full px-4 py-3 font-mono text-sm focus:outline-none placeholder:opacity-60"
                 placeholder={t("subjectPlaceholder")}
               />
             </div>
@@ -294,7 +249,7 @@ export default function ContactSection() {
             <div>
               <label
                 htmlFor="message"
-                className="block font-mono text-xs uppercase tracking-wide font-bold mb-2"
+                className="block font-mono text-[10px] uppercase tracking-wide font-bold mb-2"
                 style={{ color: "var(--ink)" }}
               >
                 Mensaje
@@ -307,45 +262,40 @@ export default function ContactSection() {
                 required
                 rows={5}
                 style={INPUT_BASE_STYLE}
-                onFocus={(e) => Object.assign(e.currentTarget.style, INPUT_FOCUS_STYLE)}
-                onBlur={(e) => Object.assign(e.currentTarget.style, INPUT_BASE_STYLE)}
-                className="w-full px-4 py-3 font-mono text-sm transition-all duration-150 focus:outline-none resize-none placeholder:opacity-60"
+                className="w-full px-4 py-3 font-mono text-sm focus:outline-none resize-none placeholder:opacity-60"
                 placeholder={t("messagePlaceholder")}
               />
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={status.type === "submitting"}
-              className="w-full py-4 font-heading font-bold text-lg uppercase tracking-wide border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 font-heading font-bold text-sm uppercase tracking-wide transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
                 backgroundColor: "var(--accent-1)",
-                color: "var(--ink)",
-                borderColor: "var(--ink)",
-                boxShadow: "6px 6px 0 var(--ink)",
+                color: "var(--paper)",
+                boxShadow: "4px 4px 0 var(--ink)",
               }}
             >
               {status.type === "submitting" ? t("submitting") : t("submit")}
             </button>
 
             {status.type !== "idle" && status.type !== "submitting" && (
-              <motion.p
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-                animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              <p
                 role="status"
-                className="font-mono text-sm text-center font-bold p-3 border-2"
+                className="font-mono text-sm text-center font-bold p-3 border"
                 style={{
                   backgroundColor:
                     status.type === "success"
-                      ? "var(--accent-4)"
-                      : "var(--accent-5)",
+                      ? "color-mix(in oklab, var(--accent-4) 20%, transparent)"
+                      : "color-mix(in oklab, var(--accent-5) 20%, transparent)",
                   color: "var(--ink)",
-                  borderColor: "var(--ink)",
+                  borderColor:
+                    status.type === "success" ? "var(--accent-4)" : "var(--accent-5)",
                 }}
               >
                 {status.message}
-              </motion.p>
+              </p>
             )}
           </motion.form>
         </div>

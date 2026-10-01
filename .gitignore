@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# refactor backups (legacy code pre-refactor, never to be committed)
+/.temp_backup_cleanup/
+
+# agent introspection state
+/reforge-state.json
+/reforge-state.json.bak.*
