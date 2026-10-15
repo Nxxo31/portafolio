@@ -26,10 +26,10 @@
     }
   },
   "Navbar": {
-      "navLabel": "Navegación principal",
-      "logo": "SVO",
-      "logoSublabel": "Developer · Blog · Portfolio",
-      "goHome": "Ir al inicio",
+    "navLabel": "Navegación principal",
+    "logo": "SVO",
+    "logoSublabel": "Developer · Blog · Portfolio",
+    "goHome": "Ir al inicio",
     "home": "INICIO",
     "about": "SOBRE MÍ",
     "projects": "PROYECTOS",
@@ -51,8 +51,8 @@
     "github": "GITHUB ↗",
     "githubAria": "Ver GitHub de Sebastián Velasco",
     "heroCTA": "Solicitar Consulta Técnica Gratis",
-        "heroCV": "Descargar Currículum",
-        "statusLabel": "EN VIVO · CONSTRUYENDO"
+    "heroCV": "Descargar Currículum",
+    "statusLabel": "EN VIVO · CONSTRUYENDO"
   },
   "Projects": {
     "sectionLabel": "Proyectos",
@@ -131,9 +131,9 @@
     "catDevops": "DEVOPS",
     "catData": "DATA",
     "yearsSuffix": "y",
-        "proficiencyAria": "{name}: nivel {level} de 5"
-      },
-      "Experience": {
+    "proficiencyAria": "{name}: nivel {level} de 5"
+  },
+  "Experience": {
     "sectionLabel": "Experiencia profesional",
     "eyebrow": "// TRAYECTORIA",
     "title": "EXPERIENCIA",
@@ -243,9 +243,18 @@
     "impactLabel": "Impacto",
     "featuredBadge": "FEATURED",
     "codeLink": "CÓDIGO ↗",
+    "liveLink": "VER EN VIVO ↗",
     "askLink": "PREGUNTAR →",
     "linksAria": "Enlaces del proyecto",
-    "notFoundTitle": "Proyecto no encontrado"
+    "notFoundTitle": "Proyecto no encontrado",
+    "clientLabel": "Cliente",
+    "industryLabel": "Sector",
+    "challengeLabel": "El reto",
+    "solutionLabel": "La solución",
+    "resultsLabel": "Resultados",
+    "metricsLabel": "Métricas",
+    "galleryLabel": "Galería",
+    "liveNowBadge": "EN PRODUCCIÓN"
   },
   "JsonLd": {
     "jobTitle": "Ingeniero de Software & Arquitecto de Agentes IA",

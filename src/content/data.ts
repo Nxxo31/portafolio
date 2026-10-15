@@ -10,9 +10,47 @@ export const contentData: ContentData = {
   },
 
   projects: [
-    {
-      slug: "nam",
-      title: "NexoAccManager (NAM)",
+      {
+        slug: "multra-eu",
+        title: "Multra E.U. — CDA y Gestoría Vehicular",
+        client: "Multra E.U.",
+        industry: "CDA / Gestoría vehicular · Neiva, Huila",
+        shortDescription:
+          "Sistema de gestión integral para un CDA en producción: cotizador público con IVA, panel admin JWT, 9 secciones operativas, Express + Postgres serverless en Vercel.",
+        fullDescription:
+          "Sistema full-stack en producción (multra-eu.vercel.app) que cubre el ciclo completo de un CDA: landing con cotizador público sin auth, captura de leads, panel admin con JWT y 9 secciones operativas (Dashboard con KPIs, Vehículos, Citas, Inspección RTM, Pólizas, Cotizador autenticado, Pagos, Trámites, Clientes). Backend Express con arquitectura hexagonal manual (controller→service→repository), validación Zod en runtime, JWT con bcryptjs, rate-limit por IP, y adapter de DB que intercambia SQLite (dev) por Neon Postgres (prod) sin tocar lógica de negocio.",
+        challenge:
+          "El CDA operaba con hojas de cálculo y WhatsApp: cotizar un SOAT tomaba 10 minutos, las alertas de vencimiento SOAT/técnico-mecánica se perdían, y no había visibilidad de ingresos por técnico. Reconstruir todo en una herramienta usable desde el celular del operador requería un sistema que reemplazara el flujo y demostrara valor en menos de 2 semanas.",
+        solution:
+          "Producto end-to-end con dos canales: (1) landing pública con cotizador embebido, calculadora de combos con IVA, mapa de ubicación y chatbot de preguntas frecuentes — reduce el tiempo de cotización de 10 min a 30 seg. (2) Panel admin con auth JWT, KPIs en tiempo real, alertas automáticas de vencimiento SOAT/RTM a 30/15/0 días, agenda por técnico, registro de inspecciones y pagos con referencias trazables.",
+        results:
+          "Landing pública + cotizador público → cualquier visitante cotiza sin login y deja lead con un click. Panel admin → un solo operador gestiona clientes, vehículos, citas, inspecciones, pólizas y trámites sin hojas de cálculo. Validación con Zod evita datos corruptos. JWT en localStorage permite login persistente entre sesiones sin servidor de sesiones.",
+        metrics:
+          "20 servicios en catálogo · 11 endpoints REST · 9 secciones SPA · 2 modos DB (SQLite/Postgres) · JWT 8h TTL · rate-limit 300/15min",
+        stack: [
+          "Node.js 20",
+          "Express 4",
+          "JWT",
+          "bcryptjs",
+          "Zod",
+          "better-sqlite3",
+          "Neon Postgres",
+          "Vercel",
+          "pino",
+          "helmet",
+          "HTML/JS vanilla",
+        ],
+        role: "Arquitecto & Full-Stack Developer",
+        impact:
+          "Sistema completo en producción: cotización de 10 min → 30 seg, 0 dependencias JS en frontend, deploy con git + auto-deploy cuando conecte GitHub Login.",
+        repoUrl: "https://github.com/Nxxo31/multra-eu",
+        demoUrl: "https://multra-eu.vercel.app",
+        image: "/img/projects/multra-eu/hero.png",
+        featured: true,
+      },
+      {
+        slug: "nam",
+        title: "NexoAccManager (NAM)",
       shortDescription:
         "Gestor de cuentas Roblox open-source, 100% local, con encriptación AES-256-GCM y arquitectura hexagonal.",
       fullDescription:
