@@ -49,6 +49,39 @@
   --ring: 1px solid var(--border);
   --theme-color: #0b0b14;
   --theme-label: "default";
+  --accent-2-rgb: 94, 106, 210;
+  /* Vignette perimétrico: se teñe con la base del tema para que los temas
+     claros no reciben un overlay negro que rompe la legibilidad. */
+  --vignette-color: 11, 11, 20;
+  --vignette-strength: 0.55;
+}
+
+/* =========================================================================
+ * THEME 1b: default-light — steel-indigo claro
+ * Variante luminosa de la identidad steel-indigo. Mismos acentos (lava +
+ * indigo) sobre superficies claras, para prefers-color-scheme: light.
+ * ========================================================================= */
+:root[data-theme="default-light"] {
+  --ink: #14161f;            /* texto principal (sobre light) */
+  --paper: #f4f1e8;          /* fondo base papel */
+  --accent-1: #e03c00;       /* lava (CTA emocional), accesible sobre claro */
+  --accent-2: #4b56c4;       /* indigo profundo */
+  --accent-3: #6b76e0;       /* indigo-soft */
+  --accent-4: #15803d;       /* success/verde para tags */
+  --accent-5: #d25600;       /* lava-soft ember */
+  --surface: #ffffff;        /* cards sobre fondo */
+  --surface-dark: #e8e4d8;   /* secciones "oscuras" relativas */
+  --border: rgba(20, 22, 31, 0.16);
+  --container-max: 1200px;
+  --section-padding: 6rem;
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.25s ease;
+  --ring: 1px solid var(--border);
+  --theme-color: #f4f1e8;
+  --theme-label: "default-light";
+  --accent-2-rgb: 75, 86, 196;
+  --vignette-color: 20, 22, 31;
+  --vignette-strength: 0.14;
 }
 
 /* =========================================================================
@@ -66,9 +99,13 @@
   --accent-5: #ff6b9d;
   --surface: #232342;
   --surface-dark: #0d0d18;
+  --border: rgba(77, 196, 255, 0.28);
   --ring: 2px solid var(--ink);
   --theme-color: #1a1a2e;
   --theme-label: "default-dark";
+  --accent-2-rgb: 77, 196, 255;
+  --vignette-color: 11, 11, 20;
+  --vignette-strength: 0.5;
 }
 
 /* Compatibilidad retro: clase `.dark` legacy mapea a default-dark */
@@ -90,9 +127,13 @@
   --accent-5: #8b0000;     /* lava deep */
   --surface: #ffffff;
   --surface-dark: #1a0f0a;
+  --border: rgba(26, 15, 10, 0.22);
   --ring: 2px solid var(--ink);
   --theme-color: #fef4ec;
   --theme-label: "lava-neon";
+  --accent-2-rgb: 94, 106, 210;
+  --vignette-color: 26, 15, 10;
+  --vignette-strength: 0.12;
 }
 
 /* =========================================================================
@@ -109,9 +150,13 @@
   --accent-5: #6366f1;     /* indigo */
   --surface: #ffffff;
   --surface-dark: #0a1929;
+  --border: rgba(10, 25, 41, 0.2);
   --ring: 2px solid var(--ink);
   --theme-color: #f5f7fa;
   --theme-label: "obsidian-teal";
+  --accent-2-rgb: 14, 165, 233;
+  --vignette-color: 10, 25, 41;
+  --vignette-strength: 0.12;
 }
 
 /* =========================================================================
@@ -128,9 +173,13 @@
   --accent-5: #7c2d12;     /* burgundy */
   --surface: #ffffff;
   --surface-dark: #0f1e3d;
+  --border: rgba(15, 30, 61, 0.2);
   --ring: 2px solid var(--ink);
   --theme-color: #faf8f3;
   --theme-label: "navy-gold";
+  --accent-2-rgb: 30, 58, 138;
+  --vignette-color: 15, 30, 61;
+  --vignette-strength: 0.14;
 }
 
 /* Transición suave entre themes (respeta prefers-reduced-motion) */
@@ -149,7 +198,9 @@ body {
   text-rendering: optimizeSpeed;
 }
 
-/* Lava grid sutil de fondo (heredado de NX-Studio, steel-indigo vibe) */
+/* Lava grid sutil de fondo (heredado de NX-Studio, steel-indigo vibe).
+   El color de la linea se deriva del acento 2 del theme activo, para que la
+   grid no sea invisible en temas claros ni separe en temas oscuros. */
 body::before {
   content: "";
   position: fixed;
@@ -158,14 +209,16 @@ body::before {
   pointer-events: none;
   opacity: 0.18;
   background-image:
-    linear-gradient(to right, rgba(94, 106, 210, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(94, 106, 210, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--accent-2-rgb), 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--accent-2-rgb), 0.06) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
 }
 
-/* Vignette sutil para mejorar legibilidad del texto sobre el grid */
+/* Vignette sutil para mejorar legibilidad del texto sobre el grid.
+   Usa --vignette-color / --vignette-strength del theme activo: en temas
+   claros un overlay negro puro tapaba el fondo y rompia la legibilidad. */
 body::after {
   content: "";
   position: fixed;
@@ -175,8 +228,8 @@ body::after {
   background: radial-gradient(
     ellipse 90% 70% at 50% 50%,
     transparent 20%,
-    rgba(11, 11, 20, 0.55) 70%,
-    rgba(11, 11, 20, 0.85) 100%
+    rgba(var(--vignette-color), var(--vignette-strength)) 70%,
+    rgba(var(--vignette-color), calc(var(--vignette-strength) * 1.55)) 100%
   );
 }
 

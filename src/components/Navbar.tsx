@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import LanguageToggle from "./LanguageToggle";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 interface NavItem {
   id: string;
@@ -114,11 +115,13 @@ export default function Navbar() {
               );
             })}
           </ul>
+          <ThemeSwitcher />
           <LanguageToggle />
         </div>
 
         {/* Mobile: hamburger */}
         <div className="flex md:hidden items-center gap-2">
+          <ThemeSwitcher />
           <LanguageToggle />
           <button
             type="button"
