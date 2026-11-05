@@ -1,39 +1,11 @@
-import { Viewport } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import "../globals.css";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 const LOCALES = ["es", "en"] as const;
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://sebastianvelasco.dev";
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0b0b14" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b14" },
-  ],
-  colorScheme: "dark",
-};
 
 export async function generateMetadata({
   params,
@@ -136,27 +108,22 @@ export default async function LocaleLayout({
     author: { "@type": "Person", name: "Sebastián Velasco Ocampo" },
   };
 
-  // NOTA: el anti-FOUC para data-theme vive en src/app/layout.tsx (root).
-  // Este layout solo renderiza <Navbar> + <main> dentro del <html> del root,
-  // y necesita `suppressHydrationWarning` para que React no se queje
-  // cuando el root layout setea data-theme antes de hydration.
+  // NOTA: el anti-FOUC para data-theme y los <html>/<body> viven en
+  // src/app/layout.tsx (root layout, único dueño). Este layout solo
+  // renderiza el provider + Navbar + <main> dentro de ese shell.
 
   return (
-    <html lang={localeParam} suppressHydrationWarning>
-      <body className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}>
-        <NextIntlClientProvider locale={localeParam} messages={messages}>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-          />
-          <Navbar />
-          <main className="pt-16 relative">{children}</main>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={localeParam} messages={messages}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <Navbar />
+      <main className="pt-16 relative">{children}</main>
+    </NextIntlClientProvider>
   );
 }
