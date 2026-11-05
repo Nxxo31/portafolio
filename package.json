@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test \"tests/**/*.test.js\""
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -29,7 +30,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
     "@types/animejs": "^3.1.13",
     "@types/mdx": "^2.0.14",
     "@types/node": "^20",
@@ -38,6 +38,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@tailwindcss/postcss": "^4"
   }
 }
