@@ -12,7 +12,7 @@ export default function HeroSection() {
 
   const name = contentData.profile.name;
   const tagline = contentData.profile.tagline;
-  const vision = "Ser el puente tecnológico que conecta el potencial latinoamericano con las demandas del mercado global, desarrollando soluciones que resuelvan problemas locales con estándares internacionales.";
+  const vision = t("vision");
 
   return (
     <section

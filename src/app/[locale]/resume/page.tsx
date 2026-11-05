@@ -16,7 +16,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function ResumePage() {
+export default async function ResumePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const t = await getTranslations('Resume')
   const content = await getResumeContent()
   const { data: r, labels } = content
@@ -29,7 +34,7 @@ export default async function ResumePage() {
       <div className="max-w-3xl mx-auto py-12">
         {/* Back */}
         <Link
-          href="/"
+          href={`/${locale}`}
           prefetch={false}
           className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
           style={{

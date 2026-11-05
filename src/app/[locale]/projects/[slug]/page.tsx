@@ -56,9 +56,9 @@ export async function generateMetadata(
 export default async function ProjectDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const t = await getTranslations("ProjectDetail");
   const project = contentData.projects.find((p) => p.slug === slug);
 
@@ -96,7 +96,7 @@ export default async function ProjectDetailPage({
     <main className="min-h-screen pt-24 px-6" style={{ backgroundColor: "var(--paper)", color: "var(--ink)" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }} />
       <article className="max-w-4xl mx-auto py-12">
-        <Link href="/#projects" prefetch={false}
+        <Link href={`/${locale}/#projects`} prefetch={false}
           className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
           style={{ backgroundColor: "var(--surface)", color: "var(--ink)", borderColor: "var(--ink)", boxShadow: "3px 3px 0 var(--ink)" }}
           aria-label={t("backAria")}
@@ -222,7 +222,7 @@ export default async function ProjectDetailPage({
               {t("codeLink")}
             </a>
           )}
-          <Link href="/#contact" prefetch={false}
+          <Link href={`/${locale}/#contact`} prefetch={false}
             className="font-heading font-bold text-base px-6 py-3 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
             style={{ backgroundColor: "var(--surface)", color: "var(--ink)", borderColor: "var(--ink)", boxShadow: "5px 5px 0 var(--ink)" }}>
             {t("askLink")}

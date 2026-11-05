@@ -61,13 +61,18 @@ export async function generateMetadata(
   }
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>
+}) {
   const { slug } = await params
+  const { locale } = await params
   const t = await getTranslations('Blog')
   const post = getPost(slug)
 
   if (!post) {
-    notFound()
+    return notFound()
   }
 
   // Dinamic import of the specific MDX file
@@ -106,7 +111,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <article className="max-w-4xl mx-auto py-12">
         {/* Back */}
         <Link
-          href="/blog"
+          href={`/${locale}/blog`}
           prefetch={false}
           className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wide font-bold px-3 py-2 border-2 transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
           style={{
@@ -196,7 +201,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* Nav */}
         <div className="mt-10 flex items-center justify-between text-sm">
           <Link
-            href="/blog"
+            href={`/${locale}/blog`}
             prefetch={false}
             className="font-mono text-xs font-bold"
           >
