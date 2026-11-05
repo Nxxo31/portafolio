@@ -134,7 +134,8 @@ export default function ProjectsSection() {
         >
           <Link
             href={`/${locale}/projects`}
-            className="inline-flex items-center gap-2 px-6 py-3 font-heading font-bold text-sm uppercase tracking-wider border transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            prefetch={false}
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wide font-bold px-6 py-3 border transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             style={{
               backgroundColor: "transparent",
               color: "var(--ink)",
