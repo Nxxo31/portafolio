@@ -40,7 +40,15 @@
     "resume": "RESUME",
     "blog": "BLOG",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "themeLabel": "Theme",
+    "themeMenuLabel": "Change theme",
+    "themeDefault": "Steel Indigo",
+    "themeDefaultLight": "Steel Light",
+    "themeDefaultDark": "Purple / Cyan",
+    "themeLavaNeon": "Lava Neon",
+    "themeObsidianTeal": "Obsidian Teal",
+    "themeNavyGold": "Navy Gold"
   },
   "Hero": {
     "sectionLabel": "Hero section",
@@ -52,7 +60,8 @@
     "githubAria": "View Sebastián Velasco's GitHub",
     "heroCTA": "Request Free Technical Consultation",
     "heroCV": "Download Resume",
-    "statusLabel": "ON AIR · BUILDING"
+    "statusLabel": "ON AIR · BUILDING",
+    "vision": "The technological bridge connecting Latin American potential with the demands of the global market, building solutions that solve local problems to international standards."
   },
   "Projects": {
     "sectionLabel": "Projects",
@@ -119,7 +128,16 @@
     "results": "Results",
     "viewDetails": "View detail →",
     "projectsCta": "Got a similar project in mind?",
-    "projectsCtaButton": "Let's talk"
+    "projectsCtaButton": "Let's talk",
+    "indexEyebrow": "// INDEX",
+    "indexTitle": "All projects",
+    "indexDescription": "The complete catalogue of products I have designed, built and shipped to production. Each entry documents the problem, the technical decision and the measurable outcome.",
+    "liveBadge": "Live",
+    "codeBadge": "Code",
+    "demoBadge": "Demo",
+    "roleLabel": "Role",
+    "backToHome": "Back to home",
+    "emptyState": "No projects to show."
   },
   "Skills": {
     "sectionLabel": "Skills",

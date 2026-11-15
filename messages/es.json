@@ -40,7 +40,15 @@
     "resume": "CV",
     "blog": "BLOG",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "themeLabel": "Tema",
+    "themeMenuLabel": "Cambiar tema",
+    "themeDefault": "Steel Indigo",
+    "themeDefaultLight": "Steel Claro",
+    "themeDefaultDark": "Púrpura / Cian",
+    "themeLavaNeon": "Lava Neon",
+    "themeObsidianTeal": "Obsidian Teal",
+    "themeNavyGold": "Navy Gold"
   },
   "Hero": {
     "sectionLabel": "Sección de inicio",
@@ -52,7 +60,8 @@
     "githubAria": "Ver GitHub de Sebastián Velasco",
     "heroCTA": "Solicitar Consulta Técnica Gratis",
     "heroCV": "Descargar Currículum",
-    "statusLabel": "EN VIVO · CONSTRUYENDO"
+    "statusLabel": "EN VIVO · CONSTRUYENDO",
+    "vision": "Ser el puente tecnológico que conecta el potencial latinoamericano con las demandas del mercado global, desarrollando soluciones que resuelvan problemas locales con estándares internacionales."
   },
   "Projects": {
     "sectionLabel": "Proyectos",
@@ -119,7 +128,16 @@
     "results": "Resultados",
     "viewDetails": "Ver detalle →",
     "projectsCta": "¿Tenés un proyecto similar en mente?",
-    "projectsCtaButton": "Hablemos"
+    "projectsCtaButton": "Hablemos",
+    "indexEyebrow": "// ÍNDICE",
+    "indexTitle": "Todos los proyectos",
+    "indexDescription": "Catálogo completo de los productos que he diseñado, construido y puesto en producción. Cada ficha documenta el problema, la decisión técnica y el resultado medible.",
+    "liveBadge": "En producción",
+    "codeBadge": "Código",
+    "demoBadge": "Demo",
+    "roleLabel": "Rol",
+    "backToHome": "Volver al inicio",
+    "emptyState": "No hay proyectos para mostrar."
   },
   "Skills": {
     "sectionLabel": "Habilidades",
